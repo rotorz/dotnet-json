@@ -1,0 +1,20 @@
+﻿{
+   "EvenNumbers": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+   ],
+   "Cards": [
+      {
+         "Name": "Bob",
+         "Age": 22
+      },
+      {
+         "Name": "Jessica",
+         "Age": 22
+      }
+   ]
+}

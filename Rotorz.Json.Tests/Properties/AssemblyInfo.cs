@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Rotorz.Json")]
-[assembly: AssemblyDescription("Lightweight JSON library for .NET and Unity.")]
+[assembly: AssemblyTitle("Rotorz.Json.Tests")]
+[assembly: AssemblyDescription("Tests for Rotorz.Json library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rotorz Limited")]
 [assembly: AssemblyProduct("Rotorz.Json")]
@@ -14,15 +14,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("Rotorz")]
 [assembly: AssemblyCulture("")]
 
-[assembly: InternalsVisibleTo("Rotorz.Json.Tests")]
-
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e8860da9-3238-4baf-a33f-5d894ac65914")]
+[assembly: Guid("f385a6ef-bd79-4608-9288-891ab7d2e5fa")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
