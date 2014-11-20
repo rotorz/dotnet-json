@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 Rotorz Limited. All rights reserved.
+﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 using System;
 using System.Runtime.Serialization;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 Rotorz Limited. All rights reserved.
+﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 namespace Rotorz.Json.Tests.TestObjects {
 
