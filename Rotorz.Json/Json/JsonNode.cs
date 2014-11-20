@@ -1,11 +1,10 @@
 ﻿// Copyright (c) 2014 Rotorz Limited. All rights reserved.
 
+using Rotorz.Json.Serialization;
 using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
-
-using Rotorz.Json.Serialization;
 
 namespace Rotorz.Json {
 

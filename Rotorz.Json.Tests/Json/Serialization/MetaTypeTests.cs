@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2014 Rotorz Limited. All rights reserved.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Rotorz.Json.Tests.TestObjects;
 
 namespace Rotorz.Json.Serialization.Tests {

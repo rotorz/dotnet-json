@@ -1,10 +1,9 @@
 ﻿// Copyright (c) 2014 Rotorz Limited. All rights reserved.
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Rotorz.Json.Tests {
 
