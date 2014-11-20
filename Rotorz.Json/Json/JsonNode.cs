@@ -29,8 +29,8 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="json">JSON encoded string.</param>
 		/// <returns>
-		/// Returns new <see cref="JsonNode"/> instance. Always returns a value of <c>null</c>
-		/// if input JSON encoded string was null or empty.
+		/// Returns the new <see cref="JsonNode"/> instance. Always returns a value of
+		/// <c>null</c> if input JSON encoded string was null or empty.
 		/// </returns>
 		/// <exception cref="JsonParserException">
 		/// If an error was encountered whilst attempting to parse JSON encoded string.
@@ -42,7 +42,75 @@ namespace Rotorz.Json {
 				return null;
 
 			using (var reader = new StringReader(json))
-				return JsonParser.Create(reader).Parse();
+				return FromReader(reader);
+		}
+
+		/// <summary>
+		/// Attempt to create node by parsing JSON encoded string from a <see cref="Stream"/>.
+		/// </summary>
+		/// <remarks>
+		/// <para>User code should close provided stream when no longer required after
+		/// JSON encoded content has been parsed; this can be accomplished with the
+		/// <c>using</c> construct:</para>
+		/// <code language="csharp"><![CDATA[
+		/// JsonNode result;
+		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
+		///     result = JsonNode.FromStream(fs);
+		/// }
+		/// ]]></code>
+		/// </remarks>
+		/// <param name="stream">Input stream.</param>
+		/// <returns>
+		/// Returns the new <see cref="JsonNode"/> instance. Always returns a value of
+		/// <c>null</c> if input JSON encoded string was null or empty.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="stream"/> is <c>null</c>.
+		/// </exception>
+		/// <exception cref="JsonParserException">
+		/// If an error was encountered whilst attempting to parse JSON encoded string.
+		/// This exception typical indicates that input string contains one or more
+		/// syntax errors.
+		/// </exception>
+		public static JsonNode FromStream(Stream stream) {
+			if (stream == null)
+				throw new ArgumentNullException("stream");
+
+			return JsonParser.Create(stream).Parse();
+		}
+
+		/// <summary>
+		/// Attempt to create node by parsing JSON encoded string from a <see cref="TextReader"/>.
+		/// </summary>
+		/// <remarks>
+		/// <para>User code should dispose the <see cref="TextReader"/> when no longer
+		/// required after JSON encoded content has been parsed; this can be accomplished
+		/// with the <c>using</c> construct:</para>
+		/// <code language="csharp"><![CDATA[
+		/// JsonNode result;
+		/// using (var reader = new StringReader(json)) {
+		///     result = JsonNode.FromReader(reader);
+		/// }
+		/// ]]></code>
+		/// </remarks>
+		/// <param name="reader">Text reader.</param>
+		/// <returns>
+		/// Returns the new <see cref="JsonNode"/> instance. Always returns a value of
+		/// <c>null</c> if input JSON encoded string was null or empty.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="reader"/> is <c>null</c>.
+		/// </exception>
+		/// <exception cref="JsonParserException">
+		/// If an error was encountered whilst attempting to parse JSON encoded string.
+		/// This exception typical indicates that input string contains one or more
+		/// syntax errors.
+		/// </exception>
+		public static JsonNode FromReader(TextReader reader) {
+			if (reader == null)
+				throw new ArgumentNullException("reader");
+
+			return JsonParser.Create(reader).Parse();
 		}
 
 		/// <summary>

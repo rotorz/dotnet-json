@@ -28,60 +28,48 @@ namespace Rotorz.Json {
 	internal sealed class JsonParser {
 
 		/// <summary>
-		/// Create new <see cref="JsonParser"/> instance from a stream.
+		/// Create a new <see cref="JsonParser"/> instance from a stream.
 		/// </summary>
 		/// <remarks>
-		/// <para>User code should close provided stream when no longer required after
-		/// JSON encoded content has been parsed; this can be accomplished with the
-		/// <c>using</c> construct:</para>
-		/// <code language="csharp"><![CDATA[
-		/// JsonNode result;
-		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
-		///     var parser = JsonParser.Create(fs);
-		///     result = parser.Parse();
-		/// }
-		/// ]]></code>
-		/// <para>This function is provided for convenience since it's implementation is
-		/// merely as follows:</para>
-		/// <code language="csharp"><![CDATA[
-		/// public static JsonParser Create(Stream stream) {
-		///     return new JsonParser(new StreamReader(stream));
-		/// }
-		/// ]]></code>
+		/// <para>Remember to close the provided <see cref="Stream"/> when it is no
+		/// longer required after invoking this method.</para>
 		/// </remarks>
 		/// <param name="stream">Stream.</param>
 		/// <returns>
-		/// New <see cref="JsonParser"/> instance.
+		/// The new <see cref="JsonParser"/> instance.
 		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="stream"/> is <c>null</c>.
+		/// </exception>
 		/// <seealso cref="Parse()"/>
 		public static JsonParser Create(Stream stream) {
+			if (stream == null)
+				throw new ArgumentNullException("stream");
+
 			return new JsonParser(new StreamReader(stream));
 		}
 
 		/// <summary>
-		/// Create new <see cref="JsonParser"/> instance from a text reader. This allows
-		/// JSON encoded text to be parsed from a variety of sources including strings,
-		/// files, etc.
+		/// Create a new <see cref="JsonParser"/> instance from a text reader. This
+		/// allows JSON encoded text to be parsed from a variety of sources including
+		/// strings, files, etc.
 		/// </summary>
 		/// <remarks>
-		/// <para>User code should close provided stream when no longer required after
-		/// JSON encoded content has been parsed; this can be accomplished with the
-		/// <c>using</c> construct:</para>
-		/// <code language="csharp"><![CDATA[
-		/// JsonNode result;
-		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
-		///     var reader = new StreamReader(fs);
-		///     var parser = JsonParser.Create(reader);
-		///     result = parser.Parse();
-		/// }
-		/// ]]></code>
+		/// <para>Remember to dispose the provided <see cref="TextReader"/> when it is no
+		/// longer required after invoking this method.</para>
 		/// </remarks>
 		/// <param name="reader">Text reader.</param>
 		/// <returns>
-		/// New <see cref="JsonParser"/> instance.
+		/// The new <see cref="JsonParser"/> instance.
 		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="reader"/> is <c>null</c>.
+		/// </exception>
 		/// <seealso cref="Parse()"/>
 		public static JsonParser Create(TextReader reader) {
+			if (reader == null)
+				throw new ArgumentNullException("reader");
+
 			return new JsonParser(reader);
 		}
 
