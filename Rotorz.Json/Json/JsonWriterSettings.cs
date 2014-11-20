@@ -52,12 +52,12 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets string of characters which to used when indenting nested
-		/// values within output.
+		/// Gets or sets string of characters which to used when indenting nested values
+		/// within output.
 		/// </summary>
 		/// <remarks>
-		/// <para>This property is only applicable when <see cref="Indent"/> is set
-		/// to a value of <c>true</c>.</para>
+		/// <para>This property is only applicable when <see cref="Indent"/> is set to a
+		/// value of <c>true</c>.</para>
 		/// </remarks>
 		/// <exception cref="JsonException">
 		/// If attempting to modify property after settings object has already been

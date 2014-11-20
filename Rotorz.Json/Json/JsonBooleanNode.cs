@@ -10,7 +10,8 @@ namespace Rotorz.Json {
 	public sealed class JsonBooleanNode : JsonNode {
 
 		/// <summary>
-		/// Initialize new boolean node with a value of <c>false</c>.
+		/// Initializes a new instance of the <see cref="JsonBooleanNode"/> class with a
+		/// value of <c>false</c>.
 		/// </summary>
 		public JsonBooleanNode() {
 		}

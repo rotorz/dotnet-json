@@ -29,8 +29,8 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="json">JSON encoded string.</param>
 		/// <returns>
-		/// Returns new <see cref="JsonNode"/> instance. Always returns a value of
-		/// <c>null</c> if input JSON encoded string was null or empty.
+		/// Returns new <see cref="JsonNode"/> instance. Always returns a value of <c>null</c>
+		/// if input JSON encoded string was null or empty.
 		/// </returns>
 		/// <exception cref="JsonParserException">
 		/// If an error was encountered whilst attempting to parse JSON encoded string.
@@ -49,8 +49,8 @@ namespace Rotorz.Json {
 		/// Attempt to create JSON node representation from given input.
 		/// </summary>
 		/// <remarks>
-		/// <para>This method uses type information from input to determine which type
-		/// of nodes seem best suited. Common basic data types are supported along with
+		/// <para>This method uses type information from input to determine which type of
+		/// nodes seem best suited. Common basic data types are supported along with
 		/// objects, structures, lists, native arrays and even dictionaries. Dictionary
 		/// support is limited to those with string type keys (<c>Dictionary&lt;string, YourType&gt;></c>).</para>
 		/// <para>Input value is simply cloned if it is already a <see cref="JsonNode"/>.</para>

@@ -14,15 +14,14 @@ namespace Rotorz.Json {
 	/// <remarks>
 	/// <para>This class was implemented from the specification presented on the
 	/// <a href="http://json.org">http://json.org</a> website.</para>
-	/// <para>One interesting thing about this specification is that it doesn't
-	/// identify a standardized way to represent floating-point values of NaN,
-	/// -Infinity and Infinity.</para>
-	/// <para>According to various forum and Q&amp;A postings on the Internet, a
-	/// number of security issues arise when using JavaScript compatible constant
-	/// values because in some cases hackers are able to inject malicious code
-	/// into the application.</para>
-	/// <para>To avoid this vulnerability such values are encoded as simple strings
-	/// which can then be detected when deserializing JSON encoded data. Fortunately
+	/// <para>One interesting thing about this specification is that it doesn't identify
+	/// a standardized way to represent floating-point values of NaN, -Infinity and
+	/// Infinity.</para>
+	/// <para>According to various forum and Q&amp;A postings on the Internet, a number
+	/// of security issues arise when using JavaScript compatible constant values because
+	/// in some cases hackers are able to inject malicious code into the application.</para>
+	/// <para>To avoid this vulnerability such values are encoded as simple strings which
+	/// can then be detected when deserializing JSON encoded data. Fortunately
 	/// <c>System.Convert.ChangeType</c> can be used to deal with this implementation
 	/// specific.</para>
 	/// </remarks>
@@ -32,9 +31,9 @@ namespace Rotorz.Json {
 		/// Create new <see cref="JsonParser"/> instance from a stream.
 		/// </summary>
 		/// <remarks>
-		/// <para>User code should close provided stream when no longer required
-		/// after JSON encoded content has been parsed; this can be accomplished with
-		/// the <c>using</c> construct:</para>
+		/// <para>User code should close provided stream when no longer required after
+		/// JSON encoded content has been parsed; this can be accomplished with the
+		/// <c>using</c> construct:</para>
 		/// <code language="csharp"><![CDATA[
 		/// JsonNode result;
 		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
@@ -42,8 +41,8 @@ namespace Rotorz.Json {
 		///     result = parser.Parse();
 		/// }
 		/// ]]></code>
-		/// <para>This function is provided for convenience since it's implementation
-		/// is merely as follows:</para>
+		/// <para>This function is provided for convenience since it's implementation is
+		/// merely as follows:</para>
 		/// <code language="csharp"><![CDATA[
 		/// public static JsonParser Create(Stream stream) {
 		///     return new JsonParser(new StreamReader(stream));
@@ -65,9 +64,9 @@ namespace Rotorz.Json {
 		/// files, etc.
 		/// </summary>
 		/// <remarks>
-		/// <para>User code should close provided stream when no longer required
-		/// after JSON encoded content has been parsed; this can be accomplished with
-		/// the <c>using</c> construct:</para>
+		/// <para>User code should close provided stream when no longer required after
+		/// JSON encoded content has been parsed; this can be accomplished with the
+		/// <c>using</c> construct:</para>
 		/// <code language="csharp"><![CDATA[
 		/// JsonNode result;
 		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
@@ -179,11 +178,11 @@ namespace Rotorz.Json {
 			}
 
 			if (!_initLineEnding) {
-				// Use either '\r' or '\n' to quickly detect line endings for
-				// maintaining line number and position. Initially we do not know
-				// which type of line ending characters are being used. If a file
-				// contains mixed styles then line number and position feedback
-				// will be inaccurate when syntax errors are encountered.
+				// Use either '\r' or '\n' to quickly detect line endings for maintaining
+				// line number and position. Initially we do not know which type of line
+				// ending characters are being used. If a file contains mixed styles then
+				// line number and position feedback will be inaccurate when syntax
+				// errors are encountered.
 				for (int i = 0; i < buffer.Length - 1; ++i) {
 					char c = buffer[i];
 					if (c == '\r' || c == '\n') {
@@ -203,8 +202,8 @@ namespace Rotorz.Json {
 		/// Peeks at next character in buffer but does not advance buffer position.
 		/// </summary>
 		/// <returns>
-		/// The next character if further input remains; otherwise, a value of '\0'
-		/// is returned.
+		/// The next character if further input remains; otherwise, a value of '\0' is
+		/// returned.
 		/// </returns>
 		/// <seealso cref="Peek(int)"/>
 		/// <seealso cref="Accept(int)"/>
@@ -227,9 +226,9 @@ namespace Rotorz.Json {
 			return _buffer[_bufferPos + offset];
 		}
 
-		// Maximum lookahead must be large enough to hold the largest value which can
-		// be matched when parsing JSON. At the moment this is a value of 6 since
-		// the unicode character escape sequence is "\u####" (6 characters).
+		// Maximum lookahead must be large enough to hold the largest value which can be
+		// matched when parsing JSON. At the moment this is a value of 6 since the
+		// unicode character escape sequence is "\u####" (6 characters).
 		private const int MaximumLookahead = 6;
 
 		private bool _hasReachedEnd;
@@ -280,8 +279,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Accept one or more characters from input and advanced to next
-		/// position in buffer.
+		/// Accept one or more characters from input and advanced to next position in
+		/// buffer.
 		/// </summary>
 		/// <param name="count">Number of input characters to accept.</param>
 		/// <seealso cref="Peek()"/>
@@ -294,8 +293,8 @@ namespace Rotorz.Json {
 		#endregion
 
 		/// <summary>
-		/// Skip whitespace by accepting all input characters which contain
-		/// spaces, new lines and indentation type characters.
+		/// Skip whitespace by accepting all input characters which contain spaces, new
+		/// lines and indentation type characters.
 		/// </summary>
 		private void SkipWhitespace() {
 			while (char.IsWhiteSpace(Peek()))
@@ -349,8 +348,8 @@ namespace Rotorz.Json {
 		/// Parse value node (null, integer, double, boolean, string, array or object).
 		/// </summary>
 		/// <returns>
-		/// New <see cref="JsonNode"/> holding value; returns a value of <c>null</c>
-		/// when <c>null</c> is detected in input.
+		/// New <see cref="JsonNode"/> holding value; returns a value of <c>null</c> when
+		/// <c>null</c> is detected in input.
 		/// </returns>
 		/// <exception cref="JsonParserException">
 		/// If a syntax error was encountered whilst attempting to parse input content.

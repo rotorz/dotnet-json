@@ -11,7 +11,8 @@ namespace Rotorz.Json {
 	public sealed class JsonIntegerNode : JsonNode {
 
 		/// <summary>
-		/// Initialize new integer node with an initial value of zero.
+		/// Initializes a new instance of the <see cref="JsonIntegerNode"/> class with a
+		/// value of zero.
 		/// </summary>
 		public JsonIntegerNode() {
 		}

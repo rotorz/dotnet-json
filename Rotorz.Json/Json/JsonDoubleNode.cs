@@ -10,7 +10,8 @@ namespace Rotorz.Json {
 	public sealed class JsonDoubleNode : JsonNode {
 
 		/// <summary>
-		/// Initialize new double precision numeric node with a value of zero.
+		/// Initializes a new instance of the <see cref="JsonDoubleNode"/> class with a
+		/// value of zero.
 		/// </summary>
 		public JsonDoubleNode() {
 		}

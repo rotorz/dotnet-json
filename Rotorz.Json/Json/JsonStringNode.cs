@@ -8,8 +8,8 @@ namespace Rotorz.Json {
 	/// Node holding a string value.
 	/// </summary>
 	/// <remarks>
-	/// <para>String node cannot contain a value of <c>null</c>; instead an empty
-	/// string is automatically assumed if a value of <c>null</c> is provided.</para>
+	/// <para>String node cannot contain a value of <c>null</c>; instead an empty string
+	/// is automatically assumed if a value of <c>null</c> is provided.</para>
 	/// </remarks>
 	public sealed class JsonStringNode : JsonNode {
 
@@ -33,8 +33,8 @@ namespace Rotorz.Json {
 		/// Gets or sets value of node.
 		/// </summary>
 		/// <remarks>
-		/// <para>It is not possible to assign a value of <c>null</c> to a string
-		/// node; instead an empty string is automatically assumed.</para>
+		/// <para>It is not possible to assign a value of <c>null</c> to a string node;
+		/// instead an empty string is automatically assumed.</para>
 		/// </remarks>
 		public string Value {
 			get { return _value; }

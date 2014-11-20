@@ -72,7 +72,7 @@ namespace Rotorz.Json {
 		#endregion
 
 		/// <summary>
-		/// Initialize new array node.
+		/// Initializes a new instance of the <see cref="JsonArrayNode"/> class.
 		/// </summary>
 		public JsonArrayNode() {
 		}
@@ -194,8 +194,10 @@ namespace Rotorz.Json {
 		/// <summary>
 		/// Copy nodes to specified native array.
 		/// </summary>
-		/// <param name="array">Native array that should be populated with array nodes from this array.</param>
-		/// <param name="arrayIndex">Zero-based index in <paramref name="array"/> at which copying begins.</param>
+		/// <param name="array">Native array that should be populated with array nodes
+		/// from this array.</param>
+		/// <param name="arrayIndex">Zero-based index in <paramref name="array"/> at
+		/// which copying begins.</param>
 		public void CopyTo(JsonNode[] array, int arrayIndex) {
 			_nodes.CopyTo(array, arrayIndex);
 		}

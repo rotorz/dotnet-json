@@ -8,8 +8,8 @@ using System.Text;
 namespace Rotorz.Json {
 
 	/// <summary>
-	/// Writes JSON encoded string and accepts several formatting settings. This class
-	/// is particularly useful when manually writing JSON content.
+	/// Writes JSON encoded string and accepts several formatting settings. This class is
+	/// particularly useful when manually writing JSON content.
 	/// </summary>
 	/// <remarks>
 	/// <para>Each <see cref="JsonNode"/> has as custom implementation of <see cref="JsonNode.ToString()"/>
@@ -39,15 +39,15 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Format double precision floating point value as string but ensure that
-		/// value always contains a trailing zero.
+		/// Format double precision floating point value as string but ensure that value
+		/// always contains a trailing zero.
 		/// </summary>
 		/// <remarks>
-		/// <para>Since the JSON specification does not cater for values of NaN,
-		/// Infinity and Negative Infinity several special values have been assumed
-		/// to represent these in output files.</para>
-		/// <para>Special tokens are returned when input has one of the following
-		/// special values:</para>
+		/// <para>Since the JSON specification does not cater for values of NaN, Infinity
+		/// and Negative Infinity several special values have been assumed to represent
+		/// these in output files.</para>
+		/// <para>Special tokens are returned when input has one of the following special
+		/// values:</para>
 		/// <list type="bullet">
 		/// <item>NaN = "NaN"</item>
 		/// <item>+Infinity = "Infinity"</item>
@@ -123,7 +123,7 @@ namespace Rotorz.Json {
 		#endregion
 
 		/// <summary>
-		/// Initialize new <see cref="JsonWriter"/> instance.
+		/// Initializes a new instance of the <see cref="JsonWriter"/> class.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
 		/// <param name="settings">Custom settings; specify a value of <c>null</c> to
@@ -180,8 +180,8 @@ namespace Rotorz.Json {
 		private bool _empty = true;
 
 		/// <summary>
-		/// Gets writer settings which are used to control formatting of output.
-		/// Setting properties become read-only once assigned to a <see cref="JsonWriter"/>
+		/// Gets writer settings which are used to control formatting of output. Setting
+		/// properties become read-only once assigned to a <see cref="JsonWriter"/>
 		/// instance.
 		/// </summary>
 		public JsonWriterSettings Settings { get; private set; }
@@ -344,9 +344,10 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <remarks>
 		/// <para>Whitespace is still automatically added when specified; for instance,
-		/// value will be indented if <see cref="JsonWriterSettings.Indent"/> is set to a value of <c>true</c>.</para>
-		/// <para>If <paramref name="content"/> is a value of <c>null</c> then the
-		/// value "null" is written to output.</para>
+		/// value will be indented if <see cref="JsonWriterSettings.Indent"/> is set to a
+		/// value of <c>true</c>.</para>
+		/// <para>If <paramref name="content"/> is a value of <c>null</c> then the value
+		/// "null" is written to output.</para>
 		/// </remarks>
 		/// <param name="content">String to be written verbatim.</param>
 		public void WriteValueRaw(string content) {

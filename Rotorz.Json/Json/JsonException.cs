@@ -12,7 +12,7 @@ namespace Rotorz.Json {
 	public class JsonException : Exception {
 		
 		/// <summary>
-		/// Initialize new <see cref="JsonException"/> instance.
+		/// Initializes a new instance of the <see cref="JsonException"/> class.
 		/// </summary>
 		public JsonException() : base() {
 		}

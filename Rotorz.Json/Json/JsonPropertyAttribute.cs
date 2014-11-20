@@ -5,8 +5,8 @@ using System;
 namespace Rotorz.Json {
 
 	/// <summary>
-	/// Use this attribute to mark a property or a private field for serialization
-	/// when composing a setting from a custom class or structure type.
+	/// Use this attribute to mark a property or a private field for serialization when
+	/// composing a setting from a custom class or structure type.
 	/// </summary>
 	/// <example>
 	/// <para>Define class with custom serialization for JSON:</para>
@@ -52,14 +52,14 @@ namespace Rotorz.Json {
 	public class JsonPropertyAttribute : Attribute {
 
 		/// <summary>
-		/// Gets custom name for field or property which will be used instead of
-		/// actual member name.
+		/// Gets custom name for field or property which will be used instead of actual
+		/// member name.
 		/// </summary>
 		public string Name { get; private set; }
 
 		/// <summary>
-		/// Initialize new <see cref="JsonPropertyAttribute"/> instance and assume
-		/// actual member name for serialization.
+		/// Initialize new <see cref="JsonPropertyAttribute"/> instance and assume actual
+		/// member name for serialization.
 		/// </summary>
 		public JsonPropertyAttribute() {
 		}

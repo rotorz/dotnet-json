@@ -14,7 +14,7 @@ namespace Rotorz.Json {
 	public class JsonParserException : JsonException {
 		
 		/// <summary>
-		/// Initialize new <see cref="JsonParserException"/> instance.
+		/// Initializes a new instance of the <see cref="JsonParserException"/> class.
 		/// </summary>
 		/// <param name="message">Additional information about error.</param>
 		/// <param name="lineNumber">Indicates number of line in input where error was encountered.</param>

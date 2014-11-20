@@ -11,13 +11,13 @@ namespace Rotorz.Json.Serialization {
 
 	/// <summary>
 	/// Provides additional meta information for a <c>System.Type</c> which helps to
-	/// deduce the nature of JSON encoded data by examining graph of the object which
-	/// is being deserialized.
+	/// deduce the nature of JSON encoded data by examining graph of the object which is
+	/// being deserialized.
 	/// </summary>
 	/// <remarks>
 	/// <para>Meta type information is cached once generated which helps to improve
-	/// performance by greatly reducing the amount of reflection required each time
-	/// an object of the same type is deserialized.</para>
+	/// performance by greatly reducing the amount of reflection required each time an
+	/// object of the same type is deserialized.</para>
 	/// </remarks>
 	/// <seealso cref="MetaType.FromType(Type)"/>
 	internal sealed class MetaType {
@@ -63,16 +63,16 @@ namespace Rotorz.Json.Serialization {
 		#region Enumerable Key/Value Pairs
 
 		/// <summary>
-		/// Gets property information for <c>Key</c> when associated type represents
-		/// a collection of <c>KeyValuePair&lt;T&gt;</c> entries. This is useful when
+		/// Gets property information for <c>Key</c> when associated type represents a
+		/// collection of <c>KeyValuePair&lt;T&gt;</c> entries. This is useful when
 		/// converting JSON objects into dictionary-like collections.
 		/// </summary>
 		/// <seealso cref="IsDictionaryStyleCollection"/>
 		/// <seealso cref="ValuePropertyInfo"/>
 		public PropertyInfo KeyPropertyInfo { get; private set; }
 		/// <summary>
-		/// Gets property information for <c>Value</c> when associated type represents
-		/// a collection of <c>KeyValuePair&lt;T&gt;</c> entries. This is useful when
+		/// Gets property information for <c>Value</c> when associated type represents a
+		/// collection of <c>KeyValuePair&lt;T&gt;</c> entries. This is useful when
 		/// converting JSON objects into dictionary-like collections.
 		/// </summary>
 		/// <seealso cref="IsDictionaryStyleCollection"/>
@@ -335,8 +335,8 @@ namespace Rotorz.Json.Serialization {
 		/// for specified instance of the associated type.
 		/// </summary>
 		/// <remarks>
-		/// <para><c>OnDeserializing</c> callbacks should be invoked before beginning
-		/// to deserialize the specified instance.</para>
+		/// <para><c>OnDeserializing</c> callbacks should be invoked before beginning to
+		/// deserialize the specified instance.</para>
 		/// </remarks>
 		/// <param name="obj">Instance of associated type.</param>
 		/// <param name="context">Additional context information.</param>

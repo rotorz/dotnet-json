@@ -97,7 +97,7 @@ namespace Rotorz.Json {
 		#endregion
 
 		/// <summary>
-		/// Initialize new object node.
+		/// Initializes a new instance of the <see cref="JsonObjectNode"/> class.
 		/// </summary>
 		public JsonObjectNode() {
 		}
