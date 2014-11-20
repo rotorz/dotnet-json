@@ -33,9 +33,9 @@ namespace Rotorz.Json {
 		/// <c>null</c> if input JSON encoded string was null or empty.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if an error was encountered whilst attempting to parse JSON
-		/// encoded string. This exception typical indicates that input string
-		/// contains one or more syntax errors.
+		/// If an error was encountered whilst attempting to parse JSON encoded string.
+		/// This exception typical indicates that input string contains one or more
+		/// syntax errors.
 		/// </exception>
 		public static JsonNode FromJson(string json) {
 			if (string.IsNullOrEmpty(json))
@@ -91,8 +91,8 @@ namespace Rotorz.Json {
 		/// was itself a value of <c>null</c>.
 		/// </returns>
 		/// <exception cref="System.Exception">
-		/// Throws exception if a problem was encountered whilst attempting to create
-		/// node representation from input value.
+		/// If a problem was encountered whilst attempting to create node representation
+		/// from input value.
 		/// </exception>
 		/// <seealso cref="ToObject{T}()"/>
 		/// <seealso cref="ToObject(Type)"/>
@@ -192,11 +192,11 @@ namespace Rotorz.Json {
 		/// Object of specified type.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="type"/> was a value of <c>null</c>.
+		/// If <paramref name="type"/> was a value of <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.Exception">
-		/// Throws exception if a problem was encountered whilst attempting to create
-		/// object of specified type from node representation.
+		/// If a problem was encountered whilst attempting to create object of specified
+		/// type from node representation.
 		/// </exception>
 		/// <seealso cref="ToObject{T}()"/>
 		/// <seealso cref="FromObject(object)"/>
@@ -210,8 +210,8 @@ namespace Rotorz.Json {
 		/// Object of specified type.
 		/// </returns>
 		/// <exception cref="System.Exception">
-		/// Throws exception if a problem was encountered whilst attempting to create
-		/// object of specified type from node representation.
+		/// If a problem was encountered whilst attempting to create object of specified
+		/// type from node representation.
 		/// </exception>
 		/// <seealso cref="ToObject(Type)"/>
 		/// <seealso cref="FromObject(object)"/>

@@ -34,7 +34,7 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonArrayNode"/> instance containing zero or more nodes.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown when <paramref name="array"/> is a value of <c>null</c>.
+		/// If <paramref name="array"/> is <c>null</c>.
 		/// </exception>
 		public static JsonArrayNode FromArray<T>(T[] array) {
 			if (array == null)
@@ -57,7 +57,7 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonArrayNode"/> instance containing zero or more nodes.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown when <paramref name="collection"/> is a value of <c>null</c>.
+		/// If <paramref name="collection"/> is <c>null</c>.
 		/// </exception>
 		public static JsonArrayNode FromCollection(ICollection collection) {
 			if (collection == null)
@@ -82,7 +82,7 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="nodes">Native array of nodes.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown when <paramref name="nodes"/> is a value of <c>null</c>.
+		/// If <paramref name="nodes"/> is <c>null</c>.
 		/// </exception>
 		public JsonArrayNode(JsonNode[] nodes) {
 			if (nodes == null)
@@ -97,7 +97,7 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="collection">Collection of nodes.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown when <paramref name="collection"/> is a value of <c>null</c>.
+		/// If <paramref name="collection"/> is <c>null</c>.
 		/// </exception>
 		public JsonArrayNode(ICollection<JsonNode> collection) {
 			if (collection == null)
@@ -128,7 +128,7 @@ namespace Rotorz.Json {
 		/// <param name="index">Zero-based index of node within array.</param>
 		/// <param name="item">New node instance or a value of <c>null</c>.</param>
 		/// <exception cref="System.ArgumentOutOfRangeException">
-		/// Thrown if <paramref name="index"/> is out of range.
+		/// If <paramref name="index"/> is out of range.
 		/// </exception>
 		public void Insert(int index, JsonNode item) {
 			_nodes.Insert(index, item);
@@ -139,7 +139,7 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="index">Zero-based index of node within array.</param>
 		/// <exception cref="System.ArgumentOutOfRangeException">
-		/// Thrown if <paramref name="index"/> is out of range.
+		/// If <paramref name="index"/> is out of range.
 		/// </exception>
 		public void RemoveAt(int index) {
 			_nodes.RemoveAt(index);
@@ -153,7 +153,7 @@ namespace Rotorz.Json {
 		/// Node instance or a value of <c>null</c>.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
-		/// Thrown if <paramref name="index"/> is out of range.
+		/// If <paramref name="index"/> is out of range.
 		/// </exception>
 		public JsonNode this[int index] {
 			get { return _nodes[index]; }

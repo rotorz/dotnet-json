@@ -301,11 +301,11 @@ namespace Rotorz.Json.Serialization {
 		/// <param name="obj">Instance of associated type.</param>
 		/// <param name="context">Additional context information.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="obj"/> was a value of <c>null</c>.
+		/// If <paramref name="obj"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.ArgumentException">
-		/// Thrown if <paramref name="obj"/> was not an instance of the type which is
-		/// associated with thie <see cref="MetaType"/>.
+		/// If <paramref name="obj"/> is not an instance of the type which is associated
+		/// with the <see cref="MetaType"/>.
 		/// </exception>
 		public void InvokeOnSerializing(object obj, StreamingContext context) {
 			Invoke(_onSerializingMethods, obj, context);
@@ -321,11 +321,11 @@ namespace Rotorz.Json.Serialization {
 		/// <param name="obj">Instance of associated type.</param>
 		/// <param name="context">Additional context information.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="obj"/> was a value of <c>null</c>.
+		/// If <paramref name="obj"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.ArgumentException">
-		/// Thrown if <paramref name="obj"/> was not an instance of the type which is
-		/// associated with thie <see cref="MetaType"/>.
+		/// If <paramref name="obj"/> is not an instance of the type which is associated
+		/// with the <see cref="MetaType"/>.
 		/// </exception>
 		public void InvokeOnSerialized(object obj, StreamingContext context) {
 			Invoke(_onSerializedMethods, obj, context);
@@ -341,11 +341,11 @@ namespace Rotorz.Json.Serialization {
 		/// <param name="obj">Instance of associated type.</param>
 		/// <param name="context">Additional context information.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="obj"/> was a value of <c>null</c>.
+		/// If <paramref name="obj"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.ArgumentException">
-		/// Thrown if <paramref name="obj"/> was not an instance of the type which is
-		/// associated with thie <see cref="MetaType"/>.
+		/// If <paramref name="obj"/> is not an instance of the type which is associated
+		/// with the <see cref="MetaType"/>.
 		/// </exception>
 		public void InvokeOnDeserializing(object obj, StreamingContext context) {
 			Invoke(_onDeserializingMethods, obj, context);
@@ -361,11 +361,11 @@ namespace Rotorz.Json.Serialization {
 		/// <param name="obj">Instance of associated type.</param>
 		/// <param name="context">Additional context information.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="obj"/> was a value of <c>null</c>.
+		/// If <paramref name="obj"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.ArgumentException">
-		/// Thrown if <paramref name="obj"/> was not an instance of the type which is
-		/// associated with thie <see cref="MetaType"/>.
+		/// If <paramref name="obj"/> is not an instance of the type which is associated
+		/// with the <see cref="MetaType"/>.
 		/// </exception>
 		public void InvokeOnDeserialized(object obj, StreamingContext context) {
 			Invoke(_onDeserializedMethods, obj, context);

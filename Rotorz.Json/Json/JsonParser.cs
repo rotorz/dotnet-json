@@ -303,14 +303,14 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Match string in input by peeking at characters ahead of the current
-		/// buffer position. This is useful for detecting special keywords such
-		/// as "true", "false" and "null".
+		/// Match string in input by peeking at characters ahead of the current buffer
+		/// position. This is useful for detecting special keywords such as "true",
+		/// "false" and "null".
 		/// </summary>
 		/// <remarks>
-		/// <para>This method does not advanced current position within buffer;
-		/// instead <see cref="Accept(int)"/> should be called by passing in the
-		/// length of the matched string.</para>
+		/// <para>This method does not advanced current position within buffer; instead
+		/// <see cref="Accept(int)"/> should be called by passing in the length of the
+		/// matched string.</para>
 		/// </remarks>
 		/// <param name="match">String which is to be matched.</param>
 		/// <returns>
@@ -329,14 +329,14 @@ namespace Rotorz.Json {
 		/// Parse input JSON encoded content.
 		/// </summary>
 		/// <returns>
-		/// A <see cref="JsonNode"/> instance of the applicable type; otherwise, a
-		/// value of <c>null</c> if input content was either empty or consisted
-		/// entirely of whitespace.
+		/// A <see cref="JsonNode"/> instance of the applicable type; otherwise, a value
+		/// of <c>null</c> if input content was either empty or consisted entirely of
+		/// whitespace.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		public JsonNode Parse() {
 			SkipWhitespace();
@@ -353,9 +353,9 @@ namespace Rotorz.Json {
 		/// when <c>null</c> is detected in input.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private JsonNode ParseValue() {
 			if (MatchString("true")) {
@@ -409,9 +409,9 @@ namespace Rotorz.Json {
 		/// The resulting string.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private string ParseStringLiteral(string context) {
 			_stringLiteral.Length = 0;
@@ -501,9 +501,9 @@ namespace Rotorz.Json {
 		/// parsed for a value or for a property key. This argument helps to provide more
 		/// meaningful syntax error messages.</param>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private void CheckStringCharacter(char c, string context) {
 			if (char.IsControl(c)) {
@@ -523,9 +523,9 @@ namespace Rotorz.Json {
 		/// The new <see cref="JsonNode"/> instance.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private JsonNode ParseArray() {
 			Accept();
@@ -560,9 +560,9 @@ namespace Rotorz.Json {
 		/// The new <see cref="JsonNode"/> instance.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private JsonNode ParseObject() {
 			Accept();
@@ -614,9 +614,9 @@ namespace Rotorz.Json {
 		/// The new <see cref="JsonNode"/> instance.
 		/// </returns>
 		/// <exception cref="JsonParserException">
-		/// Thrown if a syntax error was encountered whilst attempting to parse
-		/// input content. Exception contains identifies the source of the error
-		/// by providing the line number and position.
+		/// If a syntax error was encountered whilst attempting to parse input content.
+		/// Exception contains identifies the source of the error by providing the line
+		/// number and position.
 		/// </exception>
 		private JsonNode ParseNumeric() {
 			_stringLiteral.Length = 0;

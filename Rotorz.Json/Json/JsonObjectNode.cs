@@ -34,8 +34,8 @@ namespace Rotorz.Json {
 		/// if input was <c>null</c>.
 		/// </returns>
 		/// <exception cref="System.Exception">
-		/// Thrown if error is encountered whilst creating object node. Errors are likely
-		/// to occur when unable to convert property values into JSON nodes.
+		/// If error is encountered whilst creating object node. Errors are likely to
+		/// occur when unable to convert property values into JSON nodes.
 		/// </exception>
 		internal static JsonObjectNode FromInstance(object instance) {
 			if (instance == null)
@@ -76,11 +76,11 @@ namespace Rotorz.Json {
 		/// The new <see cref="JsonObjectNode"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown when <paramref name="dictionary"/> is a value of <c>null</c>.
+		/// If <paramref name="dictionary"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.Exception">
-		/// Thrown if error is encountered whilst creating object node. Errors are likely
-		/// to occur when unable to convert property values into JSON nodes.
+		/// If error is encountered whilst creating object node. Errors are likely to
+		/// occur when unable to convert property values into JSON nodes.
 		/// </exception>
 		public static JsonObjectNode FromDictionary<TValue>(IDictionary<string, TValue> dictionary) {
 			if (dictionary == null)
@@ -112,10 +112,10 @@ namespace Rotorz.Json {
 		/// <param name="key">Unique property key.</param>
 		/// <param name="value">Property value node or a value of <c>null</c>.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// Thrown if <paramref name="key"/> is <c>null</c>.
+		/// If <paramref name="key"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.ArgumentException">
-		/// Thrown when a property with the same key already exists within object.
+		/// If a property with the same key already exists within object.
 		/// </exception>
 		public void Add(string key, JsonNode value) {
 			_properties.Add(key, value);

@@ -39,8 +39,8 @@ namespace Rotorz.Json {
 		/// Gets or sets whether nested values should be indented within output.
 		/// </summary>
 		/// <exception cref="JsonException">
-		/// Thrown when attempting to modify property after settings object has already
-		/// been provided to a <see cref="JsonWriter"/> for usage.
+		/// If attempting to modify property after settings object has already been
+		/// provided to a <see cref="JsonWriter"/> for usage.
 		/// </exception>
 		/// <seealso cref="IndentChars"/>
 		public bool Indent {
@@ -60,8 +60,8 @@ namespace Rotorz.Json {
 		/// to a value of <c>true</c>.</para>
 		/// </remarks>
 		/// <exception cref="JsonException">
-		/// Thrown when attempting to modify property after settings object has already
-		/// been provided to a <see cref="JsonWriter"/> for usage.
+		/// If attempting to modify property after settings object has already been
+		/// provided to a <see cref="JsonWriter"/> for usage.
 		/// </exception>
 		/// <seealso cref="Indent"/>
 		public string IndentChars {
@@ -78,8 +78,8 @@ namespace Rotorz.Json {
 		/// Gets or sets string of characters to use when adding new lines.
 		/// </summary>
 		/// <exception cref="JsonException">
-		/// Thrown when attempting to modify property after settings object has already
-		/// been provided to a <see cref="JsonWriter"/> for usage.
+		/// If attempting to modify property after settings object has already been
+		/// provided to a <see cref="JsonWriter"/> for usage.
 		/// </exception>
 		public string NewLineChars {
 			get { return _newlineChars; }
@@ -95,8 +95,8 @@ namespace Rotorz.Json {
 		/// Reset to default setting values.
 		/// </summary>
 		/// <exception cref="JsonException">
-		/// Thrown when attempting to modify property after settings object has already
-		/// been provided to a <see cref="JsonWriter"/> for usage.
+		/// If attempting to modify property after settings object has already been
+		/// provided to a <see cref="JsonWriter"/> for usage.
 		/// </exception>
 		public void Reset() {
 			CheckReadOnly();
