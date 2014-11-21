@@ -24,7 +24,7 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="value">Initial value of node.</param>
 		public JsonStringNode(string value) {
-			_value = value;
+			Value = value;
 		}
 
 		private string _value;
