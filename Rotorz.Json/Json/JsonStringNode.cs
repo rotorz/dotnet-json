@@ -14,13 +14,15 @@ namespace Rotorz.Json {
 	public sealed class JsonStringNode : JsonNode {
 
 		/// <summary>
-		/// Initialize new string node with empty string.
+		/// Initializes a new instance of the <see cref="JsonStringNode"/> class with an
+		/// empty string.
 		/// </summary>
 		public JsonStringNode() : this("") {
 		}
 
 		/// <summary>
-		/// Initialize new string node.
+		/// Initializes a new instance of the <see cref="JsonStringNode"/> class with the
+		/// specified string.
 		/// </summary>
 		/// <param name="value">Initial value of node.</param>
 		public JsonStringNode(string value) {
@@ -30,7 +32,7 @@ namespace Rotorz.Json {
 		private string _value;
 
 		/// <summary>
-		/// Gets or sets value of node.
+		/// Gets or sets value of the node.
 		/// </summary>
 		/// <remarks>
 		/// <para>It is not possible to assign a value of <c>null</c> to a string node;

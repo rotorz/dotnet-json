@@ -78,7 +78,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new array node and populate from collection of nodes.
+		/// Initializes a new instance of the <see cref="JsonArrayNode"/> class and
+		/// populates from the specified array of nodes.
 		/// </summary>
 		/// <param name="nodes">Native array of nodes.</param>
 		/// <exception cref="System.ArgumentNullException">
@@ -93,7 +94,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new array node and populate from collection of nodes.
+		/// Initializes a new instance of the <see cref="JsonArrayNode"/> class and
+		/// populates from an enumerable collection of nodes.
 		/// </summary>
 		/// <param name="collection">Collection of nodes.</param>
 		/// <exception cref="System.ArgumentNullException">

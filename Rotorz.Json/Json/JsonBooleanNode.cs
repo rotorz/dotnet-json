@@ -17,7 +17,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new boolean node.
+		/// Initializes a new instance of the <see cref="JsonBooleanNode"/> class with
+		/// the specified value of <c>true</c> or <c>false</c>.
 		/// </summary>
 		/// <param name="value">Initial value of node.</param>
 		public JsonBooleanNode(bool value) {
@@ -25,7 +26,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets value of node.
+		/// Gets or sets value of the node.
 		/// </summary>
 		public bool Value { get; set; }
 

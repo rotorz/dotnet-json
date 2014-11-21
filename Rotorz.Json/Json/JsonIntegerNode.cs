@@ -18,7 +18,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new integer node.
+		/// Initializes a new instance of the <see cref="JsonIntegerNode"/> class with
+		/// the specified integer value.
 		/// </summary>
 		/// <param name="value">Initial value of node.</param>
 		public JsonIntegerNode(long value) {
@@ -26,7 +27,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets value of node.
+		/// Gets or sets value of the node.
 		/// </summary>
 		/// <seealso cref="UnsignedValue"/>
 		public long Value { get; set; }

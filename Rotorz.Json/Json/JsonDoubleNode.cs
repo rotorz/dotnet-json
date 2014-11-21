@@ -17,7 +17,8 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new double precision numeric node.
+		/// Initializes a new instance of the <see cref="JsonDoubleNode"/> class with the
+		/// specified double precision numeric value.
 		/// </summary>
 		/// <param name="value">Initial value of node.</param>
 		public JsonDoubleNode(double value) {
@@ -25,7 +26,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets value of node.
+		/// Gets or sets value of the node.
 		/// </summary>
 		public double Value { get; set; }
 
