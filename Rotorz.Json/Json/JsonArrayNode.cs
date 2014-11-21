@@ -99,7 +99,7 @@ namespace Rotorz.Json {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="collection"/> is <c>null</c>.
 		/// </exception>
-		public JsonArrayNode(ICollection<JsonNode> collection) {
+		public JsonArrayNode(IEnumerable<JsonNode> collection) {
 			if (collection == null)
 				throw new ArgumentNullException("collection");
 
