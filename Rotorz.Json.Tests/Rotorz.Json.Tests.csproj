@@ -58,6 +58,7 @@
     <Compile Include="Json\JsonIntegerNodeTests.cs" />
     <Compile Include="Json\JsonStringNodeTests.cs" />
     <Compile Include="Json\JsonWriterTests.cs" />
+    <Compile Include="Json\MessagePack\MessagePackTests.cs" />
     <Compile Include="Json\Serialization\ReflectionUtilityTests.cs" />
     <Compile Include="Json\JsonNodeTests.cs" />
     <Compile Include="Json\Serialization\MetaTypeTests.cs" />
@@ -112,6 +113,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Json\TestObjects\Files\JsonWriter\WriteArray_SingleElement_Null.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\TestObjects\Files\MessagePack\cases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\TestObjects\Files\MessagePack\cases.mpac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\TestObjects\Files\MessagePack\cases_compact.mpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Tests.runsettings">
