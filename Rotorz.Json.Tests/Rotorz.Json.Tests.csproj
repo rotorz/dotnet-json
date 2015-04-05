@@ -115,6 +115,12 @@
     <None Include="Json\TestObjects\Files\JsonWriter\WriteArray_SingleElement_Null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Json\TestObjects\Files\MessagePack\binary_cases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\TestObjects\Files\MessagePack\binary_cases.mpac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Json\TestObjects\Files\MessagePack\cases.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

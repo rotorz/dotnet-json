@@ -2,7 +2,9 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rotorz.Json.MessagePack;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Rotorz.Json.Serialization.Tests {
 
@@ -13,19 +15,26 @@ namespace Rotorz.Json.Serialization.Tests {
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.json")]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.mpac")]
 		public void Parse_Stream_MessagePack_Cases() {
-			Parse_Stream_MessagePack_Parameterized("cases.mpac");
+			Parse_Stream_MessagePack_Parameterized("cases.json", "cases.mpac");
 		}
 
 		[TestMethod]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.json")]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases_compact.mpac")]
 		public void Parse_Stream_MessagePack_CasesCompact() {
-			Parse_Stream_MessagePack_Parameterized("cases_compact.mpac");
+			Parse_Stream_MessagePack_Parameterized("cases.json", "cases_compact.mpac");
 		}
 
-		private void Parse_Stream_MessagePack_Parameterized(string mpacFileName) {
+		[TestMethod]
+		[DeploymentItem("Json/TestObjects/Files/MessagePack/binary_cases.json")]
+		[DeploymentItem("Json/TestObjects/Files/MessagePack/binary_cases.mpac")]
+		public void Parse_Stream_MessagePack_BinaryCases() {
+			Parse_Stream_MessagePack_Parameterized("binary_cases.json", "binary_cases.mpac");
+		}
+
+		private void Parse_Stream_MessagePack_Parameterized(string jsonFileName, string mpacFileName) {
 			// Arrange
-			using (var casesJsonStream = new FileStream("cases.json", FileMode.Open, FileAccess.Read))
+			using (var casesJsonStream = new FileStream(jsonFileName, FileMode.Open, FileAccess.Read))
 			using (var casesMpacStream = new FileStream(mpacFileName, FileMode.Open, FileAccess.Read)) {
 				// Arrange
 				var mpacReader = MessagePackReader.Create(casesMpacStream);
@@ -46,7 +55,8 @@ namespace Rotorz.Json.Serialization.Tests {
 				return;
 			}
 
-			Assert.AreEqual(expected.GetType(), actual.GetType());
+			if (!(actual is MessagePackBinaryNode))
+				Assert.AreEqual(expected.GetType(), actual.GetType());
 
 			var booleanNode = actual as JsonBooleanNode;
 			if (booleanNode != null) {
@@ -86,8 +96,37 @@ namespace Rotorz.Json.Serialization.Tests {
 				}
 				return;
 			}
+			
+			var extendedNode = actual as MessagePackExtendedNode;
+			if (extendedNode != null) {
+				var expectedExtendedNode = expected as JsonObjectNode;
+				var expectedNodeData = (expectedExtendedNode["data"] as JsonArrayNode)
+					.Select(e => (byte)(e as JsonIntegerNode).Value)
+					.ToArray();
+				Assert.AreEqual((expectedExtendedNode["type"] as JsonIntegerNode).Value, (int)extendedNode.ExtendedType);
+				AssertAreEqual(expectedNodeData, extendedNode.Value);
+				return;
+			}
+			var binaryNode = actual as MessagePackBinaryNode;
+			if (binaryNode != null) {
+				var expectedNodeData = (expected as JsonArrayNode)
+					.Select(e => (byte)(e as JsonIntegerNode).Value)
+					.ToArray();
+				AssertAreEqual(expectedNodeData, binaryNode.Value);
+				return;
+			}
 
 			throw new InternalTestFailureException();
+		}
+
+		private static void AssertAreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual) {
+			Assert.AreEqual(expected.Count(), actual.Count());
+
+			var expectedEnumerator = expected.GetEnumerator();
+			var actualEnumerator = actual.GetEnumerator();
+
+			while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
+				Assert.AreEqual(expectedEnumerator.Current, actualEnumerator.Current);
 		}
 
 	}
