@@ -195,7 +195,7 @@ namespace Rotorz.Json {
 					if (type.IsArray)
 						return JsonArrayNode.FromArray((object[])value);
 					else
-						return JsonArrayNode.FromCollection((ICollection)value);
+						return JsonArrayNode.FromCollection((IEnumerable)value);
 
 				case MetaType.NodeType.Object:
 					if (metaType.IsDictionaryStyleCollection)

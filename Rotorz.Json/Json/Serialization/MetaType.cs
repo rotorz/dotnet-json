@@ -48,6 +48,7 @@ namespace Rotorz.Json.Serialization {
 		private MetaType(Type type) {
 			Type = type;
 
+			ScanForCollection();
 			ScanForDictionaryStyleCollection();
 			TargetNodeType = DetermineTargetNodeType();
 
@@ -59,6 +60,39 @@ namespace Rotorz.Json.Serialization {
 		/// Gets the associated type.
 		/// </summary>
 		public Type Type { get; private set; }
+
+		#region Enumerable Collections
+
+		/// <summary>
+		/// Gets the type of element in the generic collection.
+		/// </summary>
+		/// <value>The type of element that the generic collection contains when the
+		/// associated type is a generic collection; otherwise, a value of <c>null</c>.</value>
+		public Type GenericCollectionElementType { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether the associated type represents a generic
+		/// collection of elements.
+		/// </summary>
+		public bool IsGenericCollection {
+			get { return GenericCollectionElementType != null; }
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether the associated type represents a classic
+		/// or generic collection of elements.
+		/// </summary>
+		public bool IsCollection { get; private set; }
+
+		private void ScanForCollection() {
+			var genericInterfaceType = Type.GetInterface("ICollection`1");
+			if (genericInterfaceType != null)
+				GenericCollectionElementType = genericInterfaceType.GetGenericArguments()[0];
+
+			IsCollection = IsGenericCollection || typeof(ICollection).IsAssignableFrom(Type);
+		}
+
+		#endregion
 
 		#region Enumerable Key/Value Pairs
 
@@ -91,12 +125,11 @@ namespace Rotorz.Json.Serialization {
 		}
 
 		private void ScanForDictionaryStyleCollection() {
-			var genericType = Type.GetInterface("ICollection`1");
-			if (genericType == null)
+			if (!IsGenericCollection)
 				return;
 
 			// Determine whether this is a collection of KeyValuePair<string,>
-			var elementType = genericType.GetGenericArguments()[0];
+			var elementType = GenericCollectionElementType;
 			if (!elementType.IsGenericType || typeof(KeyValuePair<,>) != elementType.GetGenericTypeDefinition())
 				return;
 
@@ -172,7 +205,7 @@ namespace Rotorz.Json.Serialization {
 			else if (Type.GetTypeCode(type) == TypeCode.String) {
 				return NodeType.String;
 			}
-			else if (type.IsArray || (typeof(ICollection).IsAssignableFrom(type) && !IsDictionaryStyleCollection)) {
+			else if (type.IsArray || (IsCollection && !IsDictionaryStyleCollection)) {
 				return NodeType.Array;
 			}
 			else {
