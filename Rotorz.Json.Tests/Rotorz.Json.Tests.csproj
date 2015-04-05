@@ -61,6 +61,7 @@
     <Compile Include="Json\Serialization\ReflectionUtilityTests.cs" />
     <Compile Include="Json\JsonNodeTests.cs" />
     <Compile Include="Json\Serialization\MetaTypeTests.cs" />
+    <Compile Include="Json\TestObjects\CategorySet.cs" />
     <Compile Include="Json\TestObjects\SerializationCallbackClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Json\TestObjects\PersonCard.cs" />

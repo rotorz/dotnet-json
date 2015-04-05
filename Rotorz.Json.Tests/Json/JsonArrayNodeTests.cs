@@ -106,7 +106,7 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region Factory: FromCollection(ICollection)
+		#region Factory: FromCollection(IEnumerable)
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentNullException))]
@@ -196,6 +196,27 @@ namespace Rotorz.Json.Tests {
 					Assert.Fail("Invalid node type.");
 				}
 			}
+		}
+		
+		[TestMethod]
+		public void FromCollection_Custom() {
+			// Arrange
+			var categoryNumbers = new CategorySet();
+			categoryNumbers.Add(2);
+			categoryNumbers.Add(4);
+			categoryNumbers.Add(8);
+			categoryNumbers.Add(16);
+
+			// Act
+			var arrayNode = JsonArrayNode.FromCollection(categoryNumbers);
+
+			// Assert
+			Assert.IsNotNull(arrayNode);
+			Assert.AreEqual(4, categoryNumbers.Count);
+			Assert.AreEqual(2, (arrayNode[0] as JsonIntegerNode).Value);
+			Assert.AreEqual(4, (arrayNode[1] as JsonIntegerNode).Value);
+			Assert.AreEqual(8, (arrayNode[2] as JsonIntegerNode).Value);
+			Assert.AreEqual(16, (arrayNode[3] as JsonIntegerNode).Value);
 		}
 
 		#endregion
@@ -415,6 +436,33 @@ namespace Rotorz.Json.Tests {
 
 			// Act
 			int cards = arrayNode.ToObject<int>();
+		}
+
+		[TestMethod]
+		public void ToObject_Collection_Custom() {
+			// Arrange
+			var arrayNode = new JsonArrayNode();
+			arrayNode.Add(new JsonIntegerNode(1));
+			arrayNode.Add(new JsonIntegerNode(2));
+			arrayNode.Add(new JsonIntegerNode(4));
+			arrayNode.Add(new JsonIntegerNode(8));
+			arrayNode.Add(new JsonIntegerNode(16));
+
+			// Act
+			var categorySet = arrayNode.ToObject<CategorySet>();
+
+			// Assert
+			Assert.IsNotNull(categorySet);
+			Assert.AreEqual(5, categorySet.Count);
+			Assert.IsTrue(categorySet.Contains(1));
+			Assert.IsTrue(categorySet.Contains(2));
+			Assert.IsTrue(categorySet.Contains(4));
+			Assert.IsTrue(categorySet.Contains(8));
+			Assert.IsTrue(categorySet.Contains(16));
+			Assert.IsFalse(categorySet.Contains(0));
+			Assert.IsFalse(categorySet.Contains(-1));
+			Assert.IsFalse(categorySet.Contains(-2));
+			Assert.IsFalse(categorySet.Contains(3));
 		}
 
 		#endregion
