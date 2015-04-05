@@ -1,38 +1,37 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rotorz.Json.MessagePack;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Rotorz.Json.Serialization.Tests {
+namespace Rotorz.Json.MessagePack.Tests {
 
 	[TestClass]
-	public class MessagePackTests {
+	public class MessagePackReaderTests {
 
 		[TestMethod]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.json")]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.mpac")]
-		public void Parse_Stream_MessagePack_Cases() {
-			Parse_Stream_MessagePack_Parameterized("cases.json", "cases.mpac");
+		public void Read_Stream_MessagePack_Cases() {
+			Read_Stream_MessagePack_Parameterized("cases.json", "cases.mpac");
 		}
 
 		[TestMethod]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases.json")]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/cases_compact.mpac")]
-		public void Parse_Stream_MessagePack_CasesCompact() {
-			Parse_Stream_MessagePack_Parameterized("cases.json", "cases_compact.mpac");
+		public void Read_Stream_MessagePack_CasesCompact() {
+			Read_Stream_MessagePack_Parameterized("cases.json", "cases_compact.mpac");
 		}
 
 		[TestMethod]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/binary_cases.json")]
 		[DeploymentItem("Json/TestObjects/Files/MessagePack/binary_cases.mpac")]
-		public void Parse_Stream_MessagePack_BinaryCases() {
-			Parse_Stream_MessagePack_Parameterized("binary_cases.json", "binary_cases.mpac");
+		public void Read_Stream_MessagePack_BinaryCases() {
+			Read_Stream_MessagePack_Parameterized("binary_cases.json", "binary_cases.mpac");
 		}
 
-		private void Parse_Stream_MessagePack_Parameterized(string jsonFileName, string mpacFileName) {
+		private void Read_Stream_MessagePack_Parameterized(string jsonFileName, string mpacFileName) {
 			// Arrange
 			using (var casesJsonStream = new FileStream(jsonFileName, FileMode.Open, FileAccess.Read))
 			using (var casesMpacStream = new FileStream(mpacFileName, FileMode.Open, FileAccess.Read)) {
@@ -40,7 +39,7 @@ namespace Rotorz.Json.Serialization.Tests {
 				var mpacReader = MessagePackReader.Create(casesMpacStream);
 
 				// Act
-				var result = mpacReader.Parse();
+				var result = mpacReader.Read();
 
 				// Assert
 				var expectedResult = JsonObjectNode.FromStream(casesJsonStream);
@@ -124,7 +123,7 @@ namespace Rotorz.Json.Serialization.Tests {
 
 			var expectedEnumerator = expected.GetEnumerator();
 			var actualEnumerator = actual.GetEnumerator();
-
+			
 			while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
 				Assert.AreEqual(expectedEnumerator.Current, actualEnumerator.Current);
 		}

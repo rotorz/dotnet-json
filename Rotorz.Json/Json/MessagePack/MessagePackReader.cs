@@ -12,7 +12,7 @@ namespace Rotorz.Json.MessagePack {
 	internal sealed class MessagePackReader {
 
 		/// <summary>
-		/// Create a new <see cref="MessagePackReader"/> instance from a stream.
+		/// Creates a new <see cref="MessagePackReader"/> instance from a stream.
 		/// </summary>
 		/// <remarks>
 		/// <para>Remember to close the provided <see cref="Stream"/> when it is no
@@ -25,7 +25,7 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="stream"/> is <c>null</c>.
 		/// </exception>
-		/// <seealso cref="Parse()"/>
+		/// <seealso cref="Read()"/>
 		public static MessagePackReader Create(Stream stream) {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
@@ -51,7 +51,7 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="reader"/> is <c>null</c>.
 		/// </exception>
-		/// <seealso cref="Parse()"/>
+		/// <seealso cref="Read()"/>
 		public static MessagePackReader Create(BinaryReader reader) {
 			if (reader == null)
 				throw new ArgumentNullException("reader");
@@ -139,7 +139,7 @@ namespace Rotorz.Json.MessagePack {
 		#endregion
 
 		/// <summary>
-		/// Parse input JSON encoded content.
+		/// Reads MessagePack encoded data from the underlying stream.
 		/// </summary>
 		/// <returns>
 		/// A <see cref="JsonNode"/> instance of the applicable type; otherwise, a value
@@ -151,7 +151,7 @@ namespace Rotorz.Json.MessagePack {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		public JsonNode Parse() {
+		public JsonNode Read() {
 			var nodes = new List<JsonNode>();
 			try {
 				while (true)

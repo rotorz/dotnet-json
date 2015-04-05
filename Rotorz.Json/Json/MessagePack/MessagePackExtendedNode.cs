@@ -5,24 +5,30 @@ using System;
 namespace Rotorz.Json.MessagePack {
 
 	/// <summary>
-	/// Node holding a boolean value of <c>true</c> or <c>false</c>.
+	/// Node holding an extended binary value in the form of a byte array with an
+	/// accompanying <see xref="ExtendedType"/> value.
 	/// </summary>
 	public sealed class MessagePackExtendedNode : MessagePackBinaryNode {
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/> class with an
-		/// empty byte array.
+		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/>
+		/// class with an empty byte array.
 		/// </summary>
 		public MessagePackExtendedNode() {
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/> class with
-		/// the specified type and data.
+		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/>
+		/// class with the specified type and binary data.
 		/// </summary>
-		/// <param name="type">The type of binary data node.</param>
-		/// <param name="value">Initial value of node.</param>
-		public MessagePackExtendedNode(sbyte type, byte[] data) : base(data) {
+		/// <param name="type">The type of extended value.</param>
+		/// <param name="data">Initial value of node.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <param name="data"/> is <c>null</c>.
+		/// </exception>
+		public MessagePackExtendedNode(sbyte type, byte[] data)
+			: base(data)
+		{
 			ExtendedType = type;
 		}
 

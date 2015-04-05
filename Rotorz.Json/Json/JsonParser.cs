@@ -28,7 +28,7 @@ namespace Rotorz.Json {
 	internal sealed class JsonParser {
 
 		/// <summary>
-		/// Create a new <see cref="JsonParser"/> instance from a stream.
+		/// Creates a new <see cref="JsonParser"/> instance from a stream.
 		/// </summary>
 		/// <remarks>
 		/// <para>Remember to close the provided <see cref="Stream"/> when it is no
@@ -50,7 +50,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Create a new <see cref="JsonParser"/> instance from a text reader. This
+		/// Creates a new <see cref="JsonParser"/> instance from a text reader. This
 		/// allows JSON encoded text to be parsed from a variety of sources including
 		/// strings, files, etc.
 		/// </summary>
@@ -74,7 +74,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new <see cref="JsonParser"/> instance.
+		/// Initializes a new instance of the <see cref="JsonParser"/> class.
 		/// </summary>
 		/// <param name="reader">Text reader.</param>
 		private JsonParser(TextReader reader) {

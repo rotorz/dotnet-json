@@ -5,26 +5,31 @@ using System;
 namespace Rotorz.Json.MessagePack {
 
 	/// <summary>
-	/// Node holding a boolean value of <c>true</c> or <c>false</c>.
+	/// Node holding binary data in the form of a byte array.
 	/// </summary>
 	public class MessagePackBinaryNode : JsonNode {
 
 		private static readonly byte[] EmptyByteArray = { };
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackBinaryNode"/> class with an
-		/// empty byte array.
+		/// Initializes a new instance of the <see cref="MessagePackBinaryNode"/>
+		/// class with an empty byte array.
 		/// </summary>
 		public MessagePackBinaryNode() {
 			Value = EmptyByteArray;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackBinaryNode"/> class with
-		/// the specified value of <c>true</c> or <c>false</c>.
+		/// Initializes a new instance of the <see cref="MessagePackBinaryNode"/>
+		/// class with the specified binary data.
 		/// </summary>
-		/// <param name="value">Initial value of node.</param>
+		/// <param name="data">Initial value of node.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <param name="data"/> is <c>null</c>.
+		/// </exception>
 		public MessagePackBinaryNode(byte[] data) {
+			if (data == null)
+				throw new ArgumentNullException("data");
 			Value = data;
 		}
 
