@@ -45,6 +45,8 @@
     <Compile Include="Json\JsonStringNode.cs" />
     <Compile Include="Json\JsonWriter.cs" />
     <Compile Include="Json\JsonWriterSettings.cs" />
+    <Compile Include="Json\MessagePack\MessagePackExtendedNode.cs" />
+    <Compile Include="Json\MessagePack\MessagePackBinaryNode.cs" />
     <Compile Include="Json\MessagePack\MessagePackReader.cs" />
     <Compile Include="Json\Serialization\MetaType.cs" />
     <Compile Include="Json\Serialization\ReflectionUtility.cs" />

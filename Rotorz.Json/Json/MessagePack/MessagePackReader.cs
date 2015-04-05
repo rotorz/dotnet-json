@@ -159,49 +159,53 @@ namespace Rotorz.Json.MessagePack {
 			}
 			catch (EndOfStreamException) {
 			}
-			return nodes.Count > 1
-				? new JsonArrayNode(nodes)
-				: nodes[0];
+
+			if (nodes.Count > 1)
+				return new JsonArrayNode(nodes);
+			else if (nodes.Count == 1)
+				return nodes[0];
+			else
+				return null;
 		}
 
 		private enum FormatCode {
-			PositiveFixInt	= 0x00,///
-			FixMap			= 0x80,///
-			FixArray		= 0x90,///
-			FixStr			= 0xA0,///
-			Nil				= 0xC0,///
-			Unused			= 0xC1,///
-			False			= 0xC2,///
-			True			= 0xC3,///
+			PositiveFixInt	= 0x00,
+			FixMap			= 0x80,
+			FixArray		= 0x90,
+			FixStr			= 0xA0,
+			Nil				= 0xC0,
+			Unused			= 0xC1,
+			False			= 0xC2,
+			True			= 0xC3,
 			Bin8			= 0xC4,
 			Bin16			= 0xC5,
 			Bin32			= 0xC6,
 			Ext8			= 0xC7,
 			Ext16			= 0xC8,
 			Ext32			= 0xC9,
-			Float32			= 0xCA,///
-			Float64			= 0xCB,///
-			UInt8			= 0xCC,///
-			UInt16			= 0xCD,///
-			UInt32			= 0xCE,///
+			Float32			= 0xCA,
+			Float64			= 0xCB,
+			UInt8			= 0xCC,
+			UInt16			= 0xCD,
+			UInt32			= 0xCE,
 			UInt64			= 0xCF,///!
-			Int8			= 0xD0,///
-			Int16			= 0xD1,///
-			Int32			= 0xD2,///
-			Int64			= 0xD3,///
+			Int8			= 0xD0,
+			Int16			= 0xD1,
+			Int32			= 0xD2,
+			Int64			= 0xD3,
 			FixExt1			= 0xD4,
 			FixExt2			= 0xD5,
 			FixExt4			= 0xD6,
 			FixExt8			= 0xD7,
 			FixExt16		= 0xD8,
-			Str8			= 0xD9,///
-			Str16			= 0xDA,///
-			Str32			= 0xDB,///
-			Array16			= 0xDC,///
-			Array32			= 0xDD,///
-			Map16			= 0xDE,///
-			Map32			= 0xDF,///
-			NegativeFixInt	= 0xE0,///
+			Str8			= 0xD9,
+			Str16			= 0xDA,
+			Str32			= 0xDB,
+			Array16			= 0xDC,
+			Array32			= 0xDD,
+			Map16			= 0xDE,
+			Map32			= 0xDF,
+			NegativeFixInt	= 0xE0,
 		}
 
 		/// <summary>
@@ -243,6 +247,8 @@ namespace Rotorz.Json.MessagePack {
 				formatCode = (FormatCode)b;
 			}
 
+			int length;
+
 			switch (formatCode) {
 				case FormatCode.PositiveFixInt:
 					return new JsonIntegerNode(b);
@@ -261,23 +267,20 @@ namespace Rotorz.Json.MessagePack {
 					return new JsonBooleanNode(true);
 					
 				case FormatCode.Bin8:
-					_mpackReader.BaseStream.Seek(ReadByte(), SeekOrigin.Current);
-					return null;
+					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadByte()));
 				case FormatCode.Bin16:
-					_mpackReader.BaseStream.Seek(ReadInt16(), SeekOrigin.Current);
-					return null;
+					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadInt16()));
 				case FormatCode.Bin32:
-					_mpackReader.BaseStream.Seek(ReadInt32(), SeekOrigin.Current);
-					return null;
+					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadInt32()));
 				case FormatCode.Ext8:
-					_mpackReader.BaseStream.Seek(ReadByte() + 1, SeekOrigin.Current);
-					return null;
+					length = ReadByte();
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
 				case FormatCode.Ext16:
-					_mpackReader.BaseStream.Seek(ReadInt16() + 1, SeekOrigin.Current);
-					return null;
+					length = ReadInt16();
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
 				case FormatCode.Ext32:
-					_mpackReader.BaseStream.Seek(ReadInt32() + 1, SeekOrigin.Current);
-					return null;
+					length = ReadInt32();
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
 
 				case FormatCode.Float32:
 					return new JsonDoubleNode(ReadFloat32());
@@ -305,20 +308,15 @@ namespace Rotorz.Json.MessagePack {
 					return new JsonIntegerNode(ReadInt64());
 
 				case FormatCode.FixExt1:
-					_mpackReader.BaseStream.Seek(1 + 1, SeekOrigin.Current);
-					return null;
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(1));
 				case FormatCode.FixExt2:
-					_mpackReader.BaseStream.Seek(1 + 2, SeekOrigin.Current);
-					return null;
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(2));
 				case FormatCode.FixExt4:
-					_mpackReader.BaseStream.Seek(1 + 4, SeekOrigin.Current);
-					return null;
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(4));
 				case FormatCode.FixExt8:
-					_mpackReader.BaseStream.Seek(1 + 8, SeekOrigin.Current);
-					return null;
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(8));
 				case FormatCode.FixExt16:
-					_mpackReader.BaseStream.Seek(1 + 16, SeekOrigin.Current);
-					return null;
+					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(16));
 					
 				case FormatCode.Str8:
 					return ReadString(ReadByte());
