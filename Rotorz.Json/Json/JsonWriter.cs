@@ -350,7 +350,7 @@ namespace Rotorz.Json {
 		/// "null" is written to output.</para>
 		/// </remarks>
 		/// <param name="content">String to be written verbatim.</param>
-		public void WriteValueRaw(string content) {
+		private void WriteValueRaw(string content) {
 			DoBeginValue();
 
 			_builder.Append(content ?? "null");

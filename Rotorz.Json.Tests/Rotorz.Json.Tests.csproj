@@ -100,9 +100,6 @@
     <None Include="Json\TestObjects\Files\JsonWriter\WriteObject_NestedObjects.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Json\TestObjects\Files\JsonWriter\WriteObject_MultipleProperties_JavaScriptLike.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Json\TestObjects\Files\JsonWriter\WriteObject_SingleProperty_Null.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

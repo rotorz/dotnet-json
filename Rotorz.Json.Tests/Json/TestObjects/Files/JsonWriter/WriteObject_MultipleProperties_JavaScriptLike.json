@@ -1,4 +1,0 @@
-﻿{
-	"name": "Jessica",
-	"onload": function() { alert(this.name); }
-}

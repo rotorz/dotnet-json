@@ -42,26 +42,6 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonWriter/WriteObject_MultipleProperties_JavaScriptLike.json")]
-		public void WriteObject_MultipleProperties_JavaScriptLike() {
-			// Arrange
-			var writer = JsonWriter.Create();
-
-			// Act
-			writer.WriteStartObject();
-			writer.WritePropertyKey("name");
-			writer.WriteValue("Jessica");
-			writer.WritePropertyKey("onload");
-			writer.WriteValueRaw("function() { alert(this.name); }");
-			writer.WriteEndObject();
-
-			// Assert
-			string result = writer.ToString();
-			string expectedResult = File.ReadAllText("WriteObject_MultipleProperties_JavaScriptLike.json");
-			Assert.AreEqual(expectedResult, result);
-		}
-
-		[TestMethod]
 		[DeploymentItem("Json/TestObjects/Files/JsonWriter/WriteObject_NestedObjects.json")]
 		public void WriteObject_NestedObjects() {
 			// Arrange
@@ -111,18 +91,6 @@ namespace Rotorz.Json.Tests {
 
 			// Assert
 			Assert.AreEqual("null", writer.ToString());
-		}
-
-		[TestMethod]
-		public void WriteValueRaw_JavaScriptStyleFunction() {
-			// Arrange
-			var writer = JsonWriter.Create();
-
-			// Act
-			writer.WriteValueRaw("function() { return 1 + 2; }");
-
-			// Assert
-			Assert.AreEqual("function() { return 1 + 2; }", writer.ToString());
 		}
 
 		#endregion
