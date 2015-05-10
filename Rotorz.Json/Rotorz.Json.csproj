@@ -40,7 +40,7 @@
     <Compile Include="Json\JsonPropertyAttribute.cs" />
     <Compile Include="Json\JsonNode.cs" />
     <Compile Include="Json\JsonObjectNode.cs" />
-    <Compile Include="Json\JsonParser.cs" />
+    <Compile Include="Json\JsonReader.cs" />
     <Compile Include="Json\JsonParserException.cs" />
     <Compile Include="Json\JsonStringNode.cs" />
     <Compile Include="Json\JsonWriter.cs" />

@@ -15,10 +15,10 @@ namespace Rotorz.Json.Tests {
 		public void Parse_Stream_EmptyFile() {
 			// Arrange
 			using (var stream = new FileStream("Empty.json", FileMode.Open, FileAccess.Read)) {
-				var parser = JsonParser.Create(stream);
+				var parser = JsonReader.Create(stream);
 
 				// Act
-				var node = parser.Parse();
+				var node = parser.Read();
 
 				// Assert
 				Assert.IsNull(node);
@@ -31,10 +31,10 @@ namespace Rotorz.Json.Tests {
 		public void Parse_Stream_PropertyWithMissingValue() {
 			// Arrange
 			using (var stream = new FileStream("PropertyWithMissingValue.json", FileMode.Open, FileAccess.Read)) {
-				var parser = JsonParser.Create(stream);
+				var parser = JsonReader.Create(stream);
 				
 				// Act
-				parser.Parse();
+				parser.Read();
 			}
 		}
 

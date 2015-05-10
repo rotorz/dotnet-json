@@ -76,7 +76,7 @@ namespace Rotorz.Json {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
 
-			return JsonParser.Create(stream).Parse();
+			return JsonReader.Create(stream).Read();
 		}
 
 		/// <summary>
@@ -110,7 +110,7 @@ namespace Rotorz.Json {
 			if (reader == null)
 				throw new ArgumentNullException("reader");
 
-			return JsonParser.Create(reader).Parse();
+			return JsonReader.Create(reader).Read();
 		}
 
 		/// <summary>

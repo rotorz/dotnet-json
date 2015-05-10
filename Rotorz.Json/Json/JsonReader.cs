@@ -8,8 +8,8 @@ using System.Text;
 namespace Rotorz.Json {
 
 	/// <summary>
-	/// Parse input stream of JSON encoded text and generate sequence of zero or more
-	/// <see cref="JsonNode"/> instances.
+	/// Reads zero or more <see cref="JsonNode"/> instances from some stream of JSON
+	/// encoded text.
 	/// </summary>
 	/// <remarks>
 	/// <para>This class was implemented from the specification presented on the
@@ -25,10 +25,10 @@ namespace Rotorz.Json {
 	/// <c>System.Convert.ChangeType</c> can be used to deal with this implementation
 	/// specific.</para>
 	/// </remarks>
-	internal sealed class JsonParser {
+	internal sealed class JsonReader {
 
 		/// <summary>
-		/// Creates a new <see cref="JsonParser"/> instance from a stream.
+		/// Creates a new <see cref="JsonReader"/> instance from a stream.
 		/// </summary>
 		/// <remarks>
 		/// <para>Remember to close the provided <see cref="Stream"/> when it is no
@@ -36,21 +36,21 @@ namespace Rotorz.Json {
 		/// </remarks>
 		/// <param name="stream">Stream.</param>
 		/// <returns>
-		/// The new <see cref="JsonParser"/> instance.
+		/// The new <see cref="JsonReader"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="stream"/> is <c>null</c>.
 		/// </exception>
-		/// <seealso cref="Parse()"/>
-		public static JsonParser Create(Stream stream) {
+		/// <seealso cref="Read()"/>
+		public static JsonReader Create(Stream stream) {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
 
-			return new JsonParser(new StreamReader(stream));
+			return new JsonReader(new StreamReader(stream));
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="JsonParser"/> instance from a text reader. This
+		/// Creates a new <see cref="JsonReader"/> instance from a text reader. This
 		/// allows JSON encoded text to be parsed from a variety of sources including
 		/// strings, files, etc.
 		/// </summary>
@@ -60,24 +60,24 @@ namespace Rotorz.Json {
 		/// </remarks>
 		/// <param name="reader">Text reader.</param>
 		/// <returns>
-		/// The new <see cref="JsonParser"/> instance.
+		/// The new <see cref="JsonReader"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="reader"/> is <c>null</c>.
 		/// </exception>
-		/// <seealso cref="Parse()"/>
-		public static JsonParser Create(TextReader reader) {
+		/// <seealso cref="Read()"/>
+		public static JsonReader Create(TextReader reader) {
 			if (reader == null)
 				throw new ArgumentNullException("reader");
 
-			return new JsonParser(reader);
+			return new JsonReader(reader);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="JsonParser"/> class.
+		/// Initializes a new instance of the <see cref="JsonReader"/> class.
 		/// </summary>
 		/// <param name="reader">Text reader.</param>
-		private JsonParser(TextReader reader) {
+		private JsonReader(TextReader reader) {
 			_jsonReader = reader;
 
 			ReadBuffer();
@@ -281,7 +281,7 @@ namespace Rotorz.Json {
 		#endregion
 
 		/// <summary>
-		/// Skip whitespace by accepting all input characters which contain spaces, new
+		/// Skips whitespace by accepting all input characters which contain spaces, new
 		/// lines and indentation type characters.
 		/// </summary>
 		private void SkipWhitespace() {
@@ -290,7 +290,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Match string in input by peeking at characters ahead of the current buffer
+		/// Matches string in input by peeking at characters ahead of the current buffer
 		/// position. This is useful for detecting special keywords such as "true",
 		/// "false" and "null".
 		/// </summary>
@@ -313,7 +313,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Parse input JSON encoded content.
+		/// Reads <see cref="JsonNode"/> from JSON encoded input.
 		/// </summary>
 		/// <returns>
 		/// A <see cref="JsonNode"/> instance of the applicable type; otherwise, a value
@@ -325,15 +325,15 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		public JsonNode Parse() {
+		public JsonNode Read() {
 			SkipWhitespace();
 			if (!HasReachedEnd)
-				return ParseValue();
+				return ReadValue();
 			return null;
 		}
 
 		/// <summary>
-		/// Parse value node (null, integer, double, boolean, string, array or object).
+		/// Reads value node (null, integer, double, boolean, string, array or object).
 		/// </summary>
 		/// <returns>
 		/// New <see cref="JsonNode"/> holding value; returns a value of <c>null</c> when
@@ -344,7 +344,7 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		private JsonNode ParseValue() {
+		private JsonNode ReadValue() {
 			if (MatchString("true")) {
 				Accept(4);
 				return new JsonBooleanNode(true);
@@ -361,15 +361,15 @@ namespace Rotorz.Json {
 				char c = Peek();
 
 				if (c == '-' || (c >= '0' && c <= '9'))
-					return ParseNumeric();
+					return ReadNumeric();
 
 				switch (c) {
 					case '"':
-						return new JsonStringNode(ParseStringLiteral("String"));
+						return new JsonStringNode(ReadStringLiteral("String"));
 					case '[':
-						return ParseArray();
+						return ReadArray();
 					case '{':
-						return ParseObject();
+						return ReadObject();
 					default:
 						if (HasReachedEnd)
 							throw new JsonParserException("Unexpected end of input; expected value.", _lineNumber, _linePosition);
@@ -383,7 +383,7 @@ namespace Rotorz.Json {
 		private StringBuilder _unicodeSequence = new StringBuilder();
 
 		/// <summary>
-		/// Parse string literal for value or property key.
+		/// Reads string literal for a value or a property key.
 		/// </summary>
 		/// <remarks>
 		/// <para>Character escape sequences are automatically evaluated whilst parsing
@@ -400,7 +400,7 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		private string ParseStringLiteral(string context) {
+		private string ReadStringLiteral(string context) {
 			_stringLiteral.Length = 0;
 
 			Accept();
@@ -479,7 +479,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Check input character to determine whether it is permitted within a string
+		/// Checks input character to determine whether it is permitted within a string
 		/// literal. For instance, control characters are not permitted in JSON encoded
 		/// string literals, instead an escape sequence must be used '\n'.
 		/// </summary>
@@ -504,7 +504,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Parse JSON array containing zero-or-more values.
+		/// Reads a JSON array containing zero-or-more values.
 		/// </summary>
 		/// <returns>
 		/// The new <see cref="JsonNode"/> instance.
@@ -514,7 +514,7 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		private JsonNode ParseArray() {
+		private JsonNode ReadArray() {
 			Accept();
 
 			SkipWhitespace();
@@ -533,7 +533,7 @@ namespace Rotorz.Json {
 						break;
 				}
 
-				node.Add(ParseValue());
+				node.Add(ReadValue());
 				SkipWhitespace();
 			}
 
@@ -541,7 +541,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Parse JSON object which comprises of zero-or-more named properties.
+		/// Reads a JSON object which comprises of zero-or-more named properties.
 		/// </summary>
 		/// <returns>
 		/// The new <see cref="JsonNode"/> instance.
@@ -551,7 +551,7 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		private JsonNode ParseObject() {
+		private JsonNode ReadObject() {
 			Accept();
 
 			SkipWhitespace();
@@ -569,7 +569,7 @@ namespace Rotorz.Json {
 						break;
 				}
 
-				string key = ParseStringLiteral("Key");
+				string key = ReadStringLiteral("Key");
 				SkipWhitespace();
 				if (HasReachedEnd)
 					break;
@@ -581,7 +581,7 @@ namespace Rotorz.Json {
 				if (HasReachedEnd)
 					break;
 
-				node[key] = ParseValue();
+				node[key] = ReadValue();
 				SkipWhitespace();
 			}
 
@@ -589,7 +589,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Parse numeric value and determines whether to create a new <see cref="JsonIntegerNode"/>
+		/// Reads a numeric value and determines whether to create a new <see cref="JsonIntegerNode"/>
 		/// or <see cref="JsonDoubleNode"/> based upon formatting of input value.
 		/// </summary>
 		/// <remarks>
@@ -605,7 +605,7 @@ namespace Rotorz.Json {
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
 		/// </exception>
-		private JsonNode ParseNumeric() {
+		private JsonNode ReadNumeric() {
 			_stringLiteral.Length = 0;
 
 			bool integral = true;
