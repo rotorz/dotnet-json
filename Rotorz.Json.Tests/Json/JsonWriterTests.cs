@@ -79,10 +79,10 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteValueRaw(string)
+		#region WriteNull()
 
 		[TestMethod]
-		public void WriteValueRaw_Null() {
+		public void WriteNull() {
 			// Arrange
 			var writer = JsonWriter.Create();
 
