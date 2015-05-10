@@ -359,6 +359,13 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
+		/// Writes a value of <c>null</c>.
+		/// </summary>
+		public void WriteNull() {
+			WriteValueRaw("null");
+		}
+
+		/// <summary>
 		/// Write start of array marker '['.
 		/// </summary>
 		/// <example>

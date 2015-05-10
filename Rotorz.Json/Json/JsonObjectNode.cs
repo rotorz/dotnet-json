@@ -333,7 +333,7 @@ namespace Rotorz.Json {
 				if (property.Value != null)
 					property.Value.WriteTo(writer);
 				else
-					writer.WriteValueRaw("null");
+					writer.WriteNull();
 			}
 
 			writer.WriteEndObject();

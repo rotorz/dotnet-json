@@ -314,7 +314,7 @@ namespace Rotorz.Json {
 				if (node != null)
 					node.WriteTo(writer);
 				else
-					writer.WriteValueRaw("null");
+					writer.WriteNull();
 
 			writer.WriteEndArray();
 		}

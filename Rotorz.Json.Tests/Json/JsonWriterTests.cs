@@ -32,7 +32,7 @@ namespace Rotorz.Json.Tests {
 			// Act
 			writer.WriteStartObject();
 			writer.WritePropertyKey("ABC");
-			writer.WriteValueRaw(null);
+			writer.WriteNull();
 			writer.WriteEndObject();
 
 			// Assert
@@ -107,7 +107,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValueRaw(null);
+			writer.WriteNull();
 
 			// Assert
 			Assert.AreEqual("null", writer.ToString());
@@ -150,7 +150,7 @@ namespace Rotorz.Json.Tests {
 
 			// Act
 			writer.WriteStartArray();
-			writer.WriteValueRaw("null");
+			writer.WriteNull();
 			writer.WriteEndArray();
 
 			// Assert
