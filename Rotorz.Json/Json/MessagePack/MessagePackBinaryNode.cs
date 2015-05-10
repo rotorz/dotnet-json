@@ -25,7 +25,7 @@ namespace Rotorz.Json.MessagePack {
 		/// </summary>
 		/// <param name="data">Initial value of node.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <param name="data"/> is <c>null</c>.
+		/// If <paramref name="data"/> is <c>null</c>.
 		/// </exception>
 		public MessagePackBinaryNode(byte[] data) {
 			if (data == null)

@@ -24,7 +24,7 @@ namespace Rotorz.Json.MessagePack {
 		/// <param name="type">The type of extended value.</param>
 		/// <param name="data">Initial value of node.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <param name="data"/> is <c>null</c>.
+		/// If <paramref name="data"/> is <c>null</c>.
 		/// </exception>
 		public MessagePackExtendedNode(sbyte type, byte[] data)
 			: base(data)
