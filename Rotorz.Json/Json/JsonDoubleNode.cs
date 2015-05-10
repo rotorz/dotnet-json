@@ -37,7 +37,7 @@ namespace Rotorz.Json {
 
 		/// <inheritdoc/>
 		public override string ToString() {
-			return JsonWriter.DoubleToString(Value);
+			return JsonFormattingUtility.DoubleToString(Value);
 		}
 
 		/// <inheritdoc/>
