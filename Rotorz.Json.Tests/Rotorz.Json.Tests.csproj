@@ -58,6 +58,7 @@
     <Compile Include="Json\JsonIntegerNodeTests.cs" />
     <Compile Include="Json\JsonStringNodeTests.cs" />
     <Compile Include="Json\JsonWriterTests.cs" />
+    <Compile Include="Json\MessagePack\MessagePackWriterTests.cs" />
     <Compile Include="Json\MessagePack\MessagePackReaderTests.cs" />
     <Compile Include="Json\Serialization\ReflectionUtilityTests.cs" />
     <Compile Include="Json\JsonNodeTests.cs" />
