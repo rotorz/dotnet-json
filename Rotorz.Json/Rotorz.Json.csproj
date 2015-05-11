@@ -50,6 +50,7 @@
     <Compile Include="Json\MessagePack\MessagePackExtendedNode.cs" />
     <Compile Include="Json\MessagePack\MessagePackBinaryNode.cs" />
     <Compile Include="Json\MessagePack\MessagePackFormatCode.cs" />
+    <Compile Include="Json\MessagePack\MessagePackWriter.cs" />
     <Compile Include="Json\MessagePack\MessagePackReader.cs" />
     <Compile Include="Json\Serialization\MetaType.cs" />
     <Compile Include="Json\Serialization\ReflectionUtility.cs" />
