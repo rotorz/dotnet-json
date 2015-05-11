@@ -317,6 +317,7 @@ namespace Rotorz.Json.Tests {
 
 		#region WriteBoolean(boolean)
 
+		[TestMethod]
 		private void WriteValue_Bool_True() {
 			// Arrange
 			var writer = JsonWriter.Create();
@@ -328,6 +329,7 @@ namespace Rotorz.Json.Tests {
 			Assert.AreEqual("true", writer.ToString());
 		}
 
+		[TestMethod]
 		private void WriteValue_Bool_False() {
 			// Arrange
 			var writer = JsonWriter.Create();
