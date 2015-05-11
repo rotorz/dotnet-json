@@ -165,9 +165,9 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteNumber(long)
+		#region WriteInteger(long)
 
-		private void WriteValue_Integer_Parameterized(long value, string expectedResult) {
+		private void WriteInteger_Parameterized(long value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
@@ -179,45 +179,45 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_Zero() {
-			WriteValue_Integer_Parameterized(0, "0");
+		public void WriteInteger_Zero() {
+			WriteInteger_Parameterized(0, "0");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_One() {
-			WriteValue_Integer_Parameterized(1, "1");
+		public void WriteInteger_One() {
+			WriteInteger_Parameterized(1, "1");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_NegativeOne() {
-			WriteValue_Integer_Parameterized(-1, "-1");
+		public void WriteInteger_NegativeOne() {
+			WriteInteger_Parameterized(-1, "-1");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_Min32() {
-			WriteValue_Integer_Parameterized(int.MinValue, "-2147483648");
+		public void WriteInteger_Min32() {
+			WriteInteger_Parameterized(int.MinValue, "-2147483648");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_Max32() {
-			WriteValue_Integer_Parameterized(int.MaxValue, "2147483647");
+		public void WriteInteger_Max32() {
+			WriteInteger_Parameterized(int.MaxValue, "2147483647");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_Min64() {
-			WriteValue_Integer_Parameterized(long.MinValue, "-9223372036854775808");
+		public void WriteInteger_Min64() {
+			WriteInteger_Parameterized(long.MinValue, "-9223372036854775808");
 		}
 
 		[TestMethod]
-		public void WriteValue_Integer_Max64() {
-			WriteValue_Integer_Parameterized(long.MaxValue, "9223372036854775807");
+		public void WriteInteger_Max64() {
+			WriteInteger_Parameterized(long.MaxValue, "9223372036854775807");
 		}
 
 		#endregion
 
-		#region WriteNumber(double)
+		#region WriteDouble(double)
 
-		private void WriteValue_Double_Parameterized(double value, string expectedResult) {
+		private void WriteDouble_Parameterized(double value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
@@ -229,60 +229,60 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_Zero() {
-			WriteValue_Double_Parameterized(0.0, "0.0");
+		public void WriteDouble_Zero() {
+			WriteDouble_Parameterized(0.0, "0.0");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_One() {
-			WriteValue_Double_Parameterized(1.0, "1.0");
+		public void WriteDouble_One() {
+			WriteDouble_Parameterized(1.0, "1.0");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_NegativeOne() {
-			WriteValue_Double_Parameterized(-1.0, "-1.0");
+		public void WriteDouble_NegativeOne() {
+			WriteDouble_Parameterized(-1.0, "-1.0");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_LargeValue() {
-			WriteValue_Double_Parameterized(1000000000000000.0, "1e+15");
+		public void WriteDouble_LargeValue() {
+			WriteDouble_Parameterized(1000000000000000.0, "1e+15");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_AlmostLargeValue() {
-			WriteValue_Double_Parameterized(100000000000000.0, "100000000000000.0");
+		public void WriteDouble_AlmostLargeValue() {
+			WriteDouble_Parameterized(100000000000000.0, "100000000000000.0");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_SmallValue() {
-			WriteValue_Double_Parameterized(0.00001, "1e-05");
+		public void WriteDouble_SmallValue() {
+			WriteDouble_Parameterized(0.00001, "1e-05");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_AlmostSmallValue() {
-			WriteValue_Double_Parameterized(0.0001, "0.0001");
+		public void WriteDouble_AlmostSmallValue() {
+			WriteDouble_Parameterized(0.0001, "0.0001");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_NaN() {
-			WriteValue_Double_Parameterized(double.NaN, "\"NaN\"");
+		public void WriteDouble_NaN() {
+			WriteDouble_Parameterized(double.NaN, "\"NaN\"");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_NegativeInfinity() {
-			WriteValue_Double_Parameterized(double.NegativeInfinity, "\"-Infinity\"");
+		public void WriteDouble_NegativeInfinity() {
+			WriteDouble_Parameterized(double.NegativeInfinity, "\"-Infinity\"");
 		}
 
 		[TestMethod]
-		public void WriteValue_Double_PositiveInfinity() {
-			WriteValue_Double_Parameterized(double.PositiveInfinity, "\"Infinity\"");
+		public void WriteDouble_PositiveInfinity() {
+			WriteDouble_Parameterized(double.PositiveInfinity, "\"Infinity\"");
 		}
 
 		#endregion
 
 		#region WriteString(string)
 
-		private void WriteValue_String_Parameterized(string value, string expectedResult) {
+		private void WriteString_Parameterized(string value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
@@ -294,23 +294,23 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void WriteValue_String_Null() {
-			WriteValue_String_Parameterized(null, "\"\"");
+		public void WriteString_Null() {
+			WriteString_Parameterized(null, "\"\"");
 		}
 
 		[TestMethod]
-		public void WriteValue_String_Empty() {
-			WriteValue_String_Parameterized("", "\"\"");
+		public void WriteString_Empty() {
+			WriteString_Parameterized("", "\"\"");
 		}
 
 		[TestMethod]
-		public void WriteValue_String_SimpleCharacters() {
-			WriteValue_String_Parameterized("Hello World!", "\"Hello World!\"");
+		public void WriteString_SimpleCharacters() {
+			WriteString_Parameterized("Hello World!", "\"Hello World!\"");
 		}
 
 		[TestMethod]
-		public void WriteValue_String_EscapeSequences() {
-			WriteValue_String_Parameterized("Hello\r\n\tWorld!", "\"Hello\\r\\n\\tWorld!\"");
+		public void WriteString_EscapeSequences() {
+			WriteString_Parameterized("Hello\r\n\tWorld!", "\"Hello\\r\\n\\tWorld!\"");
 		}
 
 		#endregion
@@ -318,7 +318,7 @@ namespace Rotorz.Json.Tests {
 		#region WriteBoolean(boolean)
 
 		[TestMethod]
-		private void WriteValue_Bool_True() {
+		private void WriteBoolean_True() {
 			// Arrange
 			var writer = JsonWriter.Create();
 
@@ -330,7 +330,7 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		private void WriteValue_Bool_False() {
+		private void WriteBoolean_False() {
 			// Arrange
 			var writer = JsonWriter.Create();
 
