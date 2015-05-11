@@ -168,46 +168,6 @@ namespace Rotorz.Json.MessagePack {
 				return null;
 		}
 
-		private enum FormatCode {
-			PositiveFixInt	= 0x00,
-			FixMap			= 0x80,
-			FixArray		= 0x90,
-			FixStr			= 0xA0,
-			Nil				= 0xC0,
-			Unused			= 0xC1,
-			False			= 0xC2,
-			True			= 0xC3,
-			Bin8			= 0xC4,
-			Bin16			= 0xC5,
-			Bin32			= 0xC6,
-			Ext8			= 0xC7,
-			Ext16			= 0xC8,
-			Ext32			= 0xC9,
-			Float32			= 0xCA,
-			Float64			= 0xCB,
-			UInt8			= 0xCC,
-			UInt16			= 0xCD,
-			UInt32			= 0xCE,
-			UInt64			= 0xCF,///!
-			Int8			= 0xD0,
-			Int16			= 0xD1,
-			Int32			= 0xD2,
-			Int64			= 0xD3,
-			FixExt1			= 0xD4,
-			FixExt2			= 0xD5,
-			FixExt4			= 0xD6,
-			FixExt8			= 0xD7,
-			FixExt16		= 0xD8,
-			Str8			= 0xD9,
-			Str16			= 0xDA,
-			Str32			= 0xDB,
-			Array16			= 0xDC,
-			Array32			= 0xDD,
-			Map16			= 0xDE,
-			Map32			= 0xDF,
-			NegativeFixInt	= 0xE0,
-		}
-
 		/// <summary>
 		/// Parse value node (null, integer, double, boolean, string, array or object).
 		/// </summary>
@@ -223,117 +183,117 @@ namespace Rotorz.Json.MessagePack {
 		private JsonNode ReadValue() {
 			byte b = ReadByte();
 
-			FormatCode formatCode;
+			MessagePackFormatCode formatCode;
 			if ((b & 0x80) == 0x00) {
-				formatCode = FormatCode.PositiveFixInt;
+				formatCode = MessagePackFormatCode.PositiveFixInt;
 				b &= 0x7F;
 			}
 			else if ((b & 0xF0) == 0x80) {
-				formatCode = FormatCode.FixMap;
+				formatCode = MessagePackFormatCode.FixMap;
 				b &= 0x0F;
 			}
 			else if ((b & 0xF0) == 0x90) {
-				formatCode = FormatCode.FixArray;
+				formatCode = MessagePackFormatCode.FixArray;
 				b &= 0x0F;
 			}
 			else if ((b & 0xE0) == 0xA0) {
-				formatCode = FormatCode.FixStr;
+				formatCode = MessagePackFormatCode.FixStr;
 				b &= 0x1F;
 			}
 			else if ((b & 0xE0) == 0xE0) {
-				formatCode = FormatCode.NegativeFixInt;
+				formatCode = MessagePackFormatCode.NegativeFixInt;
 			}
 			else {
-				formatCode = (FormatCode)b;
+				formatCode = (MessagePackFormatCode)b;
 			}
 
 			int length;
 
 			switch (formatCode) {
-				case FormatCode.PositiveFixInt:
+				case MessagePackFormatCode.PositiveFixInt:
 					return new JsonIntegerNode(b);
-				case FormatCode.FixMap:
+				case MessagePackFormatCode.FixMap:
 					return ReadMap(b);
-				case FormatCode.FixArray:
+				case MessagePackFormatCode.FixArray:
 					return ReadArray(b);
-				case FormatCode.FixStr:
+				case MessagePackFormatCode.FixStr:
 					return ReadString(b);
 
-				case FormatCode.Nil:
+				case MessagePackFormatCode.Nil:
 					return null;
-				case FormatCode.False:
+				case MessagePackFormatCode.False:
 					return new JsonBooleanNode(false);
-				case FormatCode.True:
+				case MessagePackFormatCode.True:
 					return new JsonBooleanNode(true);
 					
-				case FormatCode.Bin8:
+				case MessagePackFormatCode.Bin8:
 					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadByte()));
-				case FormatCode.Bin16:
+				case MessagePackFormatCode.Bin16:
 					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadInt16()));
-				case FormatCode.Bin32:
+				case MessagePackFormatCode.Bin32:
 					return new MessagePackBinaryNode(_mpackReader.ReadBytes(ReadInt32()));
-				case FormatCode.Ext8:
+				case MessagePackFormatCode.Ext8:
 					length = ReadByte();
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
-				case FormatCode.Ext16:
+				case MessagePackFormatCode.Ext16:
 					length = ReadInt16();
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
-				case FormatCode.Ext32:
+				case MessagePackFormatCode.Ext32:
 					length = ReadInt32();
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(length));
 
-				case FormatCode.Float32:
+				case MessagePackFormatCode.Float32:
 					return new JsonDoubleNode(ReadFloat32());
-				case FormatCode.Float64:
+				case MessagePackFormatCode.Float64:
 					return new JsonDoubleNode(ReadFloat64());
 
-				case FormatCode.UInt8:
+				case MessagePackFormatCode.UInt8:
 					return new JsonIntegerNode(ReadByte());
-				case FormatCode.UInt16:
+				case MessagePackFormatCode.UInt16:
 					return new JsonIntegerNode(ReadUInt16());
-				case FormatCode.UInt32:
+				case MessagePackFormatCode.UInt32:
 					return new JsonIntegerNode(ReadUInt32());
-				case FormatCode.UInt64:
+				case MessagePackFormatCode.UInt64:
 					// Can't store UInt64 in JsonIntegerNode; losing precision...
 					//!TODO: Handle this better!
 					return new JsonIntegerNode((long)ReadUInt64());
 					
-				case FormatCode.Int8:
+				case MessagePackFormatCode.Int8:
 					return new JsonIntegerNode((sbyte)ReadByte());
-				case FormatCode.Int16:
+				case MessagePackFormatCode.Int16:
 					return new JsonIntegerNode(ReadInt16());
-				case FormatCode.Int32:
+				case MessagePackFormatCode.Int32:
 					return new JsonIntegerNode(ReadInt32());
-				case FormatCode.Int64:
+				case MessagePackFormatCode.Int64:
 					return new JsonIntegerNode(ReadInt64());
 
-				case FormatCode.FixExt1:
+				case MessagePackFormatCode.FixExt1:
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(1));
-				case FormatCode.FixExt2:
+				case MessagePackFormatCode.FixExt2:
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(2));
-				case FormatCode.FixExt4:
+				case MessagePackFormatCode.FixExt4:
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(4));
-				case FormatCode.FixExt8:
+				case MessagePackFormatCode.FixExt8:
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(8));
-				case FormatCode.FixExt16:
+				case MessagePackFormatCode.FixExt16:
 					return new MessagePackExtendedNode((sbyte)ReadByte(), _mpackReader.ReadBytes(16));
 					
-				case FormatCode.Str8:
+				case MessagePackFormatCode.Str8:
 					return ReadString(ReadByte());
-				case FormatCode.Str16:
+				case MessagePackFormatCode.Str16:
 					return ReadString(ReadInt16());
-				case FormatCode.Str32:
+				case MessagePackFormatCode.Str32:
 					return ReadString(ReadInt32());
-				case FormatCode.Array16:
+				case MessagePackFormatCode.Array16:
 					return ReadArray(ReadInt16());
-				case FormatCode.Array32:
+				case MessagePackFormatCode.Array32:
 					return ReadArray(ReadInt32());
-				case FormatCode.Map16:
+				case MessagePackFormatCode.Map16:
 					return ReadMap(ReadInt16());
-				case FormatCode.Map32:
+				case MessagePackFormatCode.Map32:
 					return ReadMap(ReadInt32());
 
-				case FormatCode.NegativeFixInt:
+				case MessagePackFormatCode.NegativeFixInt:
 					return new JsonIntegerNode((sbyte)b);
 
 				default:
