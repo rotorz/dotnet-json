@@ -285,15 +285,15 @@ namespace Rotorz.Json.MessagePack {
 				case MessagePackFormatCode.Str8:
 					return ReadString(ReadByte());
 				case MessagePackFormatCode.Str16:
-					return ReadString(ReadInt16());
+					return ReadString(ReadUInt16());
 				case MessagePackFormatCode.Str32:
 					return ReadString(ReadInt32());
 				case MessagePackFormatCode.Array16:
-					return ReadArray(ReadInt16());
+					return ReadArray(ReadUInt16());
 				case MessagePackFormatCode.Array32:
 					return ReadArray(ReadInt32());
 				case MessagePackFormatCode.Map16:
-					return ReadMap(ReadInt16());
+					return ReadMap(ReadUInt16());
 				case MessagePackFormatCode.Map32:
 					return ReadMap(ReadInt32());
 
