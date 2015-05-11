@@ -369,6 +369,9 @@ namespace Rotorz.Json {
 		
 		/// <inheritdoc/>
 		public void WriteObject(IDictionary<string, JsonNode> collection) {
+			if (collection == null)
+				throw new ArgumentNullException("collection");
+
 			WriteStartObject();
 
 			foreach (var property in collection) {
@@ -385,6 +388,9 @@ namespace Rotorz.Json {
 
 		/// <inheritdoc/>
 		public void WriteArray(IList<JsonNode> collection) {
+			if (collection == null)
+				throw new ArgumentNullException("collection");
+
 			WriteStartArray();
 
 			foreach (var node in collection)

@@ -14,12 +14,18 @@ namespace Rotorz.Json {
 		/// Writes a key/value collection of <see cref="JsonNode"/> instances.
 		/// </summary>
 		/// <param name="collection">The key/value collection of <see cref="JsonNode"/> instances.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="collection"/> is <c>null</c>.
+		/// </exception>
 		void WriteObject(IDictionary<string, JsonNode> collection);
 
 		/// <summary>
 		/// Writes an ordered array of <see cref="JsonNode"/> instances.
 		/// </summary>
 		/// <param name="collection">The collection of <see cref="JsonNode"/> instances.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="collection"/> is <c>null</c>.
+		/// </exception>
 		void WriteArray(IList<JsonNode> collection);
 
 		/// <summary>
