@@ -48,6 +48,9 @@ namespace Rotorz.Json {
 		/// <summary>
 		/// Writes a string literal; special characters are automatically escaped.
 		/// </summary>
+		/// <remarks>
+		/// <para>Should write an empty string if <paramref name="value"/> is <c>null</c>.</para>
+		/// </remarks>
 		/// <param name="value">Content for string.</param>
 		void WriteString(string value);
 
