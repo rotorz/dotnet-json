@@ -50,22 +50,22 @@ namespace Rotorz.Json.Tests {
 			// Act
 			writer.WriteStartObject();
 			writer.WritePropertyKey("Genre");
-			writer.WriteValue("Horror");
+			writer.WriteString("Horror");
 			writer.WritePropertyKey("Items");
 			writer.WriteStartArray();
 			{
 				writer.WriteStartObject();
 				writer.WritePropertyKey("Name");
-				writer.WriteValue("ABC");
+				writer.WriteString("ABC");
 				writer.WritePropertyKey("Certification");
-				writer.WriteValue(15);
+				writer.WriteInteger(15);
 				writer.WriteEndObject();
 
 				writer.WriteStartObject();
 				writer.WritePropertyKey("Name");
-				writer.WriteValue("DEF");
+				writer.WriteString("DEF");
 				writer.WritePropertyKey("Certification");
-				writer.WriteValue(15);
+				writer.WriteInteger(15);
 				writer.WriteEndObject();
 			}
 			writer.WriteEndArray();
@@ -135,7 +135,7 @@ namespace Rotorz.Json.Tests {
 
 			// Act
 			writer.WriteStartArray();
-			writer.WriteValue("Hello World!");
+			writer.WriteString("Hello World!");
 			writer.WriteEndArray();
 
 			// Assert
@@ -152,9 +152,9 @@ namespace Rotorz.Json.Tests {
 
 			// Act
 			writer.WriteStartArray();
-			writer.WriteValue("A");
-			writer.WriteValue("B");
-			writer.WriteValue("C");
+			writer.WriteString("A");
+			writer.WriteString("B");
+			writer.WriteString("C");
 			writer.WriteEndArray();
 
 			// Assert
@@ -165,14 +165,14 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteValue(long)
+		#region WriteNumber(long)
 
 		private void WriteValue_Integer_Parameterized(long value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValue(value);
+			writer.WriteInteger(value);
 
 			// Assert
 			Assert.AreEqual(expectedResult, writer.ToString());
@@ -215,14 +215,14 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteValue(double)
+		#region WriteNumber(double)
 
 		private void WriteValue_Double_Parameterized(double value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValue(value);
+			writer.WriteDouble(value);
 
 			// Assert
 			Assert.AreEqual(expectedResult, writer.ToString());
@@ -280,14 +280,14 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteValue(string)
+		#region WriteString(string)
 
 		private void WriteValue_String_Parameterized(string value, string expectedResult) {
 			// Arrange
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValue(value);
+			writer.WriteString(value);
 
 			// Assert
 			Assert.AreEqual(expectedResult, writer.ToString());
@@ -315,14 +315,14 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region WriteValue(boolean)
+		#region WriteBoolean(boolean)
 
 		private void WriteValue_Bool_True() {
 			// Arrange
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValue(true);
+			writer.WriteBoolean(true);
 
 			// Assert
 			Assert.AreEqual("true", writer.ToString());
@@ -333,7 +333,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			writer.WriteValue(false);
+			writer.WriteBoolean(false);
 
 			// Assert
 			Assert.AreEqual("false", writer.ToString());

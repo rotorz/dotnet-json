@@ -27,7 +27,7 @@ namespace Rotorz.Json {
 	/// var json = writer.ToString();
 	/// ]]></code>
 	/// </remarks>
-	public sealed class JsonWriter {
+	public sealed class JsonWriter : IJsonWriter {
 
 		#region Factory
 
@@ -79,6 +79,8 @@ namespace Rotorz.Json {
 
 		#endregion
 
+		private StringBuilder _builder;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="JsonWriter"/> class.
 		/// </summary>
@@ -99,7 +101,7 @@ namespace Rotorz.Json {
 			_contextStack.Push(Context.Root);
 		}
 
-		private StringBuilder _builder;
+		#region Low Level Writing
 
 		private enum Context {
 			Root,
@@ -316,13 +318,6 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Writes a value of <c>null</c>.
-		/// </summary>
-		public void WriteNull() {
-			WriteValueRaw("null");
-		}
-
-		/// <summary>
 		/// Write start of array marker '['.
 		/// </summary>
 		/// <example>
@@ -370,27 +365,54 @@ namespace Rotorz.Json {
 			DoEndValue();
 		}
 
-		/// <summary>
-		/// Write integer value.
-		/// </summary>
-		/// <param name="value">Value.</param>
-		public void WriteValue(long value) {
+		#endregion
+		
+		/// <inheritdoc/>
+		public void WriteObject(IDictionary<string, JsonNode> collection) {
+			WriteStartObject();
+
+			foreach (var property in collection) {
+				WritePropertyKey(property.Key);
+
+				if (property.Value != null)
+					property.Value.WriteTo(this);
+				else
+					WriteNull();
+			}
+
+			WriteEndObject();
+		}
+
+		/// <inheritdoc/>
+		public void WriteArray(IList<JsonNode> collection) {
+			WriteStartArray();
+
+			foreach (var node in collection)
+				if (node != null)
+					node.WriteTo(this);
+				else
+					WriteNull();
+
+			WriteEndArray();
+		}
+
+		/// <inheritdoc/>
+		public void WriteNull() {
+			WriteValueRaw("null");
+		}
+
+		/// <inheritdoc/>
+		public void WriteInteger(long value) {
 			WriteValueRaw(value.ToString(CultureInfo.InvariantCulture));
 		}
 
-		/// <summary>
-		/// Write double-precision floating point value.
-		/// </summary>
-		/// <param name="value">Value.</param>
-		public void WriteValue(double value) {
+		/// <inheritdoc/>
+		public void WriteDouble(double value) {
 			WriteValueRaw(JsonFormattingUtility.DoubleToString(value));
 		}
 
-		/// <summary>
-		/// Write string literal; special characters are automatically escaped.
-		/// </summary>
-		/// <param name="value">Content for string.</param>
-		public void WriteValue(string value) {
+		/// <inheritdoc/>
+		public void WriteString(string value) {
 			DoBeginValue();
 
 			_builder.Append('"');
@@ -400,12 +422,20 @@ namespace Rotorz.Json {
 			DoEndValue();
 		}
 
-		/// <summary>
-		/// Write boolean value of <c>true</c> or <c>false</c>.
-		/// </summary>
-		/// <param name="value">Content for string.</param>
-		public void WriteValue(bool value) {
+		/// <inheritdoc/>
+		public void WriteBoolean(bool value) {
 			WriteValueRaw(value ? "true" : "false");
+		}
+
+		/// <inheritdoc/>
+		public void WriteBinary(byte[] value) {
+			if (value == null)
+				throw new ArgumentNullException("value");
+
+			WriteStartArray();
+			for (int i = 0; i < value.Length; ++i)
+				WriteInteger(value[i]);
+			WriteEndArray();
 		}
 
 		/// <summary>

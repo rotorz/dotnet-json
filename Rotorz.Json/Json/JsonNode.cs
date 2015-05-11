@@ -299,7 +299,7 @@ namespace Rotorz.Json {
 		/// The JSON encoded string.
 		/// </returns>
 		/// <seealso cref="ToString(JsonWriterSettings)"/>
-		/// <seealso cref="WriteTo(JsonWriter)"/>
+		/// <seealso cref="WriteTo(IJsonWriter)"/>
 		public override string ToString() {
 			return ToString(JsonWriterSettings.DefaultSettings);
 		}
@@ -318,7 +318,7 @@ namespace Rotorz.Json {
 		/// The JSON encoded string.
 		/// </returns>
 		/// <seealso cref="ToString()"/>
-		/// <seealso cref="WriteTo(JsonWriter)"/>
+		/// <seealso cref="WriteTo(IJsonWriter)"/>
 		public string ToString(JsonWriterSettings settings) {
 			var writer = JsonWriter.Create(settings);
 			WriteTo(writer);
@@ -326,12 +326,12 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Write node data using the supplied <see cref="JsonWriter"/>.
+		/// Write node data using the supplied <see cref="IJsonWriter"/>.
 		/// </summary>
-		/// <param name="writer">Object for writing node data to JSON encoded string.</param>
+		/// <param name="writer">Object for writing node data to.</param>
 		/// <seealso cref="ToString()"/>
 		/// <seealso cref="ToString(JsonWriterSettings)"/>
-		public abstract void WriteTo(JsonWriter writer);
+		public abstract void WriteTo(IJsonWriter writer);
 
 	}
 

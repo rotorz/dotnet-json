@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Rotorz.Json.MessagePack {
 
@@ -8,7 +9,7 @@ namespace Rotorz.Json.MessagePack {
 	/// Node holding an extended binary value in the form of a byte array with an
 	/// accompanying <see xref="ExtendedType"/> value.
 	/// </summary>
-	public sealed class MessagePackExtendedNode : MessagePackBinaryNode {
+	public sealed class MessagePackExtendedNode : JsonNode {
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/>
@@ -26,10 +27,12 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="data"/> is <c>null</c>.
 		/// </exception>
-		public MessagePackExtendedNode(sbyte type, byte[] data)
-			: base(data)
-		{
+		public MessagePackExtendedNode(sbyte type, byte[] data) {
+			if (data == null)
+				throw new ArgumentNullException("data");
+
 			ExtendedType = type;
+			Value = data;
 		}
 
 		/// <summary>
@@ -37,9 +40,19 @@ namespace Rotorz.Json.MessagePack {
 		/// </summary>
 		public sbyte ExtendedType { get; set; }
 
+		/// <summary>
+		/// Gets or sets value of the node.
+		/// </summary>
+		public byte[] Value { get; set; }
+
 		/// <inheritdoc/>
 		public override JsonNode Clone() {
 			return new MessagePackExtendedNode(ExtendedType, Value);
+		}
+
+		/// <inheritdoc/>
+		public override string ToString() {
+			return "(binary)";
 		}
 
 		/// <inheritdoc/>
@@ -50,14 +63,34 @@ namespace Rotorz.Json.MessagePack {
 			return Convert.ChangeType(Value, type);
 		}
 
+		private sealed class BinaryWrapperNode : JsonNode {
+
+			private readonly byte[] _data;
+
+			public BinaryWrapperNode(byte[] data) {
+				_data = data;
+			}
+
+			public override JsonNode Clone() {
+				return new BinaryWrapperNode(_data);
+			}
+
+			public override object ToObject(Type type) {
+				throw new NotImplementedException();
+			}
+
+			public override void WriteTo(IJsonWriter writer) {
+				writer.WriteBinary(_data);
+			}
+
+		}
+
 		/// <inheritdoc/>
-		public override void WriteTo(JsonWriter writer) {
-			writer.WriteStartObject();
-			writer.WritePropertyKey("type");
-			writer.WriteValue(ExtendedType);
-			writer.WritePropertyKey("data");
-			base.WriteTo(writer);
-			writer.WriteEndObject();
+		public override void WriteTo(IJsonWriter writer) {
+			var properties = new Dictionary<string, JsonNode>();
+			properties["type"] = new JsonIntegerNode(ExtendedType);
+			properties["data"] = new BinaryWrapperNode(Value);
+            writer.WriteObject(properties);
 		}
 
 	}

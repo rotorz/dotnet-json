@@ -44,6 +44,7 @@
     <Compile Include="Json\JsonParserException.cs" />
     <Compile Include="Json\JsonStringNode.cs" />
     <Compile Include="Json\JsonFormattingUtility.cs" />
+    <Compile Include="Json\IJsonWriter.cs" />
     <Compile Include="Json\JsonWriter.cs" />
     <Compile Include="Json\JsonWriterSettings.cs" />
     <Compile Include="Json\MessagePack\MessagePackExtendedNode.cs" />

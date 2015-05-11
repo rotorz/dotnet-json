@@ -7,7 +7,7 @@ namespace Rotorz.Json.MessagePack {
 	/// <summary>
 	/// Node holding binary data in the form of a byte array.
 	/// </summary>
-	public class MessagePackBinaryNode : JsonNode {
+	public sealed class MessagePackBinaryNode : JsonNode {
 
 		private static readonly byte[] EmptyByteArray = { };
 
@@ -57,11 +57,8 @@ namespace Rotorz.Json.MessagePack {
 		}
 
 		/// <inheritdoc/>
-		public override void WriteTo(JsonWriter writer) {
-			writer.WriteStartArray();
-			foreach (var b in Value)
-				writer.WriteValue(b);
-			writer.WriteEndArray();
+		public override void WriteTo(IJsonWriter writer) {
+			writer.WriteBinary(Value);
 		}
 
 	}

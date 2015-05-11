@@ -324,20 +324,9 @@ namespace Rotorz.Json {
 		}
 
 		/// <inheritdoc/>
-		public override void WriteTo(JsonWriter writer) {
-			writer.WriteStartObject();
-
-			foreach (var property in _properties) {
-				writer.WritePropertyKey(property.Key);
-
-				if (property.Value != null)
-					property.Value.WriteTo(writer);
-				else
-					writer.WriteNull();
-			}
-
-			writer.WriteEndObject();
-		}
+		public override void WriteTo(IJsonWriter writer) {
+			writer.WriteObject(this);
+        }
 
 	}
 

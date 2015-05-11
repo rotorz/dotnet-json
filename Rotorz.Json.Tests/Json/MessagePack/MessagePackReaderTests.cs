@@ -54,7 +54,7 @@ namespace Rotorz.Json.MessagePack.Tests {
 				return;
 			}
 
-			if (!(actual is MessagePackBinaryNode))
+			if (!(actual is MessagePackBinaryNode || actual is MessagePackExtendedNode))
 				Assert.AreEqual(expected.GetType(), actual.GetType());
 
 			var booleanNode = actual as JsonBooleanNode;
@@ -96,6 +96,14 @@ namespace Rotorz.Json.MessagePack.Tests {
 				return;
 			}
 			
+			var binaryNode = actual as MessagePackBinaryNode;
+			if (binaryNode != null) {
+				var expectedNodeData = (expected as JsonArrayNode)
+					.Select(e => (byte)(e as JsonIntegerNode).Value)
+					.ToArray();
+				AssertAreEqual(expectedNodeData, binaryNode.Value);
+				return;
+			}
 			var extendedNode = actual as MessagePackExtendedNode;
 			if (extendedNode != null) {
 				var expectedExtendedNode = expected as JsonObjectNode;
@@ -104,14 +112,6 @@ namespace Rotorz.Json.MessagePack.Tests {
 					.ToArray();
 				Assert.AreEqual((expectedExtendedNode["type"] as JsonIntegerNode).Value, (int)extendedNode.ExtendedType);
 				AssertAreEqual(expectedNodeData, extendedNode.Value);
-				return;
-			}
-			var binaryNode = actual as MessagePackBinaryNode;
-			if (binaryNode != null) {
-				var expectedNodeData = (expected as JsonArrayNode)
-					.Select(e => (byte)(e as JsonIntegerNode).Value)
-					.ToArray();
-				AssertAreEqual(expectedNodeData, binaryNode.Value);
 				return;
 			}
 
