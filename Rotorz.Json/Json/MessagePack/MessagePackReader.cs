@@ -73,7 +73,7 @@ namespace Rotorz.Json.MessagePack {
 			_mpackReader = reader;
 		}
 
-		#region Basic Value Reader
+		#region Low Value Reader
 
 		private byte[] _valueBuffer = new byte[8];
 
