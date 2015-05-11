@@ -29,7 +29,7 @@ namespace Rotorz.Json {
 	/// </remarks>
 	public sealed class JsonWriter : IJsonWriter {
 
-		#region Factory
+		#region Factory Methods
 
 		/// <summary>
 		/// Create new <see cref="JsonWriter"/> instance with custom settings.

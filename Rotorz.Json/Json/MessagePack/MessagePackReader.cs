@@ -11,6 +11,8 @@ namespace Rotorz.Json.MessagePack {
 	// 2fb4eaa9688888b74bdabb2222f0e0f42712b6b1
 	internal sealed class MessagePackReader {
 
+		#region Factory Methods
+
 		/// <summary>
 		/// Creates a new <see cref="MessagePackReader"/> instance from a stream.
 		/// </summary>
@@ -58,6 +60,8 @@ namespace Rotorz.Json.MessagePack {
 
 			return new MessagePackReader(reader);
 		}
+
+		#endregion
 
 		private BinaryReader _mpackReader;
 

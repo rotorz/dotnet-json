@@ -27,6 +27,8 @@ namespace Rotorz.Json {
 	/// </remarks>
 	internal sealed class JsonReader {
 
+		#region Factory Methods
+
 		/// <summary>
 		/// Creates a new <see cref="JsonReader"/> instance from a stream.
 		/// </summary>
@@ -72,6 +74,8 @@ namespace Rotorz.Json {
 
 			return new JsonReader(reader);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="JsonReader"/> class.
