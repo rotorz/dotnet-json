@@ -28,10 +28,10 @@ namespace Rotorz.Json.Tests {
 			var node = new JsonObjectNode();
 
 			// Act
-			var data = WriteJsonNodeToBytes(node);
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			CollectionAssert.AreEqual(new byte[] { 0x80 }, data);
+			CollectionAssert.AreEqual(new byte[] { 0x80 }, bytes);
 		}
 
 		[TestMethod]
@@ -41,7 +41,7 @@ namespace Rotorz.Json.Tests {
 			node["ABC"] = null;
 
 			// Act
-			var data = WriteJsonNodeToBytes(node);
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
 			var expectedData = new byte[] {
@@ -49,7 +49,7 @@ namespace Rotorz.Json.Tests {
 				0xA3, 0x41, 0x42, 0x43, // "ABC"
 				0xC0 // null
 			};
-            CollectionAssert.AreEqual(expectedData, data);
+            CollectionAssert.AreEqual(expectedData, bytes);
 		}
 
 		[TestMethod]
@@ -72,7 +72,7 @@ namespace Rotorz.Json.Tests {
 			");
 			
 			// Act
-			var data = WriteJsonNodeToBytes(node);
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
 			var expectedData = new byte[] {
@@ -94,7 +94,7 @@ namespace Rotorz.Json.Tests {
 						0x0C, // 12
 
 			};
-			CollectionAssert.AreEqual(expectedData, data);
+			CollectionAssert.AreEqual(expectedData, bytes);
 		}
 
 		#endregion
@@ -124,41 +124,57 @@ namespace Rotorz.Json.Tests {
 		[TestMethod]
 		public void WriteArray_Empty() {
 			// Arrange
+			var node = new JsonArrayNode();
 
 			// Act
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.Fail();
+			CollectionAssert.AreEqual(new byte[] { 0x90 }, bytes);
 		}
 
 		[TestMethod]
 		public void WriteArray_SingleElement_Null() {
 			// Arrange
+			var node = new JsonArrayNode();
+			node.Add(null);
 
 			// Act
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.Fail();
+			var expectedData = new byte[] { 0x91, 0xC0 };
+			CollectionAssert.AreEqual(expectedData, bytes);
 		}
 
 		[TestMethod]
 		public void WriteArray_SingleElement_String() {
 			// Arrange
+			var node = new JsonArrayNode();
+			node.Add(new JsonStringNode("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."));
 
 			// Act
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.Fail();
+			var expectedData = "91-DA-01-4E-4C-6F-72-65-6D-20-69-70-73-75-6D-20-64-6F-6C-6F-72-20-73-69-74-20-61-6D-65-74-2C-20-63-6F-6E-73-65-63-74-65-74-75-72-20-61-64-69-70-69-73-63-69-6E-67-20-65-6C-69-74-2C-20-73-65-64-20-64-6F-20-65-69-75-73-6D-6F-64-20-74-65-6D-70-6F-72-20-69-6E-63-69-64-69-64-75-6E-74-20-75-74-20-6C-61-62-6F-72-65-20-65-74-20-64-6F-6C-6F-72-65-20-6D-61-67-6E-61-20-61-6C-69-71-75-61-2E-20-55-74-20-65-6E-69-6D-20-61-64-20-6D-69-6E-69-6D-20-76-65-6E-69-61-6D-2C-20-71-75-69-73-20-6E-6F-73-74-72-75-64-20-65-78-65-72-63-69-74-61-74-69-6F-6E-20-75-6C-6C-61-6D-63-6F-20-6C-61-62-6F-72-69-73-20-6E-69-73-69-20-75-74-20-61-6C-69-71-75-69-70-20-65-78-20-65-61-20-63-6F-6D-6D-6F-64-6F-20-63-6F-6E-73-65-71-75-61-74-2E-20-44-75-69-73-20-61-75-74-65-20-69-72-75-72-65-20-64-6F-6C-6F-72-20-69-6E-20-72-65-70-72-65-68-65-6E-64-65-72-69-74-20-69-6E-20-76-6F-6C-75-70-74-61-74-65-20-76-65-6C-69-74-20-65-73-73-65-20-63-69-6C-6C-75-6D-20-64-6F-6C-6F-72-65-20-65-75-20-66-75-67-69-61-74-20-6E-75-6C-6C-61-20-70-61-72-69-61-74-75-72-2E";
+			Assert.AreEqual(expectedData, BitConverter.ToString(bytes));
 		}
 
 		[TestMethod]
 		public void WriteArray_MultipleElements_String() {
 			// Arrange
+			var node = new JsonArrayNode();
+			node.Add(new JsonStringNode("A"));
+			node.Add(new JsonStringNode("B"));
+			node.Add(new JsonStringNode("C"));
 
 			// Act
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.Fail();
+			var expectedData = "93-A1-41-A1-42-A1-43";
+			Assert.AreEqual(expectedData, BitConverter.ToString(bytes));
 		}
 
 		#endregion
@@ -170,10 +186,10 @@ namespace Rotorz.Json.Tests {
 			var node = new JsonIntegerNode(value);
 
 			// Act
-			var data = WriteJsonNodeToBytes(node);
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.AreEqual(expectedResult, BitConverter.ToString(data));
+			Assert.AreEqual(expectedResult, BitConverter.ToString(bytes));
 		}
 
 		[TestMethod]
@@ -278,33 +294,47 @@ namespace Rotorz.Json.Tests {
 
 		#region WriteString(string)
 
-		private void WriteString_Parameterized(string value, string expectedResult) {
-			// Arrange
-
-			// Act
-
-			// Assert
-			Assert.Fail();
-		}
-
 		[TestMethod]
 		public void WriteString_Null() {
-			WriteString_Parameterized(null, "\"\"");
+			// Arrange
+			string value = null;
+
+			// Act
+			byte[] bytes;
+			using (var stream = new MemoryStream()) {
+				var writer = MessagePackWriter.Create(stream);
+				writer.WriteString(value);
+				bytes = stream.ToArray();
+			}
+
+			// Assert
+			Assert.AreEqual("A0", BitConverter.ToString(bytes));
+		}
+
+		private void WriteString_Parameterized(string value, string expectedResult) {
+			// Arrange
+			var node = new JsonStringNode(value);
+
+			// Act
+			var bytes = WriteJsonNodeToBytes(node);
+
+			// Assert
+			Assert.AreEqual(expectedResult, BitConverter.ToString(bytes));
 		}
 
 		[TestMethod]
 		public void WriteString_Empty() {
-			WriteString_Parameterized("", "\"\"");
+			WriteString_Parameterized("", "A0");
 		}
 
 		[TestMethod]
 		public void WriteString_SimpleCharacters() {
-			WriteString_Parameterized("Hello World!", "\"Hello World!\"");
+			WriteString_Parameterized("Hello World!", "AC-48-65-6C-6C-6F-20-57-6F-72-6C-64-21");
 		}
 
 		[TestMethod]
 		public void WriteString_EscapeSequences() {
-			WriteString_Parameterized("Hello\r\n\tWorld!", "\"Hello\\r\\n\\tWorld!\"");
+			WriteString_Parameterized("Hello\r\n\tWorld!", "AE-48-65-6C-6C-6F-0D-0A-09-57-6F-72-6C-64-21");
 		}
 
 		#endregion
