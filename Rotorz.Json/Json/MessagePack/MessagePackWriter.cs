@@ -203,19 +203,30 @@ namespace Rotorz.Json.MessagePack {
 
 		/// <inheritdoc/>
 		public void WriteDouble(double value) {
-			byte[] bytes;
-
-			if (value >= float.MinValue && value <= float.MaxValue) {
-				WriteFormatCode(MessagePackFormatCode.Float32);
-				bytes = BitConverter.GetBytes((float)value);
+			if (double.IsNaN(value)) {
+				WriteString("NaN");
+			}
+			else if (double.IsNegativeInfinity(value)) {
+				WriteString("-Infinity");
+			}
+			else if (double.IsPositiveInfinity(value)) {
+				WriteString("Infinity");
 			}
 			else {
-				WriteFormatCode(MessagePackFormatCode.Float64);
-				bytes = BitConverter.GetBytes(value);
-			}
+				byte[] bytes;
 
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+				if (value >= float.MinValue && value <= float.MaxValue) {
+					WriteFormatCode(MessagePackFormatCode.Float32);
+					bytes = BitConverter.GetBytes((float)value);
+				}
+				else {
+					WriteFormatCode(MessagePackFormatCode.Float64);
+					bytes = BitConverter.GetBytes(value);
+				}
+
+				Array.Reverse(bytes);
+				_mpacStream.Write(bytes, 0, bytes.Length);
+			}
 		}
 
 		/// <inheritdoc/>
