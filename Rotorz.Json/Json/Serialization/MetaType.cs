@@ -145,36 +145,36 @@ namespace Rotorz.Json.Serialization {
 		#region Target Node Type
 
 		/// <summary>
-		/// Identifies type of <see cref="JsonNode"/> which would best represent
-		/// the associated type.
+		/// Identifies the type of <see cref="JsonNode"/> that would best represent the
+		/// <see cref="System.Type"/> of some value.
 		/// </summary>
-		public enum NodeType {
+		internal enum NodeType {
 			/// <summary>
 			/// Was unable to determine an appropriate node type.
 			/// </summary>
 			Unknown,
 			/// <summary>
-			/// Indicates that <see cref="JsonIntegerNode"/> would best fit.
+			/// Indicates that <see cref="JsonIntegerNode"/> would be the best fit.
 			/// </summary>
 			Integer,
 			/// <summary>
-			/// Indicates that <see cref="JsonDoubleNode"/> would best fit.
+			/// Indicates that <see cref="JsonDoubleNode"/> would be the best fit.
 			/// </summary>
 			Double,
 			/// <summary>
-			/// Indicates that <see cref="JsonBooleanNode"/> would best fit.
+			/// Indicates that <see cref="JsonBooleanNode"/> would be the best fit.
 			/// </summary>
 			Boolean,
 			/// <summary>
-			/// Indicates that <see cref="JsonStringNode"/> would best fit.
+			/// Indicates that <see cref="JsonStringNode"/> would be the best fit.
 			/// </summary>
 			String,
 			/// <summary>
-			/// Indicates that <see cref="JsonArrayNode"/> would best fit.
+			/// Indicates that <see cref="JsonArrayNode"/> would be the best fit.
 			/// </summary>
 			Array,
 			/// <summary>
-			/// Indicates that <see cref="JsonObjectNode"/> would best fit.
+			/// Indicates that <see cref="JsonObjectNode"/> would be the best fit.
 			/// </summary>
 			Object
 		}
