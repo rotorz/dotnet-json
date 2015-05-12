@@ -233,61 +233,63 @@ namespace Rotorz.Json.Tests {
 
 		private void WriteDouble_Parameterized(double value, string expectedResult) {
 			// Arrange
+			var node = new JsonDoubleNode(value);
 
 			// Act
+			var bytes = WriteJsonNodeToBytes(node);
 
 			// Assert
-			Assert.Fail();
+			Assert.AreEqual(expectedResult, BitConverter.ToString(bytes));
 		}
 
 		[TestMethod]
 		public void WriteDouble_Zero() {
-			WriteDouble_Parameterized(0.0, "0.0");
+			WriteDouble_Parameterized(0.0, "CA-00-00-00-00");
 		}
 
 		[TestMethod]
 		public void WriteDouble_One() {
-			WriteDouble_Parameterized(1.0, "1.0");
+			WriteDouble_Parameterized(1.0, "CA-3F-80-00-00");
 		}
 
 		[TestMethod]
 		public void WriteDouble_NegativeOne() {
-			WriteDouble_Parameterized(-1.0, "-1.0");
+			WriteDouble_Parameterized(-1.0, "CA-BF-80-00-00");
 		}
 
 		[TestMethod]
 		public void WriteDouble_LargeValue() {
-			WriteDouble_Parameterized(1000000000000000.0, "1e+15");
+			WriteDouble_Parameterized(1000000000000000.0, "CA-58-63-5F-A9");
 		}
 
 		[TestMethod]
 		public void WriteDouble_AlmostLargeValue() {
-			WriteDouble_Parameterized(100000000000000.0, "100000000000000.0");
+			WriteDouble_Parameterized(100000000000000.0, "CA-56-B5-E6-21");
 		}
 
 		[TestMethod]
 		public void WriteDouble_SmallValue() {
-			WriteDouble_Parameterized(0.00001, "1e-05");
+			WriteDouble_Parameterized(0.00001, "CA-37-27-C5-AC");
 		}
 
 		[TestMethod]
 		public void WriteDouble_AlmostSmallValue() {
-			WriteDouble_Parameterized(0.0001, "0.0001");
+			WriteDouble_Parameterized(0.0001, "CA-38-D1-B7-17");
 		}
 
 		[TestMethod]
 		public void WriteDouble_NaN() {
-			WriteDouble_Parameterized(double.NaN, "\"NaN\"");
+			WriteDouble_Parameterized(double.NaN, "A3-4E-61-4E");
 		}
 
 		[TestMethod]
 		public void WriteDouble_NegativeInfinity() {
-			WriteDouble_Parameterized(double.NegativeInfinity, "\"-Infinity\"");
+			WriteDouble_Parameterized(double.NegativeInfinity, "A9-2D-49-6E-66-69-6E-69-74-79");
 		}
 
 		[TestMethod]
 		public void WriteDouble_PositiveInfinity() {
-			WriteDouble_Parameterized(double.PositiveInfinity, "\"Infinity\"");
+			WriteDouble_Parameterized(double.PositiveInfinity, "A8-49-6E-66-69-6E-69-74-79");
 		}
 
 		#endregion
