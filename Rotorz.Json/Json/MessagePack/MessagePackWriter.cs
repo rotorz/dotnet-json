@@ -98,6 +98,9 @@ namespace Rotorz.Json.MessagePack {
 		
 		/// <inheritdoc/>
 		public void WriteObject(IDictionary<string, JsonNode> collection) {
+			if (collection == null)
+				throw new ArgumentNullException("collection");
+
 			int length = collection.Count;
 
 			if (length <= 0x0F) {
@@ -124,6 +127,9 @@ namespace Rotorz.Json.MessagePack {
 
 		/// <inheritdoc/>
 		public void WriteArray(IList<JsonNode> collection) {
+			if (collection == null)
+				throw new ArgumentNullException("collection");
+
 			int length = collection.Count;
 
 			if (length <= 0x0F) {
