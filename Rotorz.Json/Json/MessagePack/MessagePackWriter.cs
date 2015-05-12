@@ -45,40 +45,35 @@ namespace Rotorz.Json.MessagePack {
 			_mpacStream.WriteByte(value);
 		}
 
-		private void WriteUInt16(ushort value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
+		private void WriteBytes(byte[] bytes) {
+			if (BitConverter.IsLittleEndian)
+				Array.Reverse(bytes);
+
 			_mpacStream.Write(bytes, 0, bytes.Length);
+		}
+
+		private void WriteUInt16(ushort value) {
+			WriteBytes(BitConverter.GetBytes(value));
         }
 
 		private void WriteUInt32(uint value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			WriteBytes(BitConverter.GetBytes(value));
 		}
 
 		private void WriteUInt64(ulong value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			WriteBytes(BitConverter.GetBytes(value));
 		}
 
 		private void WriteInt16(short value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			WriteBytes(BitConverter.GetBytes(value));
 		}
 
 		private void WriteInt32(int value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			WriteBytes(BitConverter.GetBytes(value));
 		}
 
 		private void WriteInt64(long value) {
-			var bytes = BitConverter.GetBytes(value);
-			Array.Reverse(bytes);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			WriteBytes(BitConverter.GetBytes(value));
 		}
 
 		private void WriteStringBytes(string value) {

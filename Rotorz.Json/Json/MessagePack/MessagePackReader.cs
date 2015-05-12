@@ -80,6 +80,9 @@ namespace Rotorz.Json.MessagePack {
 		private void ReadValueBufferBytes(int count) {
 			for (int i = 0; i < count; ++i)
 				_valueBuffer[i] = _mpackReader.ReadByte();
+
+			if (BitConverter.IsLittleEndian)
+				Array.Reverse(_valueBuffer, 0, count);
 		}
 
 		private byte ReadByte() {
@@ -88,49 +91,41 @@ namespace Rotorz.Json.MessagePack {
 
 		private float ReadFloat32() {
 			ReadValueBufferBytes(4);
-			Array.Reverse(_valueBuffer, 0, 4);
 			return BitConverter.ToSingle(_valueBuffer, 0);
 		}
 
 		private double ReadFloat64() {
 			ReadValueBufferBytes(8);
-			Array.Reverse(_valueBuffer, 0, 8);
 			return BitConverter.ToDouble(_valueBuffer, 0);
 		}
 
 		private ushort ReadUInt16() {
 			ReadValueBufferBytes(2);
-			Array.Reverse(_valueBuffer, 0, 2);
 			return BitConverter.ToUInt16(_valueBuffer, 0);
 		}
 
 		private uint ReadUInt32() {
 			ReadValueBufferBytes(4);
-			Array.Reverse(_valueBuffer, 0, 4);
 			return BitConverter.ToUInt32(_valueBuffer, 0);
 		}
 
 		private ulong ReadUInt64() {
 			ReadValueBufferBytes(8);
-			Array.Reverse(_valueBuffer, 0, 8);
 			return BitConverter.ToUInt64(_valueBuffer, 0);
 		}
 
 		private short ReadInt16() {
 			ReadValueBufferBytes(2);
-			Array.Reverse(_valueBuffer, 0, 2);
 			return BitConverter.ToInt16(_valueBuffer, 0);
 		}
 
 		private int ReadInt32() {
 			ReadValueBufferBytes(4);
-			Array.Reverse(_valueBuffer, 0, 4);
 			return BitConverter.ToInt32(_valueBuffer, 0);
 		}
 
 		private long ReadInt64() {
 			ReadValueBufferBytes(8);
-			Array.Reverse(_valueBuffer, 0, 8);
 			return BitConverter.ToInt64(_valueBuffer, 0);
 		}
 
