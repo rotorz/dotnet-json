@@ -199,7 +199,7 @@ namespace Rotorz.Json {
 		/// </returns>
 		/// <seealso cref="Peek(int)"/>
 		/// <seealso cref="Accept(int)"/>
-		public char Peek() {
+		private char Peek() {
 			return _buffer[_bufferPos];
 		}
 
@@ -214,7 +214,7 @@ namespace Rotorz.Json {
 		/// </returns>
 		/// <seealso cref="Peek()"/>
 		/// <seealso cref="Accept(int)"/>
-		public char Peek(int offset) {
+		private char Peek(int offset) {
 			return _buffer[_bufferPos + offset];
 		}
 
