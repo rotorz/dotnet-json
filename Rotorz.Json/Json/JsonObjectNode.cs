@@ -23,7 +23,7 @@ namespace Rotorz.Json {
 	/// </example>
 	public sealed class JsonObjectNode : JsonNode, IDictionary<string, JsonNode> {
 
-		#region Factory
+		#region Factory Methods
 
 		/// <summary>
 		/// Attempt to create object node from a .NET object.

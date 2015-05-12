@@ -20,7 +20,7 @@ namespace Rotorz.Json {
 	/// </example>
 	public sealed class JsonArrayNode : JsonNode, IList<JsonNode> {
 
-		#region Factory
+		#region Factory Methods
 
 		/// <summary>
 		/// Create array node and populate from a native array of values.

@@ -22,7 +22,7 @@ namespace Rotorz.Json {
 	/// <seealso cref="JsonBooleanNode"/>
 	public abstract class JsonNode : ICloneable {
 
-		#region Factory
+		#region Factory Methods
 
 		/// <summary>
 		/// Attempt to create node by parsing JSON encoded string.
