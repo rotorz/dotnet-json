@@ -39,7 +39,7 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
 		public static JsonWriter Create() {
-			return Create((TextWriter)null, JsonWriterSettings.DefaultSettings);
+			return Create(new StringWriter(), JsonWriterSettings.DefaultSettings);
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
 		public static JsonWriter Create(JsonWriterSettings settings) {
-			return Create((TextWriter)null, settings);
+			return Create(new StringWriter(), settings);
 		}
 
 		/// <summary>
@@ -61,9 +61,12 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="builder"/> is <c>null</c>.
+		/// </exception>
 		public static JsonWriter Create(StringBuilder builder) {
 			if (builder == null)
-				builder = new StringBuilder();
+				throw new ArgumentNullException("builder");
 
 			return Create(new StringWriter(builder), JsonWriterSettings.DefaultSettings);
 		}
@@ -78,14 +81,16 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="settings"/> is <c>null</c>.
+		/// <list type="bullet">
+		/// <item>If <paramref name="builder"/> is <c>null</c>.</item>
+		/// <item>If <paramref name="settings"/> is <c>null</c>.</item>
+		/// </list>
 		/// </exception>
 		public static JsonWriter Create(StringBuilder builder, JsonWriterSettings settings) {
+			if (builder == null)
+				throw new ArgumentNullException("builder");
 			if (settings == null)
 				throw new ArgumentNullException("settings");
-
-			if (builder == null)
-				builder = new StringBuilder();
 
 			return Create(new StringWriter(builder), settings);
 		}
@@ -98,9 +103,12 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="writer"/> is <c>null</c>.
+		/// </exception>
 		public static JsonWriter Create(TextWriter writer) {
 			if (writer == null)
-				writer = new StringWriter();
+				throw new ArgumentNullException("writer");
 
 			return new JsonWriter(writer, JsonWriterSettings.DefaultSettings);
 		}
@@ -115,14 +123,16 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="settings"/> is <c>null</c>.
+		/// <list type="bullet">
+		/// <item>If <paramref name="writer"/> is <c>null</c>.</item>
+		/// <item>If <paramref name="settings"/> is <c>null</c>.</item>
+		/// </list>
 		/// </exception>
 		public static JsonWriter Create(TextWriter writer, JsonWriterSettings settings) {
+			if (writer == null)
+				throw new ArgumentNullException("writer");
 			if (settings == null)
 				throw new ArgumentNullException("settings");
-
-			if (writer == null)
-				writer = new StringWriter();
 
 			return new JsonWriter(writer, settings);
 		}
