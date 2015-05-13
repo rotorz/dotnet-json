@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
+using Rotorz.Json.Internal;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -215,33 +216,7 @@ namespace Rotorz.Json {
 			Array,
 		}
 
-		private class ContextStack {
-
-			private List<Context> _stack = new List<Context>();
-
-			public void Push(Context context) {
-				_stack.Add(context);
-			}
-
-			public Context Pop() {
-				var top = Peek();
-				_stack.RemoveAt(_stack.Count - 1);
-				return top;
-			}
-
-			public Context Peek() {
-				if (_stack.Count == 0)
-					throw new InvalidOperationException("Cannot access next context when stack is empty.");
-				return _stack[_stack.Count - 1];
-			}
-
-			public int Count {
-				get { return _stack.Count; }
-			}
-
-		}
-
-		private ContextStack _contextStack = new ContextStack();
+		private SimpleStack<Context> _contextStack = new SimpleStack<Context>();
 		private bool _empty = true;
 
 		/// <summary>

@@ -32,6 +32,7 @@
     <DocumentationFile>bin\Release\Rotorz.Json.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Json\Internal\SimpleStack.cs" />
     <Compile Include="Json\JsonArrayNode.cs" />
     <Compile Include="Json\JsonBooleanNode.cs" />
     <Compile Include="Json\JsonDoubleNode.cs" />
