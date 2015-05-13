@@ -2,7 +2,6 @@
 
 using Rotorz.Json.Internal;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -297,89 +296,6 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Write start of object '{'.
-		/// </summary>
-		/// <example>
-		/// <para>This method is useful when outputting object notation:</para>
-		/// <code language="csharp"><![CDATA[
-		/// writer.WriteStartObject();
-		/// writer.WritePropertyKey("Name");
-		/// writer.WriteValue("Bob");
-		/// writer.WriteEndObject();
-		/// ]]></code>
-		/// <para>Which generates the following JSON nodes:</para>
-		/// <code><![CDATA[
-		/// {
-		///     "Name": "Bob"
-		/// }
-		/// ]]></code>
-		/// </example>
-		/// <seealso cref="WritePropertyKey(string)"/>
-		/// <seealso cref="WriteEndObject()"/>
-		public void WriteStartObject() {
-			DoBeginValue();
-
-			_writer.Write('{');
-
-			_contextStack.Push(Context.Object);
-			_empty = true;
-		}
-
-		/// <summary>
-		/// Write end of object '}'.
-		/// </summary>
-		/// <seealso cref="WriteStartObject()"/>
-		/// <seealso cref="WritePropertyKey(string)"/>
-		public void WriteEndObject() {
-			_contextStack.Pop();
-
-			if (!_empty) {
-				WriteLine();
-				WriteIndent();
-			}
-
-			_writer.Write('}');
-
-			DoEndValue();
-		}
-
-		/// <summary>
-		/// Write property key; special characters are automatically escaped.
-		/// </summary>
-		/// <example>
-		/// <para>This method is useful when outputting object notation:</para>
-		/// <code language="csharp"><![CDATA[
-		/// writer.WriteStartObject();
-		/// writer.WritePropertyKey("Name");
-		/// writer.WriteValue("Bob");
-		/// writer.WriteEndObject();
-		/// ]]></code>
-		/// <para>Which generates the following JSON nodes:</para>
-		/// <code><![CDATA[
-		/// {
-		///     "Name": "Bob"
-		/// }
-		/// ]]></code>
-		/// </example>
-		/// <param name="key">Key value.</param>
-		/// <seealso cref="WriteStartObject()"/>
-		/// <seealso cref="WritePropertyKey(string)"/>
-		public void WritePropertyKey(string key) {
-			DoBeginValue();
-
-			WriteLine();
-			WriteIndent();
-
-			_writer.Write("\"");
-			WriteEscapedLiteral(key);
-			_writer.Write("\":");
-
-			WriteSpace();
-
-			_empty = true;
-		}
-
-		/// <summary>
 		/// Write raw JSON value.
 		/// </summary>
 		/// <remarks>
@@ -398,19 +314,86 @@ namespace Rotorz.Json {
 			DoEndValue();
 		}
 
+		#endregion
+
+		/// <inheritdoc/>
+		public void WriteStartObject(int propertyCount) {
+			if (propertyCount < 0)
+				throw new ArgumentOutOfRangeException("propertyCount", "Cannot be a negative value.");
+
+			WriteStartObject(propertyCount);
+		}
+
 		/// <summary>
-		/// Write start of array marker '['.
+		/// Writes the start of an object literal.
 		/// </summary>
 		/// <example>
-		/// <para>This method is useful when outputting arrays:</para>
-		/// <code language="csharp"><![CDATA[
-		/// writer.WriteStartArray();
-		/// writer.WriteValue("Bob");
-		/// writer.WriteValue("Jessica");
-		/// writer.WriteValue("Sandra");
-		/// writer.WriteEndArray();
+		/// <code><![CDATA[
+		/// {
+		///     "Name": "Bob"
+		/// }
 		/// ]]></code>
-		/// <para>Which generates the following JSON nodes:</para>
+		/// <para>The above object literal is represented by the following writer logic:</para>
+		/// <code language="csharp"><![CDATA[
+		/// writer.WriteStartObject();
+		/// writer.WritePropertyKey("Name");
+		/// writer.WriteValue("Bob");
+		/// writer.WriteEndObject();
+		/// ]]></code>
+		/// </example>
+		/// <seealso cref="WritePropertyKey(string)"/>
+		/// <seealso cref="WriteEndObject()"/>
+		public void WriteStartObject() {
+			DoBeginValue();
+
+			_writer.Write('{');
+
+			_contextStack.Push(Context.Object);
+			_empty = true;
+		}
+
+		/// <inheritdoc/>
+		public void WritePropertyKey(string key) {
+			DoBeginValue();
+
+			WriteLine();
+			WriteIndent();
+
+			_writer.Write("\"");
+			WriteEscapedLiteral(key);
+			_writer.Write("\":");
+
+			WriteSpace();
+
+			_empty = true;
+		}
+
+		/// <inheritdoc/>
+		public void WriteEndObject() {
+			_contextStack.Pop();
+
+			if (!_empty) {
+				WriteLine();
+				WriteIndent();
+			}
+
+			_writer.Write('}');
+
+			DoEndValue();
+		}
+
+		/// <inheritdoc/>
+		public void WriteStartArray(int arrayLength) {
+			if (arrayLength < 0)
+				throw new ArgumentOutOfRangeException("arrayLength", "Cannot be a negative value.");
+
+			WriteStartArray();
+		}
+
+		/// <summary>
+		/// Writes the start of an array literal.
+		/// </summary>
+		/// <example>
 		/// <code><![CDATA[
 		/// [
 		///     "Bob",
@@ -418,8 +401,16 @@ namespace Rotorz.Json {
 		///     "Sandra"
 		/// ]
 		/// ]]></code>
+		/// <para>The above array literal is represented by the following writer logic:</para>
+		/// <code language="csharp"><![CDATA[
+		/// writer.WriteStartArray();
+		/// writer.WriteValue("Bob");
+		/// writer.WriteValue("Jessica");
+		/// writer.WriteValue("Sandra");
+		/// writer.WriteEndArray();
+		/// ]]></code>
 		/// </example>
-		/// <seealso cref="WriteEndArray"/>
+		/// <seealso cref="WriteEndArray()"/>
 		public void WriteStartArray() {
 			DoBeginValue();
 
@@ -429,10 +420,7 @@ namespace Rotorz.Json {
 			_empty = true;
 		}
 
-		/// <summary>
-		/// Write end of array marker ']'.
-		/// </summary>
-		/// <seealso cref="WriteStartArray"/>
+		/// <inheritdoc/>
 		public void WriteEndArray() {
 			_contextStack.Pop();
 			
@@ -444,43 +432,6 @@ namespace Rotorz.Json {
 			_writer.Write(']');
 
 			DoEndValue();
-		}
-
-		#endregion
-		
-		/// <inheritdoc/>
-		public void WriteObject(IDictionary<string, JsonNode> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
-
-			WriteStartObject();
-
-			foreach (var property in collection) {
-				WritePropertyKey(property.Key);
-
-				if (property.Value != null)
-					property.Value.WriteTo(this);
-				else
-					WriteNull();
-			}
-
-			WriteEndObject();
-		}
-
-		/// <inheritdoc/>
-		public void WriteArray(IList<JsonNode> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
-
-			WriteStartArray();
-
-			foreach (var node in collection)
-				if (node != null)
-					node.WriteTo(this);
-				else
-					WriteNull();
-
-			WriteEndArray();
 		}
 
 		/// <inheritdoc/>
@@ -519,7 +470,7 @@ namespace Rotorz.Json {
 			if (value == null)
 				throw new ArgumentNullException("value");
 
-			WriteStartArray();
+			WriteStartArray(value.Length);
 			for (int i = 0; i < value.Length; ++i)
 				WriteInteger(value[i]);
 			WriteEndArray();

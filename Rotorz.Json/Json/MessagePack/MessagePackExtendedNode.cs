@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 
 namespace Rotorz.Json.MessagePack {
 
@@ -63,34 +62,14 @@ namespace Rotorz.Json.MessagePack {
 			return Convert.ChangeType(Value, type);
 		}
 
-		private sealed class BinaryWrapperNode : JsonNode {
-
-			private readonly byte[] _data;
-
-			public BinaryWrapperNode(byte[] data) {
-				_data = data;
-			}
-
-			public override JsonNode Clone() {
-				return new BinaryWrapperNode(_data);
-			}
-
-			public override object ToObject(Type type) {
-				throw new NotImplementedException();
-			}
-
-			public override void WriteTo(IJsonWriter writer) {
-				writer.WriteBinary(_data);
-			}
-
-		}
-
 		/// <inheritdoc/>
 		public override void WriteTo(IJsonWriter writer) {
-			var properties = new Dictionary<string, JsonNode>();
-			properties["type"] = new JsonIntegerNode(ExtendedType);
-			properties["data"] = new BinaryWrapperNode(Value);
-            writer.WriteObject(properties);
+			writer.WriteStartObject(2);
+			writer.WritePropertyKey("type");
+			writer.WriteInteger(ExtendedType);
+			writer.WritePropertyKey("data");
+			writer.WriteBinary(Value);
+			writer.WriteEndObject();
 		}
 
 	}

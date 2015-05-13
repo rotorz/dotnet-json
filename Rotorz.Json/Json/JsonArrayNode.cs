@@ -308,7 +308,15 @@ namespace Rotorz.Json {
 
 		/// <inheritdoc/>
 		public override void WriteTo(IJsonWriter writer) {
-			writer.WriteArray(this);
+			writer.WriteStartArray(_nodes.Count);
+
+			foreach (var node in _nodes)
+				if (node != null)
+					node.WriteTo(writer);
+				else
+					writer.WriteNull();
+
+			writer.WriteEndArray();
 		}
 
 	}

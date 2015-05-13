@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
-using System.Collections.Generic;
-
 namespace Rotorz.Json {
 
 	/// <summary>
@@ -11,22 +9,95 @@ namespace Rotorz.Json {
 	public interface IJsonWriter {
 
 		/// <summary>
-		/// Writes a key/value collection of <see cref="JsonNode"/> instances.
+		/// Writes the start of an object literal.
 		/// </summary>
-		/// <param name="collection">The key/value collection of <see cref="JsonNode"/> instances.</param>
-		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="collection"/> is <c>null</c>.
+		/// <example>
+		/// <code><![CDATA[
+		/// {
+		///     "Name": "Bob"
+		/// }
+		/// ]]></code>
+		/// <para>The above object literal is represented by the following writer logic:</para>
+		/// <code language="csharp"><![CDATA[
+		/// writer.WriteStartObject(1);
+		/// writer.WritePropertyKey("Name");
+		/// writer.WriteValue("Bob");
+		/// writer.WriteEndObject();
+		/// ]]></code>
+		/// </example>
+		/// <param name="propertyCount">Count of properties in object literal.</param>
+		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// If <paramref name="propertyCount"/> is a negative value.
 		/// </exception>
-		void WriteObject(IDictionary<string, JsonNode> collection);
+		/// <seealso cref="WritePropertyKey(string)"/>
+		/// <seealso cref="WriteEndObject()"/>
+		void WriteStartObject(int propertyCount);
 
 		/// <summary>
-		/// Writes an ordered array of <see cref="JsonNode"/> instances.
+		/// Writes the key for a property inside an object literal.
 		/// </summary>
-		/// <param name="collection">The collection of <see cref="JsonNode"/> instances.</param>
-		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="collection"/> is <c>null</c>.
+		/// <remarks>
+		/// <para>Any special characters inside the <paramref name="key"/> are
+		/// automatically escaped.</para>
+		/// </remarks>
+		/// <example>
+		/// <code><![CDATA[
+		/// {
+		///     "Name": "Bob"
+		/// }
+		/// ]]></code>
+		/// <para>The above object literal is represented by the following writer logic:</para>
+		/// <code language="csharp"><![CDATA[
+		/// writer.WriteStartObject(1);
+		/// writer.WritePropertyKey("Name");
+		/// writer.WriteValue("Bob");
+		/// writer.WriteEndObject();
+		/// ]]></code>
+		/// </example>
+		/// <param name="key">Key value.</param>
+		/// <seealso cref="WriteStartObject(int)"/>
+		/// <seealso cref="WritePropertyKey(string)"/>
+		void WritePropertyKey(string key);
+
+		/// <summary>
+		/// Writes the end of an object literal.
+		/// </summary>
+		/// <seealso cref="WriteStartObject(int)"/>
+		/// <seealso cref="WritePropertyKey(string)"/>
+		void WriteEndObject();
+
+		/// <summary>
+		/// Writes the start of an array literal.
+		/// </summary>
+		/// <example>
+		/// <code><![CDATA[
+		/// [
+		///     "Bob",
+		///     "Jessica",
+		///     "Sandra"
+		/// ]
+		/// ]]></code>
+		/// <para>The above array literal is represented by the following writer logic:</para>
+		/// <code language="csharp"><![CDATA[
+		/// writer.WriteStartArray(3);
+		/// writer.WriteValue("Bob");
+		/// writer.WriteValue("Jessica");
+		/// writer.WriteValue("Sandra");
+		/// writer.WriteEndArray();
+		/// ]]></code>
+		/// </example>
+		/// <param name="arrayLength">Length of the array.</param>
+		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// If <paramref name="arrayLength"/> is a negative value.
 		/// </exception>
-		void WriteArray(IList<JsonNode> collection);
+		/// <seealso cref="WriteEndArray()"/>
+		void WriteStartArray(int arrayLength);
+
+		/// <summary>
+		/// Writes the end of an array literal.
+		/// </summary>
+		/// <seealso cref="WriteStartArray(int)"/>
+		void WriteEndArray();
 
 		/// <summary>
 		/// Writes a value of <c>null</c>.

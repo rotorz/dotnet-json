@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -121,61 +120,54 @@ namespace Rotorz.Json.MessagePack {
 		#endregion
 
 		/// <inheritdoc/>
-		public void WriteObject(IDictionary<string, JsonNode> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
+		public void WriteStartObject(int propertyCount) {
+			if (propertyCount < 0)
+				throw new ArgumentOutOfRangeException("propertyCount", "Cannot be a negative value.");
 
-			int length = collection.Count;
-
-			if (length <= 0x0F) {
-				long b = (long)MessagePackFormatCode.FixMap | length;
+			if (propertyCount <= 0x0F) {
+				long b = (long)MessagePackFormatCode.FixMap | propertyCount;
 				WriteByte((byte)b);
 			}
-			else if (length <= ushort.MaxValue) {
+			else if (propertyCount <= ushort.MaxValue) {
 				WriteFormatCode(MessagePackFormatCode.Map16);
-				WriteUInt16((ushort)length);
+				WriteUInt16((ushort)propertyCount);
 			}
 			else {
 				WriteFormatCode(MessagePackFormatCode.Map32);
-				WriteInt32(length);
-			}
-
-			foreach (var entry in collection) {
-				WriteString(entry.Key);
-				if (entry.Value != null)
-					entry.Value.WriteTo(this);
-				else
-					WriteNull();
+				WriteInt32(propertyCount);
 			}
 		}
 
 		/// <inheritdoc/>
-		public void WriteArray(IList<JsonNode> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
+		public void WritePropertyKey(string key) {
+			WriteString(key);
+		}
 
-			int length = collection.Count;
+		/// <inheritdoc/>
+		public void WriteEndObject() {
+		}
 
-			if (length <= 0x0F) {
-				long b = (long)MessagePackFormatCode.FixArray | length;
+		/// <inheritdoc/>
+		public void WriteStartArray(int arrayLength) {
+			if (arrayLength < 0)
+				throw new ArgumentOutOfRangeException("arrayLength", "Cannot be a negative value.");
+
+			if (arrayLength <= 0x0F) {
+				long b = (long)MessagePackFormatCode.FixArray | arrayLength;
 				WriteByte((byte)b);
 			}
-			else if (length <= ushort.MaxValue) {
+			else if (arrayLength <= ushort.MaxValue) {
 				WriteFormatCode(MessagePackFormatCode.Array16);
-				WriteUInt16((ushort)length);
+				WriteUInt16((ushort)arrayLength);
 			}
 			else {
 				WriteFormatCode(MessagePackFormatCode.Array32);
-				WriteInt32(length);
+				WriteInt32(arrayLength);
 			}
+		}
 
-			for (int i = 0; i < length; ++i) {
-				var value = collection[i];
-				if (value != null)
-					value.WriteTo(this);
-				else
-					WriteNull();
-			}
+		/// <inheritdoc/>
+		public void WriteEndArray() {
 		}
 
 		/// <inheritdoc/>
