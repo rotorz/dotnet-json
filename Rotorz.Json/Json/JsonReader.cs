@@ -82,11 +82,19 @@ namespace Rotorz.Json {
 
 		#endregion
 
+		private readonly TextReader _jsonReader;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="JsonReader"/> class.
 		/// </summary>
 		/// <param name="reader">Text reader.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="reader"/> is <c>null</c>.
+		/// </exception>
 		private JsonReader(TextReader reader) {
+			if (reader == null)
+				throw new ArgumentNullException("reader");
+
 			_jsonReader = reader;
 
 			ReadBuffer();
@@ -94,8 +102,6 @@ namespace Rotorz.Json {
 		}
 
 		#region Text Reader
-
-		private TextReader _jsonReader;
 
 		/// <summary>
 		/// Buffer holds a maximum of 2048 characters from input stream.
@@ -598,7 +604,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Reads a numeric value and determines whether to create a new <see cref="JsonIntegerNode"/>
+		/// Reads a numeric value and determines whether to Creates a new <see cref="JsonIntegerNode"/>
 		/// or <see cref="JsonDoubleNode"/> based upon formatting of input value.
 		/// </summary>
 		/// <remarks>

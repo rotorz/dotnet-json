@@ -56,8 +56,22 @@ namespace Rotorz.Json.MessagePack {
 
 		#endregion
 
-		private BinaryWriter _mpacWriter;
+		private readonly BinaryWriter _mpacWriter;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MessagePackWriter"/> class.
+		/// </summary>
+		/// <param name="writer">Binary data writer.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="writer"/> is <c>null</c>.
+		/// </exception>
+		private MessagePackWriter(BinaryWriter writer) {
+			if (writer == null)
+				throw new ArgumentNullException("writer");
+
+			_mpacWriter = writer;
+        }
+		
 		#region Low Level Writer
 
 		private void WriteFormatCode(MessagePackFormatCode formatCode) {
@@ -106,14 +120,6 @@ namespace Rotorz.Json.MessagePack {
 
 		#endregion
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackWriter"/> class.
-		/// </summary>
-		/// <param name="writer">Binary data writer.</param>
-		private MessagePackWriter(BinaryWriter writer) {
-			_mpacWriter = writer;
-        }
-		
 		/// <inheritdoc/>
 		public void WriteObject(IDictionary<string, JsonNode> collection) {
 			if (collection == null)

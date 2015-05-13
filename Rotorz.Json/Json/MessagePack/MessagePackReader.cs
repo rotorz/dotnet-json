@@ -43,7 +43,7 @@ namespace Rotorz.Json.MessagePack {
 		}
 
 		/// <summary>
-		/// Create a new <see cref="MessagePackReader"/> instance from a text reader. This
+		/// Creates a new <see cref="MessagePackReader"/> instance from a text reader. This
 		/// allows JSON encoded text to be parsed from a variety of sources including
 		/// strings, files, etc.
 		/// </summary>
@@ -68,13 +68,19 @@ namespace Rotorz.Json.MessagePack {
 
 		#endregion
 
-		private BinaryReader _mpackReader;
+		private readonly BinaryReader _mpackReader;
 
 		/// <summary>
 		/// Initialize new <see cref="MessagePackReader"/> instance.
 		/// </summary>
 		/// <param name="reader">Binary reader.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="reader"/> is <c>null</c>.
+		/// </exception>
 		private MessagePackReader(BinaryReader reader) {
+			if (reader == null)
+				throw new ArgumentNullException("reader");
+
 			_mpackReader = reader;
 		}
 
