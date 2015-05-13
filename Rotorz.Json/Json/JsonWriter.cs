@@ -9,8 +9,9 @@ using System.Text;
 namespace Rotorz.Json {
 
 	/// <summary>
-	/// Writes JSON encoded string and accepts several formatting settings. This class is
-	/// particularly useful when manually writing JSON content.
+	/// A <see cref="IJsonWriter"/> that can be used to write JSON encoded data which
+	/// accepts formatting settings. This class can be used to manually write JSON
+	/// encoded data without the need to instantiate any <see cref="JsonNode"/> instances.
 	/// </summary>
 	/// <remarks>
 	/// <para>Each <see cref="JsonNode"/> has as custom implementation of <see cref="JsonNode.ToString()"/>
@@ -28,6 +29,18 @@ namespace Rotorz.Json {
 	/// var json = writer.ToString();
 	/// ]]></code>
 	/// </remarks>
+	/// <example>
+	/// <para>The following code demonstrates how to manually write JSON data:</para>
+	/// <code language="csharp"><![CDATA[
+	/// var writer = JsonWriter.Create();
+	/// writer.WriteStartObject();
+	/// writer.WritePropertyKey("Name");
+	/// writer.WriteString("Jessica");
+	/// writer.WritePropertyKey("Age");
+	/// writer.WriteInteger(24);
+	/// writer.WriteEndObject();
+	/// ]]></code>
+	/// </example>
 	public sealed class JsonWriter : IJsonWriter {
 
 		#region Factory Methods
