@@ -8,6 +8,21 @@ namespace Rotorz.Json.Tests {
 	[TestClass]
 	public class JsonWriterTests {
 
+		#region Writing Nothing
+
+		[TestMethod]
+		public void WriteNothing() {
+			// Arrange
+			var writer = JsonWriter.Create();
+
+			// Act
+
+			// Assert
+			Assert.AreEqual("null", writer.ToString());
+		}
+		
+		#endregion
+
 		#region Writing Objects
 
 		[TestMethod]

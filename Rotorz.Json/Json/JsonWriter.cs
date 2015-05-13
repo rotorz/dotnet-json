@@ -561,7 +561,10 @@ namespace Rotorz.Json {
 			if (stringWriter != null) {
 				var sb = stringWriter.GetStringBuilder();
 				stringWriter.Flush();
-				return sb.ToString();
+
+				// Return a value of "null" if output was empty.
+				var result = sb.ToString();
+				return !string.IsNullOrEmpty(result) ? result : "null";
 			}
 
 			return base.ToString();
