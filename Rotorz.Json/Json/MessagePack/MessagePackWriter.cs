@@ -15,7 +15,7 @@ namespace Rotorz.Json.MessagePack {
 
 		/// <summary>
 		/// Create new <see cref="MessagePackWriter"/> instance and write content to the
-		/// provided <see cref="Stream"/> instance with custom settings.
+		/// provided <see cref="Stream"/>.
 		/// </summary>
 		/// <param name="stream">Stream that data will be written to.</param>
 		/// <returns>
@@ -28,28 +28,51 @@ namespace Rotorz.Json.MessagePack {
 		/// If <paramref name="stream"/> is not writable.
 		/// </exception>
 		public static MessagePackWriter Create(Stream stream) {
-            return new MessagePackWriter(stream);
+			if (stream == null)
+				throw new ArgumentNullException("stream");
+			if (!stream.CanWrite)
+				throw new ArgumentException("Cannot write to stream.", "stream");
+
+			return Create(new BinaryWriter(stream));
+		}
+
+		/// <summary>
+		/// Create new <see cref="MessagePackWriter"/> instance and write content using
+		/// the provided <see cref="BinaryWriter"/>.
+		/// </summary>
+		/// <param name="writer">Binary data writer.</param>
+		/// <returns>
+		/// New <see cref="MessagePackWriter"/> instance.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="writer"/> is <c>null</c>.
+		/// </exception>
+		public static MessagePackWriter Create(BinaryWriter writer) {
+			if (writer == null)
+				throw new ArgumentNullException("writer");
+
+			return new MessagePackWriter(writer);
 		}
 
 		#endregion
 
-		private Stream _mpacStream;
+		private BinaryWriter _mpacWriter;
 
 		#region Low Level Writer
 
 		private void WriteFormatCode(MessagePackFormatCode formatCode) {
-			WriteByte((byte)formatCode);
+			_mpacWriter.Write((byte)formatCode);
 		}
 
 		private void WriteByte(byte value) {
-			_mpacStream.WriteByte(value);
+			_mpacWriter.Write(value);
 		}
 
 		private void WriteBytes(byte[] bytes) {
 			if (BitConverter.IsLittleEndian)
 				Array.Reverse(bytes);
 
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			_mpacWriter.Write(bytes, 0, bytes.Length);
 		}
 
 		private void WriteUInt16(ushort value) {
@@ -78,7 +101,7 @@ namespace Rotorz.Json.MessagePack {
 
 		private void WriteStringBytes(string value) {
 			var bytes = Encoding.UTF8.GetBytes(value);
-			_mpacStream.Write(bytes, 0, bytes.Length);
+			_mpacWriter.Write(bytes, 0, bytes.Length);
 		}
 
 		#endregion
@@ -86,14 +109,9 @@ namespace Rotorz.Json.MessagePack {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessagePackWriter"/> class.
 		/// </summary>
-		/// <param name="stream">Stream that data will be written to.</param>
-		private MessagePackWriter(Stream stream) {
-			if (stream == null)
-				throw new ArgumentNullException("stream");
-			if (!stream.CanWrite)
-				throw new ArgumentException("Not writable.", "stream");
-
-			_mpacStream = stream;
+		/// <param name="writer">Binary data writer.</param>
+		private MessagePackWriter(BinaryWriter writer) {
+			_mpacWriter = writer;
         }
 		
 		/// <inheritdoc/>
@@ -231,7 +249,7 @@ namespace Rotorz.Json.MessagePack {
 				}
 
 				Array.Reverse(bytes);
-				_mpacStream.Write(bytes, 0, bytes.Length);
+				_mpacWriter.Write(bytes, 0, bytes.Length);
 			}
 		}
 
@@ -283,7 +301,7 @@ namespace Rotorz.Json.MessagePack {
 				WriteInt32(value.Length);
 			}
 
-			_mpacStream.Write(value, 0, value.Length);
+			_mpacWriter.Write(value, 0, value.Length);
 		}
 
 		/// <summary>
@@ -313,7 +331,7 @@ namespace Rotorz.Json.MessagePack {
 
 			WriteByte((byte)type);
 
-			_mpacStream.Write(value, 0, value.Length);
+			_mpacWriter.Write(value, 0, value.Length);
 		}
 
 	}
