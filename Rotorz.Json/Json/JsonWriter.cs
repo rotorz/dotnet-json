@@ -39,7 +39,7 @@ namespace Rotorz.Json {
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
 		public static JsonWriter Create() {
-			return Create(new StringWriter(), JsonWriterSettings.DefaultSettings);
+			return Create(JsonWriterSettings.DefaultSettings);
 		}
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// provided <see cref="StringBuilder"/> with custom settings.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
 		/// <returns>
@@ -65,15 +65,12 @@ namespace Rotorz.Json {
 		/// If <paramref name="builder"/> is <c>null</c>.
 		/// </exception>
 		public static JsonWriter Create(StringBuilder builder) {
-			if (builder == null)
-				throw new ArgumentNullException("builder");
-
-			return Create(new StringWriter(builder), JsonWriterSettings.DefaultSettings);
+			return Create(builder, JsonWriterSettings.DefaultSettings);
 		}
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// provided <see cref="StringBuilder"/> with custom settings.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
 		/// <param name="settings">Custom settings.</param>
@@ -97,7 +94,54 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// provided <see cref="Stream"/> with custom settings.
+		/// </summary>
+		/// <param name="stream">Stream that data will be written to.</param>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="stream"/> is <c>null</c>.
+		/// </exception>
+		/// <exception cref="System.ArgumentException">
+		/// If <paramref name="stream"/> is not writable.
+		/// </exception>
+		public static JsonWriter Create(Stream stream) {
+			return Create(stream, JsonWriterSettings.DefaultSettings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
+		/// provided <see cref="Stream"/> with custom settings.
+		/// </summary>
+		/// <param name="stream">Stream that data will be written to.</param>
+		/// <param name="settings">Custom settings.</param>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// <list type="bullet">
+		/// <item>If <paramref name="stream"/> is <c>null</c>.</item>
+		/// <item>If <paramref name="settings"/> is <c>null</c>.</item>
+		/// </list>
+		/// </exception>
+		/// <exception cref="System.ArgumentException">
+		/// If <paramref name="stream"/> is not writable.
+		/// </exception>
+		public static JsonWriter Create(Stream stream, JsonWriterSettings settings) {
+			if (stream == null)
+				throw new ArgumentNullException("stream");
+			if (!stream.CanWrite)
+				throw new ArgumentException("Cannot write to stream.", "stream");
+			if (settings == null)
+				throw new ArgumentNullException("settings");
+
+			return new JsonWriter(new StreamWriter(stream), settings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
+		/// provided <see cref="StringBuilder"/> with custom settings.
 		/// </summary>
 		/// <param name="writer">Text writer.</param>
 		/// <returns>
@@ -107,15 +151,12 @@ namespace Rotorz.Json {
 		/// If <paramref name="writer"/> is <c>null</c>.
 		/// </exception>
 		public static JsonWriter Create(TextWriter writer) {
-			if (writer == null)
-				throw new ArgumentNullException("writer");
-
-			return new JsonWriter(writer, JsonWriterSettings.DefaultSettings);
+			return Create(writer, JsonWriterSettings.DefaultSettings);
 		}
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// provided <see cref="StringBuilder"/> with custom settings.
 		/// </summary>
 		/// <param name="writer">Text writer.</param>
 		/// <param name="settings">Custom settings.</param>
