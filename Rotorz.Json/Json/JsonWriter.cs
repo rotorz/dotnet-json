@@ -46,7 +46,7 @@ namespace Rotorz.Json {
 		#region Factory Methods
 
 		/// <summary>
-		/// Creates a new <see cref="JsonWriter"/> instance with custom settings.
+		/// Creates a new <see cref="JsonWriter"/> instance with the default formatting.
 		/// </summary>
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
@@ -56,7 +56,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="JsonWriter"/> instance with custom settings.
+		/// Creates a new <see cref="JsonWriter"/> instance with custom formatting.
 		/// </summary>
 		/// <param name="settings">Custom settings.</param>
 		/// <returns>
@@ -68,7 +68,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> with custom settings.
+		/// provided <see cref="StringBuilder"/> with the default formatting.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
 		/// <returns>
@@ -83,7 +83,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> with custom settings.
+		/// provided <see cref="StringBuilder"/> with custom formatting.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
 		/// <param name="settings">Custom settings.</param>
@@ -107,7 +107,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="Stream"/> with custom settings.
+		/// provided <see cref="Stream"/> with the default formatting.
 		/// </summary>
 		/// <param name="stream">Stream that data will be written to.</param>
 		/// <returns>
@@ -125,7 +125,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="Stream"/> with custom settings.
+		/// provided <see cref="Stream"/> with custom formatting.
 		/// </summary>
 		/// <param name="stream">Stream that data will be written to.</param>
 		/// <param name="settings">Custom settings.</param>
@@ -154,7 +154,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> with custom settings.
+		/// provided <see cref="StringBuilder"/> with the default formatting.
 		/// </summary>
 		/// <param name="writer">Text writer.</param>
 		/// <returns>
@@ -169,7 +169,7 @@ namespace Rotorz.Json {
 
 		/// <summary>
 		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> with custom settings.
+		/// provided <see cref="StringBuilder"/> with custom formatting.
 		/// </summary>
 		/// <param name="writer">Text writer.</param>
 		/// <param name="settings">Custom settings.</param>
