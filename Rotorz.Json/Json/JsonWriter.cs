@@ -38,20 +38,10 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
-		public static JsonWriter Create(JsonWriterSettings settings) {
+		public static JsonWriter Create(JsonWriterSettings settings = null) {
 			return new JsonWriter(null, settings);
 		}
-
-		/// <summary>
-		/// Create new <see cref="JsonWriter"/> instance.
-		/// </summary>
-		/// <returns>
-		/// New <see cref="JsonWriter"/> instance.
-		/// </returns>
-		public static JsonWriter Create() {
-			return new JsonWriter(null, null);
-		}
-
+		
 		/// <summary>
 		/// Create new <see cref="JsonWriter"/> instance and write content to the
 		/// provided <see cref="StringBuilder"/> instance with custom settings.
@@ -61,20 +51,8 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
-		public static JsonWriter Create(StringBuilder builder, JsonWriterSettings settings) {
+		public static JsonWriter Create(StringBuilder builder, JsonWriterSettings settings = null) {
 			return new JsonWriter(builder, settings);
-		}
-
-		/// <summary>
-		/// Create new <see cref="JsonWriter"/> instance and write content to the
-		/// provided <see cref="StringBuilder"/> instance.
-		/// </summary>
-		/// <param name="builder">String builder.</param>
-		/// <returns>
-		/// New <see cref="JsonWriter"/> instance.
-		/// </returns>
-		public static JsonWriter Create(StringBuilder builder) {
-			return Create(builder, null);
 		}
 
 		#endregion
