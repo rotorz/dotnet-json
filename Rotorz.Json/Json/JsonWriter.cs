@@ -513,10 +513,17 @@ namespace Rotorz.Json {
 		/// Get current state of JSON encoded string which is being written.
 		/// </summary>
 		/// <returns>
-		/// JSON encoded string.
+		/// The JSON encoded string when writing using a <see cref="StringWriter"/>.
 		/// </returns>
 		public override string ToString() {
-			return _writer.ToString();
+			var stringWriter = _writer as StringWriter;
+			if (stringWriter != null) {
+				var sb = stringWriter.GetStringBuilder();
+				stringWriter.Flush();
+				return sb.ToString();
+			}
+
+			return base.ToString();
 		}
 
 	}
