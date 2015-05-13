@@ -290,10 +290,10 @@ namespace Rotorz.Json.Tests {
 			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
 
 			// Act
-			var builder = new StringBuilder();
+			var stringWriter = new StringWriter(new StringBuilder());
 			var settings = new JsonWriterSettings();
 			settings.IndentChars = "   ";
-			var writer = JsonWriter.Create(builder, settings);
+			var writer = JsonWriter.Create(stringWriter, settings);
 
 			simpleObjectNode.WriteTo(writer);
 			string result = writer.ToString();

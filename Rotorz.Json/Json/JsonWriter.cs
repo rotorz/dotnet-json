@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text;
 
 namespace Rotorz.Json {
@@ -32,18 +33,43 @@ namespace Rotorz.Json {
 		#region Factory Methods
 
 		/// <summary>
-		/// Create new <see cref="JsonWriter"/> instance with custom settings.
+		/// Creates a new <see cref="JsonWriter"/> instance with custom settings.
+		/// </summary>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		public static JsonWriter Create() {
+			return Create((TextWriter)null, JsonWriterSettings.DefaultSettings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance with custom settings.
 		/// </summary>
 		/// <param name="settings">Custom settings.</param>
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
-		public static JsonWriter Create(JsonWriterSettings settings = null) {
-			return new JsonWriter(null, settings);
+		public static JsonWriter Create(JsonWriterSettings settings) {
+			return Create((TextWriter)null, settings);
 		}
-		
+
 		/// <summary>
-		/// Create new <see cref="JsonWriter"/> instance and write content to the
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
+		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// </summary>
+		/// <param name="builder">String builder.</param>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		public static JsonWriter Create(StringBuilder builder) {
+			if (builder == null)
+				builder = new StringBuilder();
+
+			return Create(new StringWriter(builder), JsonWriterSettings.DefaultSettings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
 		/// provided <see cref="StringBuilder"/> instance with custom settings.
 		/// </summary>
 		/// <param name="builder">String builder.</param>
@@ -51,27 +77,78 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// New <see cref="JsonWriter"/> instance.
 		/// </returns>
-		public static JsonWriter Create(StringBuilder builder, JsonWriterSettings settings = null) {
-			return new JsonWriter(builder, settings);
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="settings"/> is <c>null</c>.
+		/// </exception>
+		public static JsonWriter Create(StringBuilder builder, JsonWriterSettings settings) {
+			if (settings == null)
+				throw new ArgumentNullException("settings");
+
+			if (builder == null)
+				builder = new StringBuilder();
+
+			return Create(new StringWriter(builder), settings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
+		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// </summary>
+		/// <param name="writer">Text writer.</param>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		public static JsonWriter Create(TextWriter writer) {
+			if (writer == null)
+				writer = new StringWriter();
+
+			return new JsonWriter(writer, JsonWriterSettings.DefaultSettings);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="JsonWriter"/> instance and write content to the
+		/// provided <see cref="StringBuilder"/> instance with custom settings.
+		/// </summary>
+		/// <param name="writer">Text writer.</param>
+		/// <param name="settings">Custom settings.</param>
+		/// <returns>
+		/// New <see cref="JsonWriter"/> instance.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// If <paramref name="settings"/> is <c>null</c>.
+		/// </exception>
+		public static JsonWriter Create(TextWriter writer, JsonWriterSettings settings) {
+			if (settings == null)
+				throw new ArgumentNullException("settings");
+
+			if (writer == null)
+				writer = new StringWriter();
+
+			return new JsonWriter(writer, settings);
 		}
 
 		#endregion
 
-		private StringBuilder _builder;
+		private readonly TextWriter _writer;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="JsonWriter"/> class.
 		/// </summary>
-		/// <param name="builder">String builder.</param>
-		/// <param name="settings">Custom settings; specify a value of <c>null</c> to
-		/// assume default settings.</param>
-		private JsonWriter(StringBuilder builder, JsonWriterSettings settings) {
-			if (builder == null)
-				builder = new StringBuilder();
+		/// <param name="writer">Text writer.</param>
+		/// <param name="settings">Custom settings.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// <list type="bullet">
+		/// <item>If <paramref name="writer"/> is <c>null</c>.</item>
+		/// <item>If <paramref name="settings"/> is <c>null</c>.</item>
+		/// </list>
+		/// </exception>
+		private JsonWriter(TextWriter writer, JsonWriterSettings settings) {
+			if (writer == null)
+				throw new ArgumentNullException("writer");
 			if (settings == null)
-				settings = JsonWriterSettings.DefaultSettings;
+				throw new ArgumentNullException("settings");
 
-			_builder = builder;
+			_writer = writer;
 			Settings = settings;
 
 			settings.IsReadOnly = true;
@@ -127,18 +204,18 @@ namespace Rotorz.Json {
 			if (Settings.Indent == true) {
 				int count = _contextStack.Count;
 				while (--count > 0)
-					_builder.Append(Settings.IndentChars);
+					_writer.Write(Settings.IndentChars);
 			}
 		}
 
 		private void WriteLine() {
 			if (Settings.Indent == true)
-				_builder.Append(Settings.NewLineChars);
+				_writer.Write(Settings.NewLineChars);
 		}
 
 		private void WriteSpace() {
 			if (Settings.Indent == true)
-				_builder.Append(" ");
+				_writer.Write(" ");
 		}
 
 		private void WriteEscapedLiteral(string value) {
@@ -149,31 +226,31 @@ namespace Rotorz.Json {
 				char c = value[i];
 				switch (c) {
 					case '\"':
-						_builder.Append("\\\"");
+						_writer.Write("\\\"");
 						break;
 					case '\\':
-						_builder.Append("\\\\");
+						_writer.Write("\\\\");
 						break;
 					case '/':
-						_builder.Append("\\/");
+						_writer.Write("\\/");
 						break;
 					case '\b':
-						_builder.Append("\\b");
+						_writer.Write("\\b");
 						break;
 					case '\f':
-						_builder.Append("\\f");
+						_writer.Write("\\f");
 						break;
 					case '\n':
-						_builder.Append("\\n");
+						_writer.Write("\\n");
 						break;
 					case '\r':
-						_builder.Append("\\r");
+						_writer.Write("\\r");
 						break;
 					case '\t':
-						_builder.Append("\\t");
+						_writer.Write("\\t");
 						break;
 					default:
-						_builder.Append(c);
+						_writer.Write(c);
 						break;
 				}
 			}
@@ -181,7 +258,7 @@ namespace Rotorz.Json {
 
 		private void DoBeginValue() {
 			if (!_empty)
-				_builder.Append(',');
+				_writer.Write(',');
 
 			if (_contextStack.Peek() == Context.Array) {
 				WriteLine();
@@ -216,7 +293,7 @@ namespace Rotorz.Json {
 		public void WriteStartObject() {
 			DoBeginValue();
 
-			_builder.Append('{');
+			_writer.Write('{');
 
 			_contextStack.Push(Context.Object);
 			_empty = true;
@@ -235,7 +312,7 @@ namespace Rotorz.Json {
 				WriteIndent();
 			}
 
-			_builder.Append('}');
+			_writer.Write('}');
 
 			DoEndValue();
 		}
@@ -267,9 +344,9 @@ namespace Rotorz.Json {
 			WriteLine();
 			WriteIndent();
 
-			_builder.Append("\"");
+			_writer.Write("\"");
 			WriteEscapedLiteral(key);
-			_builder.Append("\":");
+			_writer.Write("\":");
 
 			WriteSpace();
 
@@ -290,7 +367,7 @@ namespace Rotorz.Json {
 		private void WriteValueRaw(string content) {
 			DoBeginValue();
 
-			_builder.Append(content ?? "null");
+			_writer.Write(content ?? "null");
 
 			DoEndValue();
 		}
@@ -320,7 +397,7 @@ namespace Rotorz.Json {
 		public void WriteStartArray() {
 			DoBeginValue();
 
-			_builder.Append('[');
+			_writer.Write('[');
 
 			_contextStack.Push(Context.Array);
 			_empty = true;
@@ -338,7 +415,7 @@ namespace Rotorz.Json {
 				WriteIndent();
 			}
 
-			_builder.Append(']');
+			_writer.Write(']');
 
 			DoEndValue();
 		}
@@ -399,9 +476,9 @@ namespace Rotorz.Json {
 		public void WriteString(string value) {
 			DoBeginValue();
 
-			_builder.Append('"');
+			_writer.Write('"');
 			WriteEscapedLiteral(value);
-			_builder.Append('"');
+			_writer.Write('"');
 
 			DoEndValue();
 		}
@@ -429,7 +506,7 @@ namespace Rotorz.Json {
 		/// JSON encoded string.
 		/// </returns>
 		public override string ToString() {
-			return _builder.ToString();
+			return _writer.ToString();
 		}
 
 	}
