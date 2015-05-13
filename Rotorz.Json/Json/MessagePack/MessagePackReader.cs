@@ -27,14 +27,19 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="stream"/> is <c>null</c>.
 		/// </exception>
+		/// <exception cref="System.ArgumentException">
+		/// If <paramref name="stream"/> is not readable.
+		/// </exception>
 		/// <seealso cref="Read()"/>
 		public static MessagePackReader Create(Stream stream) {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
+			if (!stream.CanRead)
+				throw new ArgumentException("Cannot read from stream.", "stream");
 
 			stream = new BufferedStream(stream, 2048);
 
-			return new MessagePackReader(new BinaryReader(stream));
+			return Create(new BinaryReader(stream));
 		}
 
 		/// <summary>
