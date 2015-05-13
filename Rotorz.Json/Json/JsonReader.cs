@@ -43,12 +43,17 @@ namespace Rotorz.Json {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="stream"/> is <c>null</c>.
 		/// </exception>
+		/// <exception cref="System.ArgumentException">
+		/// If <paramref name="stream"/> is not readable.
+		/// </exception>
 		/// <seealso cref="Read()"/>
 		public static JsonReader Create(Stream stream) {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
+			if (!stream.CanRead)
+				throw new ArgumentException("Cannot read from stream.", "stream");
 
-			return new JsonReader(new StreamReader(stream));
+			return Create(new StreamReader(stream));
 		}
 
 		/// <summary>
