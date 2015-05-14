@@ -7,8 +7,9 @@ using System.Text;
 
 namespace Rotorz.Json.MessagePack {
 
+	// MessagePack Specification:
 	// https://github.com/msgpack/msgpack/blob/master/spec.md
-	// 2fb4eaa9688888b74bdabb2222f0e0f42712b6b1
+
 	internal sealed class MessagePackReader {
 
 		#region Factory Methods

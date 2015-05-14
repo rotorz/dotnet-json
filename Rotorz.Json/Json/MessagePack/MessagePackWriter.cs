@@ -6,9 +6,36 @@ using System.Text;
 
 namespace Rotorz.Json.MessagePack {
 
+	// MessagePack Specification:
 	// https://github.com/msgpack/msgpack/blob/master/spec.md
-	// 2fb4eaa9688888b74bdabb2222f0e0f42712b6b1
-	internal sealed class MessagePackWriter : IJsonWriter {
+
+	/// <summary>
+	/// A <see cref="IJsonWriter"/> that can be used to write a MessagePack encoded
+	/// representation of a <see cref="JsonNode"/>. This class can be used directly to
+	/// manually write MessagePack data without the need to instantiate any <see cref="JsonNode"/>
+	/// instances.
+	/// </summary>
+	/// <remarks>
+	/// <para>The <see cref="MessagePackWriter"/> class aims to implement the MessagePack
+	/// specification; commit <a href="https://github.com/msgpack/msgpack/blob/8fc1ab3efbece26890d16baa8e5bbc6867ba80b8/spec.md">8fc1ab3efbece26890d16baa8e5bbc6867ba80b8</a>.</para>
+	/// </remarks>
+	/// <example>
+	/// <para>The following code demonstrates how to manually write MessagePack data:</para>
+	/// <code language="csharp"><![CDATA[
+	/// byte[] bytes;
+	/// using (var memoryStream = new MemoryStream()) {
+	///     var writer = MessagePackWriter.Create(memoryStream);
+	///     writer.WriteStartObject(2);
+	///     writer.WritePropertyKey("Name");
+	///     writer.WriteString("Jessica");
+	///     writer.WritePropertyKey("Age");
+	///     writer.WriteInteger(24);
+	///     writer.WriteEndObject();
+	///     bytes = memoryStream.ToArray();
+	/// }
+	/// ]]></code>
+	/// </example>
+	public sealed class MessagePackWriter : IJsonWriter {
 
 		#region Factory Methods
 
@@ -39,18 +66,18 @@ namespace Rotorz.Json.MessagePack {
 		/// Create new <see cref="MessagePackWriter"/> instance and write content using
 		/// the provided <see cref="BinaryWriter"/>.
 		/// </summary>
-		/// <param name="writer">Binary data writer.</param>
+		/// <param name="binaryWriter">Binary data writer.</param>
 		/// <returns>
 		/// New <see cref="MessagePackWriter"/> instance.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="writer"/> is <c>null</c>.
+		/// If <paramref name="binaryWriter"/> is <c>null</c>.
 		/// </exception>
-		public static MessagePackWriter Create(BinaryWriter writer) {
-			if (writer == null)
-				throw new ArgumentNullException("writer");
+		public static MessagePackWriter Create(BinaryWriter binaryWriter) {
+			if (binaryWriter == null)
+				throw new ArgumentNullException("binaryWriter");
 
-			return new MessagePackWriter(writer);
+			return new MessagePackWriter(binaryWriter);
 		}
 
 		#endregion
@@ -60,15 +87,15 @@ namespace Rotorz.Json.MessagePack {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessagePackWriter"/> class.
 		/// </summary>
-		/// <param name="writer">Binary data writer.</param>
+		/// <param name="binaryWriter">Binary data writer.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="writer"/> is <c>null</c>.
+		/// If <paramref name="binaryWriter"/> is <c>null</c>.
 		/// </exception>
-		private MessagePackWriter(BinaryWriter writer) {
-			if (writer == null)
-				throw new ArgumentNullException("writer");
+		private MessagePackWriter(BinaryWriter binaryWriter) {
+			if (binaryWriter == null)
+				throw new ArgumentNullException("binaryWriter");
 
-			_mpacWriter = writer;
+			_mpacWriter = binaryWriter;
         }
 		
 		#region Low Level Writer
