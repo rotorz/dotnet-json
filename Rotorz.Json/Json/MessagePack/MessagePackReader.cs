@@ -157,7 +157,7 @@ namespace Rotorz.Json.MessagePack {
 		/// of <c>null</c> if input content was either empty or consisted entirely of
 		/// whitespace.
 		/// </returns>
-		/// <exception cref="JsonParserException">
+		/// <exception cref="MessagePackParserException">
 		/// If a syntax error was encountered whilst attempting to parse input content.
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
@@ -186,7 +186,7 @@ namespace Rotorz.Json.MessagePack {
 		/// New <see cref="JsonNode"/> holding value; returns a value of <c>null</c> when
 		/// <c>null</c> is detected in input.
 		/// </returns>
-		/// <exception cref="JsonParserException">
+		/// <exception cref="MessagePackParserException">
 		/// If a syntax error was encountered whilst attempting to parse input content.
 		/// Exception contains identifies the source of the error by providing the line
 		/// number and position.
@@ -308,7 +308,7 @@ namespace Rotorz.Json.MessagePack {
 					return new JsonIntegerNode((sbyte)b);
 
 				default:
-					throw new IOException(string.Format("Encountered unexpected format code '{0:X}' in MessagePack format.", (byte)formatCode));
+					throw new MessagePackParserException(string.Format("Encountered unexpected format code '0x{0:X}' in MessagePack format.", (byte)formatCode));
 			}
 		}
 
@@ -326,7 +326,7 @@ namespace Rotorz.Json.MessagePack {
 
 				var keyNode = node as JsonStringNode;
 				if (keyNode == null)
-					throw new IOException(string.Format("Expected string for key but encountered '{0}'.", node.GetType()));
+					throw new MessagePackParserException(string.Format("Expected string for key but encountered '0x{0:X}'.", node.GetType()));
 
 				objectNode[keyNode.Value] = ReadValue();
 			}
