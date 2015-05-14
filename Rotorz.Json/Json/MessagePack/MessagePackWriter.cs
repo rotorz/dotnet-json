@@ -35,6 +35,7 @@ namespace Rotorz.Json.MessagePack {
 	/// }
 	/// ]]></code>
 	/// </example>
+	/// <seealso cref="MessagePackReader"/>
 	public sealed class MessagePackWriter : IJsonWriter {
 
 		#region Factory Methods

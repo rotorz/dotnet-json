@@ -21,8 +21,8 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="bytes"/> is <c>null</c>.
 		/// </exception>
-		/// <exception cref="System.ArgumentException">
-		/// If <paramref name="bytes"/> contains zero bytes.
+		/// <exception cref="System.IO.EndOfStreamException">
+		/// If end of input stream is reached.
 		/// </exception>
 		/// <exception cref="MessagePackParserException">
 		/// If an error was encountered whilst attempting to parse MessagePack encoded
@@ -31,8 +31,6 @@ namespace Rotorz.Json.MessagePack {
 		public static JsonNode ReadNodeFromBytes(byte[] bytes) {
 			if (bytes == null)
 				throw new ArgumentNullException("bytes");
-			if (bytes.Length == 0)
-				throw new ArgumentException("Must contain at least one byte.", "bytes");
 			
 			using (var stream = new MemoryStream(bytes))
 				return ReadNodeFrom(stream);
@@ -72,13 +70,16 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentException">
 		/// If <paramref name="stream"/> is not readable.
 		/// </exception>
+		/// <exception cref="System.IO.EndOfStreamException">
+		/// If end of input stream is reached.
+		/// </exception>
 		/// <exception cref="MessagePackParserException">
 		/// If an error was encountered whilst attempting to parse MessagePack encoded
 		/// data. This exception typical indicates that input string contains one or more
 		/// syntax errors.
 		/// </exception>
 		public static JsonNode ReadNodeFrom(Stream stream) {
-			return MessagePackReader.Create(stream).Read();
+			return MessagePackReader.Create(stream).ReadNext();
 		}
 
 		/// <summary>
@@ -95,13 +96,16 @@ namespace Rotorz.Json.MessagePack {
 		/// <exception cref="System.ArgumentNullException">
 		/// If <paramref name="reader"/> is <c>null</c>.
 		/// </exception>
+		/// <exception cref="System.IO.EndOfStreamException">
+		/// If end of input stream is reached.
+		/// </exception>
 		/// <exception cref="MessagePackParserException">
 		/// If an error was encountered whilst attempting to parse MessagePack encoded
 		/// data. This exception typical indicates that input string contains one or more
 		/// syntax errors.
 		/// </exception>
 		public static JsonNode ReadNodeFrom(BinaryReader reader) {
-			return MessagePackReader.Create(reader).Read();
+			return MessagePackReader.Create(reader).ReadNext();
 		}
 
 		/// <summary>
