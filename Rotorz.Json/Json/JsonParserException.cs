@@ -25,7 +25,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new <see cref="JsonParserException"/> instance.
+		/// Initializes a new instance of the <see cref="JsonParserException"/> class.
 		/// </summary>
 		/// <param name="info">Serialization information.</param>
 		/// <param name="context">Streaming context.</param>
