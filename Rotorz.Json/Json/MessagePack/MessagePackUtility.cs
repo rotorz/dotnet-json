@@ -75,41 +75,39 @@ namespace Rotorz.Json.MessagePack {
 		/// </exception>
 		/// <exception cref="MessagePackParserException">
 		/// If an error was encountered whilst attempting to parse MessagePack encoded
-		/// data. This exception typical indicates that input string contains one or more
-		/// syntax errors.
+		/// data. This exception typical indicates that input contains one or more errors.
 		/// </exception>
 		public static JsonNode ReadNodeFrom(Stream stream) {
 			return MessagePackReader.Create(stream).ReadNext();
 		}
 
 		/// <summary>
-		/// Reads a <see cref="JsonNode"/> from MessagePack encoded bytes using a <see cref="BinaryReader"/>.
+		/// Reads a <see cref="JsonNode"/> from MessagePack encoded data using a <see cref="BinaryReader"/>.
 		/// </summary>
 		/// <remarks>
 		/// <para>User code should close the provided reader when it is no longer required
 		/// after data has been read; this can be accomplished with the <c>using</c> construct.</para>
 		/// </remarks>
-		/// <param name="reader">Binary reader.</param>
+		/// <param name="binaryReader">Binary reader.</param>
 		/// <returns>
 		/// A <see cref="JsonNode"/> instance or a value of <c>null</c>.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="reader"/> is <c>null</c>.
+		/// If <paramref name="binaryReader"/> is <c>null</c>.
 		/// </exception>
 		/// <exception cref="System.IO.EndOfStreamException">
 		/// If end of input stream is reached.
 		/// </exception>
 		/// <exception cref="MessagePackParserException">
 		/// If an error was encountered whilst attempting to parse MessagePack encoded
-		/// data. This exception typical indicates that input string contains one or more
-		/// syntax errors.
+		/// data. This exception typical indicates that input contains one or more errors.
 		/// </exception>
-		public static JsonNode ReadNodeFrom(BinaryReader reader) {
-			return MessagePackReader.Create(reader).ReadNext();
+		public static JsonNode ReadNodeFrom(BinaryReader binaryReader) {
+			return MessagePackReader.Create(binaryReader).ReadNext();
 		}
 
 		/// <summary>
-		/// Writes a <see cref="JsonNode"/> to a stream of MessagePack encoded bytes.
+		/// Writes a <see cref="JsonNode"/> to a stream of MessagePack encoded data.
 		/// </summary>
 		/// <param name="node">A <see cref="JsonNode"/> instance or <c>null</c>.</param>
 		/// <param name="stream">Stream that data will be written to.</param>
@@ -128,12 +126,12 @@ namespace Rotorz.Json.MessagePack {
 		}
 
 		/// <summary>
-		/// Writes a <see cref="JsonNode"/> to MessagePack encoded bytes using a <see cref="BinaryWriter"/>.
+		/// Writes a <see cref="JsonNode"/> to MessagePack encoded data using a <see cref="BinaryWriter"/>.
 		/// </summary>
 		/// <param name="node">A <see cref="JsonNode"/> instance or <c>null</c>.</param>
-		/// <param name="writer">Binary data writer.</param>
+		/// <param name="binaryWriter">Binary data writer.</param>
 		/// <exception cref="System.ArgumentNullException">
-		/// If <paramref name="writer"/> is <c>null</c>.
+		/// If <paramref name="binaryWriter"/> is <c>null</c>.
 		/// </exception>
 		public static void WriteNodeTo(JsonNode node, BinaryWriter binaryWriter) {
 			var writer = MessagePackWriter.Create(binaryWriter);

@@ -27,7 +27,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets value of the node.
+		/// Gets or sets the value of the node.
 		/// </summary>
 		/// <seealso cref="UnsignedValue"/>
 		public long Value { get; set; }

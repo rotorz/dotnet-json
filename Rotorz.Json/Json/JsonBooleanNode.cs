@@ -26,7 +26,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Gets or sets value of the node.
+		/// Gets or sets the value of the node.
 		/// </summary>
 		public bool Value { get; set; }
 

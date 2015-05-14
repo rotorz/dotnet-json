@@ -15,7 +15,7 @@ namespace Rotorz.Json {
 	/// </summary>
 	/// <remarks>
 	/// <para>Each <see cref="JsonNode"/> has as custom implementation of <see cref="JsonNode.ToString()"/>
-	/// and <see cref="JsonNode.ToString(JsonWriterSettings)"/> which produce a JSON encoded strings:</para>
+	/// which produces a JSON encoded strings:</para>
 	/// <code language="csharp"><![CDATA[
 	/// var card = new JsonObjectNode();
 	/// card["Name"] = "Jessica";

@@ -308,7 +308,8 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <param name="writer">Object for writing node data to.</param>
 		/// <seealso cref="ToString()"/>
-		/// <seealso cref="ToString(JsonWriterSettings)"/>
+		/// <seealso cref="JsonUtility.ToJsonString(JsonNode)"/>
+		/// <seealso cref="JsonUtility.ToJsonString(JsonNode, JsonWriterSettings)"/>
 		public abstract void Write(IJsonWriter writer);
 
 	}

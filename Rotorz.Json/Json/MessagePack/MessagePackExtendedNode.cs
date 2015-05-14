@@ -5,21 +5,21 @@ using System;
 namespace Rotorz.Json.MessagePack {
 
 	/// <summary>
-	/// Node holding an extended binary value in the form of a byte array with an
-	/// accompanying <see xref="ExtendedType"/> value.
+	/// A MessagePack node that holds binary data as an array of bytes with an additional
+	/// <see cref="ExtendedType"/> value.
 	/// </summary>
 	public sealed class MessagePackExtendedNode : JsonNode {
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/>
-		/// class with an empty byte array.
+		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/> class
+		/// with an empty byte array.
 		/// </summary>
 		public MessagePackExtendedNode() {
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/>
-		/// class with the specified type and binary data.
+		/// Initializes a new instance of the <see cref="MessagePackExtendedNode"/> class
+		/// with the specified type of binary data.
 		/// </summary>
 		/// <param name="type">The type of extended value.</param>
 		/// <param name="data">Initial value of node.</param>
@@ -37,10 +37,14 @@ namespace Rotorz.Json.MessagePack {
 		/// <summary>
 		/// Gets or sets the type of the extended value.
 		/// </summary>
+		/// <remarks>
+		/// <para>Negative values are reserved for future usage by the MessagePack
+		/// specification.</para>
+		/// </remarks>
 		public sbyte ExtendedType { get; set; }
 
 		/// <summary>
-		/// Gets or sets value of the node.
+		/// Gets or sets the value of the node.
 		/// </summary>
 		public byte[] Value { get; set; }
 

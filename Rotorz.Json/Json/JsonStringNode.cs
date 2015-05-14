@@ -32,7 +32,7 @@ namespace Rotorz.Json {
 		private string _value;
 
 		/// <summary>
-		/// Gets or sets value of the node.
+		/// Gets or sets the value of the node.
 		/// </summary>
 		/// <remarks>
 		/// <para>It is not possible to assign a value of <c>null</c> to a string node;

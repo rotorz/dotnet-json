@@ -18,7 +18,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <summary>
-		/// Initialize new <see cref="JsonWriterSettings"/> instance with default values.
+		/// Initializes a new instance of the <see cref="JsonWriterSettings"/> class with default values.
 		/// </summary>
 		public JsonWriterSettings() {
 			Reset();
