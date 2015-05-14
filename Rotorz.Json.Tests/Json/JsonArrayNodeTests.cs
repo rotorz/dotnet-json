@@ -224,7 +224,7 @@ namespace Rotorz.Json.Tests {
 		#region JsonArrayNode()
 
 		[TestMethod]
-		public void Create() {
+		public void Create_Array() {
 			// Arrange
 
 			// Act
@@ -232,6 +232,21 @@ namespace Rotorz.Json.Tests {
 
 			// Assert
 			Assert.AreEqual(0, arrayNode.Count);
+		}
+
+		#endregion
+
+		#region JsonArrayNode(int)
+
+		[TestMethod]
+		public void Create_Array_InitialLength() {
+			// Arrange
+
+			// Act
+			var arrayNode = new JsonArrayNode(10);
+
+			// Assert
+			Assert.AreEqual(10, arrayNode.Count);
 		}
 
 		#endregion

@@ -75,6 +75,17 @@ namespace Rotorz.Json {
 		/// Initializes a new instance of the <see cref="JsonArrayNode"/> class.
 		/// </summary>
 		public JsonArrayNode() {
+			_nodes = new List<JsonNode>();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="JsonArrayNode"/> class and
+		/// populates with the specified <paramref name="length"/> of <c>null</c> entries.
+		/// </summary>
+		public JsonArrayNode(int length) {
+			_nodes = new List<JsonNode>(length);
+			while (length-- > 0)
+				_nodes.Add(null);
 		}
 
 		/// <summary>
@@ -89,6 +100,7 @@ namespace Rotorz.Json {
 			if (nodes == null)
 				throw new ArgumentNullException("nodes");
 
+			_nodes = new List<JsonNode>();
 			foreach (var node in nodes)
 				_nodes.Add(node);
 		}
@@ -105,10 +117,11 @@ namespace Rotorz.Json {
 			if (collection == null)
 				throw new ArgumentNullException("collection");
 
+			_nodes = new List<JsonNode>();
 			_nodes.AddRange(collection);
 		}
 
-		private List<JsonNode> _nodes = new List<JsonNode>();
+		private readonly List<JsonNode> _nodes;
 
 		#region IList<JsonNode> Members
 
