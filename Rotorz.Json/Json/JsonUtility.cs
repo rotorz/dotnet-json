@@ -11,6 +11,26 @@ namespace Rotorz.Json {
 	/// </summary>
 	public static class JsonUtility {
 
+		/// <inheritdoc cref="JsonNode.ReadFrom(string)"/>
+		public static JsonNode ReadFrom(string json) {
+			return JsonNode.ReadFrom(json);
+		}
+
+		/// <inheritdoc cref="JsonNode.ReadFrom(Stream)"/>
+		public static JsonNode ReadFrom(Stream stream) {
+			return JsonNode.ReadFrom(stream);
+		}
+
+		/// <inheritdoc cref="JsonNode.ReadFrom(TextReader)"/>
+		public static JsonNode ReadFrom(TextReader reader) {
+			return JsonNode.ReadFrom(reader);
+		}
+
+		/// <inheritdoc cref="JsonNode.ConvertFrom(object)"/>
+		public static JsonNode ConvertFrom(object value) {
+			return JsonNode.ConvertFrom(value);
+		}
+
 		/// <summary>
 		/// Writes a <see cref="JsonNode"/> instance to the provided <see cref="StringBuilder"/>
 		/// with the default formatting.
