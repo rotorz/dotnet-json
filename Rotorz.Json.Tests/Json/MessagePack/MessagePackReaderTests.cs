@@ -35,13 +35,11 @@ namespace Rotorz.Json.MessagePack.Tests {
 			// Arrange
 			using (var casesJsonStream = new FileStream(jsonFileName, FileMode.Open, FileAccess.Read))
 			using (var casesMpacStream = new FileStream(mpacFileName, FileMode.Open, FileAccess.Read)) {
-				var messagePackReader = MessagePackReader.Create(casesMpacStream);
-
 				// Act
 				var result = new JsonArrayNode();
 				while (true) {
 					try {
-						result.Add(messagePackReader.ReadNext());
+						result.Add(MessagePackUtility.ReadNodeFrom(casesMpacStream));
 					}
 					catch (EndOfStreamException) {
 						break;

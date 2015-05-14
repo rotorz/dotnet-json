@@ -15,8 +15,7 @@ namespace Rotorz.Json.MessagePack {
 	/// <remarks>
 	/// <para>This class is useful when reading multiple root level nodes.</para>
 	/// </remarks>
-	/// <seealso cref="MessagePackWriter"/>
-	public sealed class MessagePackReader {
+	internal sealed class MessagePackReader {
 
 		#region Factory Methods
 
