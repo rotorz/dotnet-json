@@ -49,6 +49,7 @@
     <Compile Include="Json\JsonUtility.cs" />
     <Compile Include="Json\JsonWriter.cs" />
     <Compile Include="Json\JsonWriterSettings.cs" />
+    <Compile Include="Json\MessagePack\MessagePackParserException.cs" />
     <Compile Include="Json\MessagePack\MessagePackExtendedNode.cs" />
     <Compile Include="Json\MessagePack\MessagePackBinaryNode.cs" />
     <Compile Include="Json\MessagePack\MessagePackFormatCode.cs" />
