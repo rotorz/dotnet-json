@@ -334,7 +334,7 @@ namespace Rotorz.Json {
 			if (propertyCount < 0)
 				throw new ArgumentOutOfRangeException("propertyCount", "Cannot be a negative value.");
 
-			WriteStartObject(propertyCount);
+			WriteStartObject();
 		}
 
 		/// <summary>
