@@ -12,7 +12,7 @@ namespace Rotorz.Json {
 	/// Base class inherited by all JSON node types.
 	/// </summary>
 	/// <remarks>
-	/// <para>Refer to <see cref="FromObject(object)"/> for some fundamental usage information.</para>
+	/// <para>Refer to <see cref="ConvertFrom(object)"/> for some fundamental usage information.</para>
 	/// </remarks>
 	/// <seealso cref="JsonObjectNode"/>
 	/// <seealso cref="JsonArrayNode"/>
@@ -37,12 +37,12 @@ namespace Rotorz.Json {
 		/// This exception typical indicates that input string contains one or more
 		/// syntax errors.
 		/// </exception>
-		public static JsonNode FromJson(string json) {
+		public static JsonNode ReadFrom(string json) {
 			if (string.IsNullOrEmpty(json))
 				return null;
 
 			using (var reader = new StringReader(json))
-				return FromReader(reader);
+				return ReadFrom(reader);
 		}
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace Rotorz.Json {
 		/// This exception typical indicates that input string contains one or more
 		/// syntax errors.
 		/// </exception>
-		public static JsonNode FromStream(Stream stream) {
+		public static JsonNode ReadFrom(Stream stream) {
 			if (stream == null)
 				throw new ArgumentNullException("stream");
 
@@ -106,7 +106,7 @@ namespace Rotorz.Json {
 		/// This exception typical indicates that input string contains one or more
 		/// syntax errors.
 		/// </exception>
-		public static JsonNode FromReader(TextReader reader) {
+		public static JsonNode ReadFrom(TextReader reader) {
 			if (reader == null)
 				throw new ArgumentNullException("reader");
 
@@ -164,7 +164,7 @@ namespace Rotorz.Json {
 		/// </exception>
 		/// <seealso cref="ToObject{T}()"/>
 		/// <seealso cref="ToObject(Type)"/>
-		public static JsonNode FromObject(object value) {
+		public static JsonNode ConvertFrom(object value) {
 			if (value == null)
 				return null;
 
@@ -213,7 +213,7 @@ namespace Rotorz.Json {
 			if (collection.Count > 0)
 				foreach (var pair in collection) {
 					string key = (string)metaType.KeyPropertyInfo.GetValue(pair, null);
-					node[key] = FromObject(metaType.ValuePropertyInfo.GetValue(pair, null));
+					node[key] = ConvertFrom(metaType.ValuePropertyInfo.GetValue(pair, null));
 				}
 			return node;
 		}
@@ -267,7 +267,7 @@ namespace Rotorz.Json {
 		/// type from node representation.
 		/// </exception>
 		/// <seealso cref="ToObject{T}()"/>
-		/// <seealso cref="FromObject(object)"/>
+		/// <seealso cref="ConvertFrom(object)"/>
 		public abstract object ToObject(Type type);
 
 		/// <summary>
@@ -282,7 +282,7 @@ namespace Rotorz.Json {
 		/// type from node representation.
 		/// </exception>
 		/// <seealso cref="ToObject(Type)"/>
-		/// <seealso cref="FromObject(object)"/>
+		/// <seealso cref="ConvertFrom(object)"/>
 		public T ToObject<T>() {
 			return (T)ToObject(typeof(T));
 		}

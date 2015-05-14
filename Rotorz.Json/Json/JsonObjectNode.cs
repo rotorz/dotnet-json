@@ -56,7 +56,7 @@ namespace Rotorz.Json {
 					var pi = (PropertyInfo)member.info;
 					value = pi.GetValue(instance, null);
 				}
-				node[member.resolvedName] = FromObject(value);
+				node[member.resolvedName] = ConvertFrom(value);
 			}
 
 			metaType.InvokeOnSerialized(instance, default(StreamingContext));
@@ -89,7 +89,7 @@ namespace Rotorz.Json {
 			var node = new JsonObjectNode();
 
 			foreach (var property in dictionary)
-				node[property.Key] = FromObject(property.Value);
+				node[property.Key] = ConvertFrom(property.Value);
 
 			return node;
 		}

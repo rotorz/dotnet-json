@@ -55,7 +55,7 @@ namespace Rotorz.Json.Tests {
 		[TestMethod]
 		public void WriteObject_NestedObjects() {
 			// Arrange
-			var node = JsonObjectNode.FromJson(@"
+			var node = JsonObjectNode.ReadFrom(@"
 				{
 					""Genre"": ""Horror"",
 					""Items"": [

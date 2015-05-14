@@ -42,7 +42,7 @@ namespace Rotorz.Json.MessagePack.Tests {
 				var result = mpacReader.Read();
 
 				// Assert
-				var expectedResult = JsonObjectNode.FromStream(casesJsonStream);
+				var expectedResult = JsonObjectNode.ReadFrom(casesJsonStream);
 				Assert.IsNotNull(result);
 				AssertAreEqual(expectedResult, result);
 			}

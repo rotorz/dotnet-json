@@ -42,7 +42,7 @@ namespace Rotorz.Json {
 
 			var node = new JsonArrayNode();
 			foreach (T element in array)
-				node.Add(FromObject(element));
+				node.Add(ConvertFrom(element));
 			return node;
 		}
 
@@ -65,7 +65,7 @@ namespace Rotorz.Json {
 
 			var node = new JsonArrayNode();
 			foreach (var element in collection)
-				node.Add(FromObject(element));
+				node.Add(ConvertFrom(element));
 			return node;
 		}
 

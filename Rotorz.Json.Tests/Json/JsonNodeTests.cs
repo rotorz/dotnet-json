@@ -12,39 +12,39 @@ namespace Rotorz.Json.Tests {
 	[TestClass]
 	public class JsonNodeTests {
 
-		#region FromJson(string)
+		#region From(string)
 
 		[TestMethod]
-		public void FromJson_EmptyString() {
+		public void From_EmptyString() {
 			// Arrange
 			string json = "";
 
 			// Act
-			var node = JsonNode.FromJson(json);
+			var node = JsonNode.ReadFrom(json);
 
 			// Assert
 			Assert.IsNull(node);
 		}
 
 		[TestMethod]
-		public void FromJson_Null() {
+		public void From_Null() {
 			// Arrange
 			string json = null;
 
 			// Act
-			var node = JsonNode.FromJson(json);
+			var node = JsonNode.ReadFrom(json);
 
 			// Assert
 			Assert.IsNull(node);
 		}
 
 		[TestMethod]
-		public void FromJson_DecimalValue_DefaultCulture() {
+		public void From_DecimalValue_DefaultCulture() {
 			// Arrange
 			string json = @"{""value"":1.23}";
 
 			// Act
-			var node = JsonNode.FromJson(json) as JsonObjectNode;
+			var node = JsonNode.ReadFrom(json) as JsonObjectNode;
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -52,13 +52,13 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromJson_DecimalValue_CultureWithDifferentDecimalSeparator() {
+		public void From_DecimalValue_CultureWithDifferentDecimalSeparator() {
 			CultureTestUtility.ExecuteInCulture("fr-FR", () => {
 				// Arrange
 				string json = @"{""value"":1.23}";
 
 				// Act
-				var node = JsonNode.FromJson(json) as JsonObjectNode;
+				var node = JsonNode.ReadFrom(json) as JsonObjectNode;
 
 				// Assert
 				Assert.IsNotNull(node);
@@ -68,15 +68,15 @@ namespace Rotorz.Json.Tests {
 
 		#endregion
 
-		#region FromObject(object)
+		#region ConvertFrom(object)
 
 		[TestMethod]
-		public void FromObject_int() {
+		public void ConvertFrom_int() {
 			// Arrange
 			int value = 42;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -85,12 +85,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_uint() {
+		public void ConvertFrom_uint() {
 			// Arrange
 			uint value = 42;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -99,12 +99,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_long() {
+		public void ConvertFrom_long() {
 			// Arrange
 			long value = long.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -113,12 +113,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_ulong() {
+		public void ConvertFrom_ulong() {
 			// Arrange
 			ulong value = ulong.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -127,12 +127,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_short() {
+		public void ConvertFrom_short() {
 			// Arrange
 			short value = short.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -141,12 +141,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_ushort() {
+		public void ConvertFrom_ushort() {
 			// Arrange
 			ushort value = ushort.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -155,12 +155,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_byte() {
+		public void ConvertFrom_byte() {
 			// Arrange
 			byte value = byte.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -169,12 +169,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_sbyte() {
+		public void ConvertFrom_sbyte() {
 			// Arrange
 			sbyte value = sbyte.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -183,12 +183,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_char() {
+		public void ConvertFrom_char() {
 			// Arrange
 			char value = char.MaxValue;
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -197,12 +197,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_string() {
+		public void ConvertFrom_string() {
 			// Arrange
 			string value = "Hello World!";
 
 			// Act
-			var node = JsonNode.FromObject(value);
+			var node = JsonNode.ConvertFrom(value);
 
 			// Assert
 			Assert.IsNotNull(node);
@@ -211,12 +211,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_string_array() {
+		public void ConvertFrom_string_array() {
 			// Arrange
 			string[] value = { "A", "B", "C" };
 
 			// Act
-			var arrayNode = JsonNode.FromObject(value) as JsonArrayNode;
+			var arrayNode = JsonNode.ConvertFrom(value) as JsonArrayNode;
 
 			// Assert
 			Assert.IsNotNull(arrayNode);
@@ -227,12 +227,12 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_string_list() {
+		public void ConvertFrom_string_list() {
 			// Arrange
 			var value = new List<string>(new string[] { "A", "B", "C" });
 
 			// Act
-			var arrayNode = JsonNode.FromObject(value) as JsonArrayNode;
+			var arrayNode = JsonNode.ConvertFrom(value) as JsonArrayNode;
 			Assert.IsNotNull(arrayNode);
 			Assert.AreEqual(3, arrayNode.Count);
 			Assert.AreEqual("A", (arrayNode[0] as JsonStringNode).Value);
@@ -241,7 +241,7 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_string_dictionary() {
+		public void ConvertFrom_string_dictionary() {
 			// Arrange
 			var value = new Dictionary<string, int>();
 			value["A"] = 3;
@@ -249,7 +249,7 @@ namespace Rotorz.Json.Tests {
 			value["C"] = 1;
 
 			// Act
-			var objectNode = JsonNode.FromObject(value) as JsonObjectNode;
+			var objectNode = JsonNode.ConvertFrom(value) as JsonObjectNode;
 
 			// Assert
 			Assert.IsNotNull(objectNode);
@@ -260,7 +260,7 @@ namespace Rotorz.Json.Tests {
 		}
 
 		[TestMethod]
-		public void FromObject_string_object() {
+		public void ConvertFrom_string_object() {
 			// Arrange
 			var value = new PersonCard() {
 				Name = "Sabrina Styles",
@@ -269,7 +269,7 @@ namespace Rotorz.Json.Tests {
 			};
 
 			// Act
-			var objectNode = JsonNode.FromObject(value) as JsonObjectNode;
+			var objectNode = JsonNode.ConvertFrom(value) as JsonObjectNode;
 
 			// Assert
 			Assert.IsNotNull(objectNode);
