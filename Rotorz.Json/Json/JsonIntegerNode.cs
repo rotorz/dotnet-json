@@ -64,7 +64,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <inheritdoc/>
-		public override void WriteTo(IJsonWriter writer) {
+		public override void Write(IJsonWriter writer) {
 			writer.WriteInteger(Value);
 		}
 

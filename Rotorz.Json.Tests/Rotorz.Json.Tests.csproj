@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Json\JsonUtilityTests.cs" />
     <Compile Include="Json\JsonParserTests.cs" />
     <Compile Include="Json\JsonArrayNodeTests.cs" />
     <Compile Include="Json\JsonDoubleNodeTests.cs" />

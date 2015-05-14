@@ -63,7 +63,7 @@ namespace Rotorz.Json.MessagePack {
 		}
 
 		/// <inheritdoc/>
-		public override void WriteTo(IJsonWriter writer) {
+		public override void Write(IJsonWriter writer) {
 			writer.WriteStartObject(2);
 			writer.WritePropertyKey("type");
 			writer.WriteInteger(ExtendedType);

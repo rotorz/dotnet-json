@@ -507,7 +507,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			arrayNode.WriteTo(writer);
+			arrayNode.Write(writer);
 
 			// Assert
 			string result = writer.ToString();
@@ -524,7 +524,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			arrayNode.WriteTo(writer);
+			arrayNode.Write(writer);
 
 			// Assert
 			string result = writer.ToString();

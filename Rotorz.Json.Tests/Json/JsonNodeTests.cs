@@ -295,7 +295,7 @@ namespace Rotorz.Json.Tests {
 			settings.IndentChars = "   ";
 			var writer = JsonWriter.Create(stringWriter, settings);
 
-			simpleObjectNode.WriteTo(writer);
+			simpleObjectNode.Write(writer);
 			string result = writer.ToString();
 
 			// Assert
@@ -314,59 +314,8 @@ namespace Rotorz.Json.Tests {
 			settings.IndentChars = "   ";
 			var writer = JsonWriter.Create(settings);
 
-			simpleObjectNode.WriteTo(writer);
+			simpleObjectNode.Write(writer);
 			string result = writer.ToString();
-
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject_WithSpaces.json");
-			Assert.AreEqual(expectedResult, result);
-		}
-
-		#endregion
-
-		#region ToString(JsonWriterSettings)
-
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject.json")]
-		public void ToString_IndentWithTabs() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
-
-			// Act
-			string result = simpleObjectNode.ToString(new JsonWriterSettings());
-
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject.json");
-			Assert.AreEqual(expectedResult, result);
-		}
-
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithoutTabs.json")]
-		public void ToString_IndentWithoutTabs() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
-
-			// Act
-			var settings = new JsonWriterSettings();
-			settings.Indent = false;
-
-			string result = simpleObjectNode.ToString(settings);
-
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject_WithoutTabs.json");
-			Assert.AreEqual(expectedResult, result);
-		}
-
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithSpaces.json")]
-		public void ToString_IndentWithSpaces() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
-
-			// Act
-			var settings = new JsonWriterSettings();
-			settings.IndentChars = "   ";
-			string result = simpleObjectNode.ToString(settings);
 
 			// Assert
 			string expectedResult = File.ReadAllText("SimpleObject_WithSpaces.json");

@@ -25,7 +25,7 @@ namespace Rotorz.Json {
 	/// <para>Alternative the more verbose implementation would be the following:</para>
 	/// <code language="csharp"><![CDATA[
 	/// var writer = JsonWriter.Create();
-	/// card.WriteTo(writer);
+	/// card.Write(writer);
 	/// var json = writer.ToString();
 	/// ]]></code>
 	/// </remarks>

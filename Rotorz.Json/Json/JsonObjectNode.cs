@@ -324,14 +324,14 @@ namespace Rotorz.Json {
 		}
 
 		/// <inheritdoc/>
-		public override void WriteTo(IJsonWriter writer) {
+		public override void Write(IJsonWriter writer) {
 			writer.WriteStartObject(_properties.Count);
 
 			foreach (var property in _properties) {
 				writer.WritePropertyKey(property.Key);
 
 				if (property.Value != null)
-					property.Value.WriteTo(writer);
+					property.Value.Write(writer);
 				else
 					writer.WriteNull();
 			}

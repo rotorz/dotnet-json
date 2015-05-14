@@ -49,9 +49,8 @@ namespace Rotorz.Json {
 		/// Attempt to create node by parsing JSON encoded string from a <see cref="Stream"/>.
 		/// </summary>
 		/// <remarks>
-		/// <para>User code should close provided stream when no longer required after
-		/// JSON encoded content has been parsed; this can be accomplished with the
-		/// <c>using</c> construct:</para>
+		/// <para>User code should close the provided stream when no longer required
+		/// after data has been read; this can be accomplished with the <c>using</c> construct:</para>
 		/// <code language="csharp"><![CDATA[
 		/// JsonNode result;
 		/// using (var fs = new FileStream(@"C:\TestFile.json", FileMode.Open, FileAccess.Read)) {
@@ -84,8 +83,7 @@ namespace Rotorz.Json {
 		/// </summary>
 		/// <remarks>
 		/// <para>User code should dispose the <see cref="TextReader"/> when no longer
-		/// required after JSON encoded content has been parsed; this can be accomplished
-		/// with the <c>using</c> construct:</para>
+		/// required after data has been read; this can be accomplished with the <c>using</c> construct:</para>
 		/// <code language="csharp"><![CDATA[
 		/// JsonNode result;
 		/// using (var reader = new StringReader(json)) {
@@ -298,31 +296,11 @@ namespace Rotorz.Json {
 		/// <returns>
 		/// The JSON encoded string.
 		/// </returns>
-		/// <seealso cref="ToString(JsonWriterSettings)"/>
-		/// <seealso cref="WriteTo(IJsonWriter)"/>
+		/// <seealso cref="JsonUtility.ToJsonString(JsonNode)"/>
+		/// <seealso cref="JsonUtility.ToJsonString(JsonNode, JsonWriterSettings)"/>
+		/// <seealso cref="Write(IJsonWriter)"/>
 		public override string ToString() {
-			return ToString(JsonWriterSettings.DefaultSettings);
-		}
-
-		/// <summary>
-		/// Convert node to JSON encoded string with custom settings.
-		/// </summary>
-		/// <remarks>
-		/// <para>Resulting string includes indentation and whitespace; though this
-		/// behaviour can be customized by supplying a <see cref="JsonWriterSettings"/>
-		/// object when invoking this method.</para>
-		/// </remarks>
-		/// <param name="settings">Settings object to customize output. Default settings
-		/// are assumed if a value of <c>null</c> is specified.</param>
-		/// <returns>
-		/// The JSON encoded string.
-		/// </returns>
-		/// <seealso cref="ToString()"/>
-		/// <seealso cref="WriteTo(IJsonWriter)"/>
-		public string ToString(JsonWriterSettings settings) {
-			var writer = JsonWriter.Create(settings);
-			WriteTo(writer);
-			return writer.ToString();
+			return JsonUtility.ToJsonString(this, JsonWriterSettings.DefaultSettings);
 		}
 
 		/// <summary>
@@ -331,7 +309,7 @@ namespace Rotorz.Json {
 		/// <param name="writer">Object for writing node data to.</param>
 		/// <seealso cref="ToString()"/>
 		/// <seealso cref="ToString(JsonWriterSettings)"/>
-		public abstract void WriteTo(IJsonWriter writer);
+		public abstract void Write(IJsonWriter writer);
 
 	}
 

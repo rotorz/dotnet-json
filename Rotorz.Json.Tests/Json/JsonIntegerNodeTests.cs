@@ -255,7 +255,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			integerNode.WriteTo(writer);
+			integerNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual(expectedResult, writer.ToString());

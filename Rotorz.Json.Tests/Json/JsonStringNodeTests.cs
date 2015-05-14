@@ -202,7 +202,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			stringNode.WriteTo(writer);
+			stringNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual("\"\"", writer.ToString());
@@ -215,7 +215,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			stringNode.WriteTo(writer);
+			stringNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual("\"\"", writer.ToString());
@@ -228,7 +228,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			stringNode.WriteTo(writer);
+			stringNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual("\"Hello World!\"", writer.ToString());
@@ -241,7 +241,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			stringNode.WriteTo(writer);
+			stringNode.Write(writer);
 			
 			// Assert
 			Assert.AreEqual("\"Hello\\r\\n\\tWorld!\"", writer.ToString());

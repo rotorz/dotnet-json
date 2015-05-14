@@ -190,7 +190,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			booleanNode.WriteTo(writer);
+			booleanNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual("false", writer.ToString());
@@ -203,7 +203,7 @@ namespace Rotorz.Json.Tests {
 			var writer = JsonWriter.Create();
 
 			// Act
-			booleanNode.WriteTo(writer);
+			booleanNode.Write(writer);
 
 			// Assert
 			Assert.AreEqual("true", writer.ToString());

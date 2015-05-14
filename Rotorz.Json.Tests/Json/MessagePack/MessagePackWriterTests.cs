@@ -14,7 +14,7 @@ namespace Rotorz.Json.Tests {
 			byte[] bytes;
 			using (var stream = new MemoryStream()) {
 				var writer = MessagePackWriter.Create(stream);
-				node.WriteTo(writer);
+				node.Write(writer);
 				bytes = stream.ToArray();
 			}
 			return bytes;
