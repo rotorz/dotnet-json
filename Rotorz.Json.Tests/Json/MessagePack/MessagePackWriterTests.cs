@@ -279,17 +279,17 @@ namespace Rotorz.Json.Tests {
 
 		[TestMethod]
 		public void WriteDouble_NaN() {
-			WriteDouble_Parameterized(double.NaN, "A3-4E-61-4E");
+			WriteDouble_Parameterized(float.NaN, "CA-FF-C0-00-00");
 		}
 
 		[TestMethod]
 		public void WriteDouble_NegativeInfinity() {
-			WriteDouble_Parameterized(double.NegativeInfinity, "A9-2D-49-6E-66-69-6E-69-74-79");
+			WriteDouble_Parameterized(float.NegativeInfinity, "CA-FF-80-00-00");
 		}
 
 		[TestMethod]
 		public void WriteDouble_PositiveInfinity() {
-			WriteDouble_Parameterized(double.PositiveInfinity, "A8-49-6E-66-69-6E-69-74-79");
+			WriteDouble_Parameterized(float.PositiveInfinity, "CA-7F-80-00-00");
 		}
 
 		#endregion
