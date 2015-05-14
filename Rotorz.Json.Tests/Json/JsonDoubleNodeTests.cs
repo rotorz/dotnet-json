@@ -171,7 +171,7 @@ namespace Rotorz.Json.Tests {
 			Type type = null;
 
 			// Act
-			doubleNode.ToObject(type);
+			doubleNode.ConvertTo(type);
 		}
 
 		private void ToObject_Parameterized<T>(double value, T expectedResult) {
@@ -179,7 +179,7 @@ namespace Rotorz.Json.Tests {
 			var integerNode = new JsonDoubleNode(value);
 
 			// Act
-			T result = integerNode.ToObject<T>();
+			T result = integerNode.ConvertTo<T>();
 
 			// Assert
 			Assert.AreEqual(expectedResult, result);

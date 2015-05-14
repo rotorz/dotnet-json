@@ -140,7 +140,7 @@ namespace Rotorz.Json.Tests {
 			Type type = null;
 
 			// Act
-			stringNode.ToObject(type);
+			stringNode.ConvertTo(type);
 		}
 
 		[TestMethod]
@@ -149,7 +149,7 @@ namespace Rotorz.Json.Tests {
 			var stringNode = new JsonStringNode("42");
 
 			// Act
-			string value = stringNode.ToObject<string>();
+			string value = stringNode.ConvertTo<string>();
 
 			// Assert
 			Assert.AreEqual("42", value);
@@ -161,7 +161,7 @@ namespace Rotorz.Json.Tests {
 			var stringNode = new JsonStringNode("42");
 
 			// Act
-			int value = stringNode.ToObject<int>();
+			int value = stringNode.ConvertTo<int>();
 
 			// Assert
 			Assert.AreEqual(42, value);
@@ -173,7 +173,7 @@ namespace Rotorz.Json.Tests {
 			var stringNode = new JsonStringNode("false");
 
 			// Act
-			bool value = stringNode.ToObject<bool>();
+			bool value = stringNode.ConvertTo<bool>();
 
 			// Assert
 			Assert.AreEqual(false, value);
@@ -185,7 +185,7 @@ namespace Rotorz.Json.Tests {
 			var stringNode = new JsonStringNode("true");
 
 			// Act
-			bool value = stringNode.ToObject<bool>();
+			bool value = stringNode.ConvertTo<bool>();
 
 			// Assert
 			Assert.AreEqual(true, value);

@@ -273,7 +273,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <inheritdoc/>
-		public override object ToObject(Type type) {
+		public override object ConvertTo(Type type) {
 			if (type == null)
 				throw new ArgumentNullException("type");
 
@@ -285,7 +285,7 @@ namespace Rotorz.Json {
 				var valueType = type.GetGenericArguments()[1];
 				foreach (var property in _properties) {
 					if (property.Value != null)
-						dictionary[property.Key] = property.Value.ToObject(valueType);
+						dictionary[property.Key] = property.Value.ConvertTo(valueType);
 					else
 						dictionary[property.Key] = null;
 				}
@@ -302,11 +302,11 @@ namespace Rotorz.Json {
 
 					if (member.info.MemberType == MemberTypes.Field) {
 						var fi = (FieldInfo)member.info;
-						fi.SetValue(obj, valueNode.ToObject(fi.FieldType));
+						fi.SetValue(obj, valueNode.ConvertTo(fi.FieldType));
 					}
 					else {
 						var pi = (PropertyInfo)member.info;
-						pi.SetValue(obj, valueNode.ToObject(pi.PropertyType), null);
+						pi.SetValue(obj, valueNode.ConvertTo(pi.PropertyType), null);
 					}
 				}
 

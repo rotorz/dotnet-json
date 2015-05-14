@@ -104,7 +104,7 @@ namespace Rotorz.Json.Tests {
 			Type type = null;
 
 			// Act
-			booleanNode.ToObject(type);
+			booleanNode.ConvertTo(type);
 		}
 
 		[TestMethod]
@@ -113,7 +113,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(false);
 
 			// Act
-			string result = booleanNode.ToObject<string>();
+			string result = booleanNode.ConvertTo<string>();
 
 			// Assert
 			Assert.AreEqual("False", result);
@@ -125,7 +125,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(true);
 
 			// Act
-			string result = booleanNode.ToObject<string>();
+			string result = booleanNode.ConvertTo<string>();
 
 			// Assert
 			Assert.AreEqual("True", result);
@@ -137,7 +137,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(false);
 
 			// Act
-			double result = booleanNode.ToObject<double>();
+			double result = booleanNode.ConvertTo<double>();
 
 			// Assert
 			Assert.AreEqual(0.0, result);
@@ -149,7 +149,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(true);
 
 			// Act
-			double result = booleanNode.ToObject<double>();
+			double result = booleanNode.ConvertTo<double>();
 
 			// Assert
 			Assert.AreEqual(1.0, result);
@@ -161,7 +161,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(false);
 
 			// Act
-			int result = booleanNode.ToObject<int>();
+			int result = booleanNode.ConvertTo<int>();
 
 			// Assert
 			Assert.AreEqual(0, result);
@@ -173,7 +173,7 @@ namespace Rotorz.Json.Tests {
 			var booleanNode = new JsonBooleanNode(true);
 
 			// Act
-			int result = booleanNode.ToObject<int>();
+			int result = booleanNode.ConvertTo<int>();
 
 			// Assert
 			Assert.AreEqual(1, result);

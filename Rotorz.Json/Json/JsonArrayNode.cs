@@ -264,7 +264,7 @@ namespace Rotorz.Json {
 		}
 		
 		/// <inheritdoc/>
-		public override object ToObject(Type type) {
+		public override object ConvertTo(Type type) {
 			if (type == null)
 				throw new ArgumentNullException("type");
 
@@ -273,7 +273,7 @@ namespace Rotorz.Json {
 
 				var array = Array.CreateInstance(elementType, Count);
 				for (int i = 0; i < _nodes.Count; ++i)
-					array.SetValue(_nodes[i].ToObject(elementType), i);
+					array.SetValue(_nodes[i].ConvertTo(elementType), i);
 
 				return array;
 			}
@@ -288,7 +288,7 @@ namespace Rotorz.Json {
 					var paramBuffer = new object[1];
 
 					foreach (var node in _nodes) {
-						paramBuffer[0] = node.ToObject(elementType);
+						paramBuffer[0] = node.ConvertTo(elementType);
 						addMethod.Invoke(collection, paramBuffer);
 					}
 

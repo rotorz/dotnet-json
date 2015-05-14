@@ -201,7 +201,7 @@ namespace Rotorz.Json.Tests {
 			Type type = null;
 
 			// Act
-			integerNode.ToObject(type);
+			integerNode.ConvertTo(type);
 		}
 
 		private void ToObject_Parameterized<T>(long value, T expectedResult) {
@@ -209,7 +209,7 @@ namespace Rotorz.Json.Tests {
 			var integerNode = new JsonIntegerNode(value);
 
 			// Act
-			T result = integerNode.ToObject<T>();
+			T result = integerNode.ConvertTo<T>();
 
 			// Assert
 			Assert.AreEqual(expectedResult, result);

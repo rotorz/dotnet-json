@@ -56,7 +56,7 @@ namespace Rotorz.Json {
 		}
 
 		/// <inheritdoc/>
-		public override object ToObject(Type type) {
+		public override object ConvertTo(Type type) {
 			if (type == null)
 				throw new ArgumentNullException("type");
 

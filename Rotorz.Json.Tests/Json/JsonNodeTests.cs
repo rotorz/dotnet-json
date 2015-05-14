@@ -48,7 +48,7 @@ namespace Rotorz.Json.Tests {
 
 			// Assert
 			Assert.IsNotNull(node);
-			Assert.AreEqual(1.23, node["value"].ToObject<double>());
+			Assert.AreEqual(1.23, node["value"].ConvertTo<double>());
 		}
 
 		[TestMethod]
@@ -62,7 +62,7 @@ namespace Rotorz.Json.Tests {
 
 				// Assert
 				Assert.IsNotNull(node);
-				Assert.AreEqual(1.23, node["value"].ToObject<double>());
+				Assert.AreEqual(1.23, node["value"].ConvertTo<double>());
 			});
 		}
 

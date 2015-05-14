@@ -160,8 +160,8 @@ namespace Rotorz.Json {
 		/// If a problem was encountered whilst attempting to create node representation
 		/// from input value.
 		/// </exception>
-		/// <seealso cref="ToObject{T}()"/>
-		/// <seealso cref="ToObject(Type)"/>
+		/// <seealso cref="ConvertTo{T}()"/>
+		/// <seealso cref="ConvertTo(Type)"/>
 		public static JsonNode ConvertFrom(object value) {
 			if (value == null)
 				return null;
@@ -264,9 +264,9 @@ namespace Rotorz.Json {
 		/// If a problem was encountered whilst attempting to create object of specified
 		/// type from node representation.
 		/// </exception>
-		/// <seealso cref="ToObject{T}()"/>
+		/// <seealso cref="ConvertTo{T}()"/>
 		/// <seealso cref="ConvertFrom(object)"/>
-		public abstract object ToObject(Type type);
+		public abstract object ConvertTo(Type type);
 
 		/// <summary>
 		/// Attempt to convert node to an object of the specified type.
@@ -279,10 +279,10 @@ namespace Rotorz.Json {
 		/// If a problem was encountered whilst attempting to create object of specified
 		/// type from node representation.
 		/// </exception>
-		/// <seealso cref="ToObject(Type)"/>
+		/// <seealso cref="ConvertTo(Type)"/>
 		/// <seealso cref="ConvertFrom(object)"/>
-		public T ToObject<T>() {
-			return (T)ToObject(typeof(T));
+		public T ConvertTo<T>() {
+			return (T)ConvertTo(typeof(T));
 		}
 
 		/// <summary>

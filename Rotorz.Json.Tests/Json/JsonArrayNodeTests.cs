@@ -391,7 +391,7 @@ namespace Rotorz.Json.Tests {
 			Type type = null;
 
 			// Act
-			arrayNode.ToObject(type);
+			arrayNode.ConvertTo(type);
 		}
 
 		[TestMethod]
@@ -400,7 +400,7 @@ namespace Rotorz.Json.Tests {
 			var arrayNode = JsonObjectGraphs.CreateIdentityCardArray();
 
 			// Act
-			PersonCard[] cards = arrayNode.ToObject<PersonCard[]>();
+			PersonCard[] cards = arrayNode.ConvertTo<PersonCard[]>();
 
 			// Assert
 			Assert.IsNotNull(cards);
@@ -417,7 +417,7 @@ namespace Rotorz.Json.Tests {
 			var arrayNode = JsonObjectGraphs.CreateIdentityCardArray();
 
 			// Act
-			List<PersonCard> cards = arrayNode.ToObject<List<PersonCard>>();
+			List<PersonCard> cards = arrayNode.ConvertTo<List<PersonCard>>();
 
 			// Assert
 			Assert.IsNotNull(cards);
@@ -435,7 +435,7 @@ namespace Rotorz.Json.Tests {
 			var arrayNode = JsonObjectGraphs.CreateIdentityCardArray();
 
 			// Act
-			int cards = arrayNode.ToObject<int>();
+			int cards = arrayNode.ConvertTo<int>();
 		}
 
 		[TestMethod]
@@ -449,7 +449,7 @@ namespace Rotorz.Json.Tests {
 			arrayNode.Add(new JsonIntegerNode(16));
 
 			// Act
-			var categorySet = arrayNode.ToObject<CategorySet>();
+			var categorySet = arrayNode.ConvertTo<CategorySet>();
 
 			// Assert
 			Assert.IsNotNull(categorySet);

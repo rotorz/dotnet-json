@@ -58,7 +58,7 @@ namespace Rotorz.Json.Serialization.Tests {
 			var node = new JsonObjectNode();
 			
 			// Act
-			var instance = node.ToObject<SerializationCallback_OnDeserializing>();
+			var instance = node.ConvertTo<SerializationCallback_OnDeserializing>();
 
 			// Assert
 			Assert.AreEqual("OnDeserializing", instance.Result);
@@ -70,7 +70,7 @@ namespace Rotorz.Json.Serialization.Tests {
 			var node = new JsonObjectNode();
 
 			// Act
-			var instance = node.ToObject<SerializationCallback_OnDeserialized>();
+			var instance = node.ConvertTo<SerializationCallback_OnDeserialized>();
 
 			// Assert
 			Assert.AreEqual("OnDeserialized", instance.Result);
@@ -112,7 +112,7 @@ namespace Rotorz.Json.Serialization.Tests {
 			var node = new JsonObjectNode();
 
 			// Act
-			var instance = node.ToObject<SerializationCallback_OnDeserializing_Multiple>();
+			var instance = node.ConvertTo<SerializationCallback_OnDeserializing_Multiple>();
 
 			// Assert
 			Assert.AreEqual("OnDeserializing", instance.Result);
@@ -125,7 +125,7 @@ namespace Rotorz.Json.Serialization.Tests {
 			var node = new JsonObjectNode();
 
 			// Act
-			var instance = node.ToObject<SerializationCallback_OnDeserialized_Multiple>();
+			var instance = node.ConvertTo<SerializationCallback_OnDeserialized_Multiple>();
 
 			// Assert
 			Assert.AreEqual("OnDeserialized", instance.Result);
