@@ -1,139 +1,149 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rotorz.Json.Tests.TestObjects;
 
-namespace Rotorz.Json.Serialization.Tests {
+namespace Rotorz.Json.Serialization.Tests
+{
+    [TestClass]
+    public class MetaTypeTests
+    {
+        #region FromType(Type)
 
-	[TestClass]
-	public class MetaTypeTests {
+        [TestMethod]
+        public void FromType_CheckCache()
+        {
+            // Arrange
+            var type = typeof(string);
 
-		#region FromType(Type)
+            // Act
+            var metaType1 = MetaType.FromType(type);
+            var metaType2 = MetaType.FromType(type);
 
-		[TestMethod]
-		public void FromType_CheckCache() {
-			// Arrange
-			var type = typeof(string);
+            // Assert
+            Assert.IsNotNull(metaType1);
+            Assert.AreSame(metaType1, metaType2);
+        }
 
-			// Act
-			var metaType1 = MetaType.FromType(type);
-			var metaType2 = MetaType.FromType(type);
+        #endregion
 
-			// Assert
-			Assert.IsNotNull(metaType1);
-			Assert.AreSame(metaType1, metaType2);
-		}
 
-		#endregion
+        #region Serialization Callbacks (Single)
 
-		#region Serialization Callbacks (Single)
+        [TestMethod]
+        public void Callback_OnSerializing()
+        {
+            // Arrange
+            var instance = new SerializationCallback_OnSerializing();
 
-		[TestMethod]
-		public void Callback_OnSerializing() {
-			// Arrange
-			var instance = new SerializationCallback_OnSerializing();
+            // Act
+            JsonNode.ConvertFrom(instance);
 
-			// Act
-			JsonNode.ConvertFrom(instance);
+            // Assert
+            Assert.AreEqual("OnSerializing", instance.Result);
+        }
 
-			// Assert
-			Assert.AreEqual("OnSerializing", instance.Result);
-		}
+        [TestMethod]
+        public void Callback_OnSerialized()
+        {
+            // Arrange
+            var instance = new SerializationCallback_OnSerialized();
 
-		[TestMethod]
-		public void Callback_OnSerialized() {
-			// Arrange
-			var instance = new SerializationCallback_OnSerialized();
+            // Act
+            JsonNode.ConvertFrom(instance);
 
-			// Act
-			JsonNode.ConvertFrom(instance);
+            // Assert
+            Assert.AreEqual("OnSerialized", instance.Result);
+        }
 
-			// Assert
-			Assert.AreEqual("OnSerialized", instance.Result);
-		}
+        [TestMethod]
+        public void Callback_OnDeserializing()
+        {
+            // Arrange
+            var node = new JsonObjectNode();
 
-		[TestMethod]
-		public void Callback_OnDeserializing() {
-			// Arrange
-			var node = new JsonObjectNode();
-			
-			// Act
-			var instance = node.ConvertTo<SerializationCallback_OnDeserializing>();
+            // Act
+            var instance = node.ConvertTo<SerializationCallback_OnDeserializing>();
 
-			// Assert
-			Assert.AreEqual("OnDeserializing", instance.Result);
-		}
+            // Assert
+            Assert.AreEqual("OnDeserializing", instance.Result);
+        }
 
-		[TestMethod]
-		public void Callback_OnDeserialized() {
-			// Arrange
-			var node = new JsonObjectNode();
+        [TestMethod]
+        public void Callback_OnDeserialized()
+        {
+            // Arrange
+            var node = new JsonObjectNode();
 
-			// Act
-			var instance = node.ConvertTo<SerializationCallback_OnDeserialized>();
+            // Act
+            var instance = node.ConvertTo<SerializationCallback_OnDeserialized>();
 
-			// Assert
-			Assert.AreEqual("OnDeserialized", instance.Result);
-		}
+            // Assert
+            Assert.AreEqual("OnDeserialized", instance.Result);
+        }
 
-		#endregion
+        #endregion
 
-		#region Serialization Callbacks (Multiple)
 
-		[TestMethod]
-		public void Callback_OnSerializing_Multiple() {
-			// Arrange
-			var instance = new SerializationCallback_OnSerializing_Multiple();
+        #region Serialization Callbacks (Multiple)
 
-			// Act
-			JsonNode.ConvertFrom(instance);
+        [TestMethod]
+        public void Callback_OnSerializing_Multiple()
+        {
+            // Arrange
+            var instance = new SerializationCallback_OnSerializing_Multiple();
 
-			// Assert
-			Assert.AreEqual("OnSerializing", instance.Result);
-			Assert.AreEqual(2, instance.Count);
-		}
+            // Act
+            JsonNode.ConvertFrom(instance);
 
-		[TestMethod]
-		public void Callback_OnSerialized_Multiple() {
-			// Arrange
-			var instance = new SerializationCallback_OnSerialized_Multiple();
+            // Assert
+            Assert.AreEqual("OnSerializing", instance.Result);
+            Assert.AreEqual(2, instance.Count);
+        }
 
-			// Act
-			JsonNode.ConvertFrom(instance);
+        [TestMethod]
+        public void Callback_OnSerialized_Multiple()
+        {
+            // Arrange
+            var instance = new SerializationCallback_OnSerialized_Multiple();
 
-			// Assert
-			Assert.AreEqual("OnSerialized", instance.Result);
-			Assert.AreEqual(2, instance.Count);
-		}
+            // Act
+            JsonNode.ConvertFrom(instance);
 
-		[TestMethod]
-		public void Callback_OnDeserializing_Multiple() {
-			// Arrange
-			var node = new JsonObjectNode();
+            // Assert
+            Assert.AreEqual("OnSerialized", instance.Result);
+            Assert.AreEqual(2, instance.Count);
+        }
 
-			// Act
-			var instance = node.ConvertTo<SerializationCallback_OnDeserializing_Multiple>();
+        [TestMethod]
+        public void Callback_OnDeserializing_Multiple()
+        {
+            // Arrange
+            var node = new JsonObjectNode();
 
-			// Assert
-			Assert.AreEqual("OnDeserializing", instance.Result);
-			Assert.AreEqual(2, instance.Count);
-		}
+            // Act
+            var instance = node.ConvertTo<SerializationCallback_OnDeserializing_Multiple>();
 
-		[TestMethod]
-		public void Callback_OnDeserialized_Multiple() {
-			// Arrange
-			var node = new JsonObjectNode();
+            // Assert
+            Assert.AreEqual("OnDeserializing", instance.Result);
+            Assert.AreEqual(2, instance.Count);
+        }
 
-			// Act
-			var instance = node.ConvertTo<SerializationCallback_OnDeserialized_Multiple>();
+        [TestMethod]
+        public void Callback_OnDeserialized_Multiple()
+        {
+            // Arrange
+            var node = new JsonObjectNode();
 
-			// Assert
-			Assert.AreEqual("OnDeserialized", instance.Result);
-			Assert.AreEqual(2, instance.Count);
-		}
+            // Act
+            var instance = node.ConvertTo<SerializationCallback_OnDeserialized_Multiple>();
 
-		#endregion
+            // Assert
+            Assert.AreEqual("OnDeserialized", instance.Result);
+            Assert.AreEqual(2, instance.Count);
+        }
 
-	}
-
+        #endregion
+    }
 }

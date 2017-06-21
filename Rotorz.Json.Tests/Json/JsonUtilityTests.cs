@@ -1,65 +1,67 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rotorz.Json.Tests.TestObjects;
 using System.IO;
 
-namespace Rotorz.Json.Tests {
+namespace Rotorz.Json.Tests
+{
+    [TestClass]
+    public class JsonUtilityTests
+    {
+        #region ToString(JsonWriterSettings)
 
-	[TestClass]
-	public class JsonUtilityTests {
+        [TestMethod]
+        [DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject.json")]
+        public void ToString_IndentWithTabs()
+        {
+            // Arrange
+            JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
 
-		#region ToString(JsonWriterSettings)
+            // Act
+            string result = JsonUtility.ToJsonString(simpleObjectNode, new JsonWriterSettings());
 
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject.json")]
-		public void ToString_IndentWithTabs() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
+            // Assert
+            string expectedResult = File.ReadAllText("SimpleObject.json");
+            Assert.AreEqual(expectedResult, result);
+        }
 
-			// Act
-			string result = JsonUtility.ToJsonString(simpleObjectNode, new JsonWriterSettings());
+        [TestMethod]
+        [DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithoutTabs.json")]
+        public void ToString_IndentWithoutTabs()
+        {
+            // Arrange
+            JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
 
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject.json");
-			Assert.AreEqual(expectedResult, result);
-		}
+            // Act
+            var settings = new JsonWriterSettings();
+            settings.Indent = false;
 
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithoutTabs.json")]
-		public void ToString_IndentWithoutTabs() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
+            string result = JsonUtility.ToJsonString(simpleObjectNode, settings);
 
-			// Act
-			var settings = new JsonWriterSettings();
-			settings.Indent = false;
+            // Assert
+            string expectedResult = File.ReadAllText("SimpleObject_WithoutTabs.json");
+            Assert.AreEqual(expectedResult, result);
+        }
 
-			string result = JsonUtility.ToJsonString(simpleObjectNode, settings);
+        [TestMethod]
+        [DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithSpaces.json")]
+        public void ToString_IndentWithSpaces()
+        {
+            // Arrange
+            JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
 
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject_WithoutTabs.json");
-			Assert.AreEqual(expectedResult, result);
-		}
+            // Act
+            var settings = new JsonWriterSettings();
+            settings.IndentChars = "   ";
+            string result = JsonUtility.ToJsonString(simpleObjectNode, settings);
 
-		[TestMethod]
-		[DeploymentItem("Json/TestObjects/Files/JsonObjectGraphs/SimpleObject_WithSpaces.json")]
-		public void ToString_IndentWithSpaces() {
-			// Arrange
-			JsonObjectNode simpleObjectNode = JsonObjectGraphs.CreateSimpleObject();
+            // Assert
+            string expectedResult = File.ReadAllText("SimpleObject_WithSpaces.json");
+            Assert.AreEqual(expectedResult, result);
+        }
 
-			// Act
-			var settings = new JsonWriterSettings();
-			settings.IndentChars = "   ";
-			string result = JsonUtility.ToJsonString(simpleObjectNode, settings);
-
-			// Assert
-			string expectedResult = File.ReadAllText("SimpleObject_WithSpaces.json");
-			Assert.AreEqual(expectedResult, result);
-		}
-
-		#endregion
-
-	}
-
+        #endregion
+    }
 }

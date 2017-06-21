@@ -1,216 +1,234 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Rotorz.Json.Tests {
+namespace Rotorz.Json.Tests
+{
+    [TestClass]
+    public class JsonBooleanNodeTests
+    {
+        #region Value
 
-	[TestClass]
-	public class JsonBooleanNodeTests {
+        [TestMethod]
+        public void Value_set_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode();
 
-		#region Value
+            // Act
+            booleanNode.Value = false;
 
-		[TestMethod]
-		public void Value_set_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode();
+            // Assert
+            Assert.AreEqual(false, booleanNode.Value);
+        }
 
-			// Act
-			booleanNode.Value = false;
+        [TestMethod]
+        public void Value_set_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode();
 
-			// Assert
-			Assert.AreEqual(false, booleanNode.Value);
-		}
+            // Act
+            booleanNode.Value = true;
 
-		[TestMethod]
-		public void Value_set_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode();
+            // Assert
+            Assert.AreEqual(true, booleanNode.Value);
+        }
 
-			// Act
-			booleanNode.Value = true;
+        #endregion
 
-			// Assert
-			Assert.AreEqual(true, booleanNode.Value);
-		}
 
-		#endregion
+        #region Clone()
 
-		#region Clone()
+        [TestMethod]
+        public void Clone_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
 
-		[TestMethod]
-		public void Clone_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
+            // Act
+            var cloneNode = booleanNode.Clone() as JsonBooleanNode;
 
-			// Act
-			var cloneNode = booleanNode.Clone() as JsonBooleanNode;
+            // Assert
+            Assert.AreNotSame(booleanNode, cloneNode);
+            Assert.AreEqual(booleanNode.Value, cloneNode.Value);
+        }
 
-			// Assert
-			Assert.AreNotSame(booleanNode, cloneNode);
-			Assert.AreEqual(booleanNode.Value, cloneNode.Value);
-		}
+        [TestMethod]
+        public void Clone_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
 
-		[TestMethod]
-		public void Clone_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
+            // Act
+            var cloneNode = booleanNode.Clone() as JsonBooleanNode;
 
-			// Act
-			var cloneNode = booleanNode.Clone() as JsonBooleanNode;
+            // Assert
+            Assert.AreNotSame(booleanNode, cloneNode);
+            Assert.AreEqual(booleanNode.Value, cloneNode.Value);
+        }
 
-			// Assert
-			Assert.AreNotSame(booleanNode, cloneNode);
-			Assert.AreEqual(booleanNode.Value, cloneNode.Value);
-		}
+        #endregion
 
-		#endregion
 
-		#region ToString()
+        #region ToString()
 
-		[TestMethod]
-		public void ToString_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
+        [TestMethod]
+        public void ToString_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
 
-			// Act
-			string result = booleanNode.ToString();
+            // Act
+            string result = booleanNode.ToString();
 
-			// Assert
-			Assert.AreEqual("false", result);
-		}
+            // Assert
+            Assert.AreEqual("false", result);
+        }
 
-		[TestMethod]
-		public void ToString_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
+        [TestMethod]
+        public void ToString_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
 
-			// Act
-			string result = booleanNode.ToString();
+            // Act
+            string result = booleanNode.ToString();
 
-			// Assert
-			Assert.AreEqual("true", result);
-		}
+            // Assert
+            Assert.AreEqual("true", result);
+        }
 
-		#endregion
+        #endregion
 
-		#region ToObject(Type)
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void ToObject_Null() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode();
-			Type type = null;
+        #region ToObject(Type)
 
-			// Act
-			booleanNode.ConvertTo(type);
-		}
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToObject_Null()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode();
+            Type type = null;
 
-		[TestMethod]
-		public void ToObject_String_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
+            // Act
+            booleanNode.ConvertTo(type);
+        }
 
-			// Act
-			string result = booleanNode.ConvertTo<string>();
+        [TestMethod]
+        public void ToObject_String_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
 
-			// Assert
-			Assert.AreEqual("False", result);
-		}
+            // Act
+            string result = booleanNode.ConvertTo<string>();
 
-		[TestMethod]
-		public void ToObject_String_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
+            // Assert
+            Assert.AreEqual("False", result);
+        }
 
-			// Act
-			string result = booleanNode.ConvertTo<string>();
+        [TestMethod]
+        public void ToObject_String_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
 
-			// Assert
-			Assert.AreEqual("True", result);
-		}
+            // Act
+            string result = booleanNode.ConvertTo<string>();
 
-		[TestMethod]
-		public void ToObject_Double_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
+            // Assert
+            Assert.AreEqual("True", result);
+        }
 
-			// Act
-			double result = booleanNode.ConvertTo<double>();
+        [TestMethod]
+        public void ToObject_Double_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
 
-			// Assert
-			Assert.AreEqual(0.0, result);
-		}
+            // Act
+            double result = booleanNode.ConvertTo<double>();
 
-		[TestMethod]
-		public void ToObject_Double_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
+            // Assert
+            Assert.AreEqual(0.0, result);
+        }
 
-			// Act
-			double result = booleanNode.ConvertTo<double>();
+        [TestMethod]
+        public void ToObject_Double_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
 
-			// Assert
-			Assert.AreEqual(1.0, result);
-		}
+            // Act
+            double result = booleanNode.ConvertTo<double>();
 
-		[TestMethod]
-		public void ToObject_Integer_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
+            // Assert
+            Assert.AreEqual(1.0, result);
+        }
 
-			// Act
-			int result = booleanNode.ConvertTo<int>();
+        [TestMethod]
+        public void ToObject_Integer_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
 
-			// Assert
-			Assert.AreEqual(0, result);
-		}
+            // Act
+            int result = booleanNode.ConvertTo<int>();
 
-		[TestMethod]
-		public void ToObject_Integer_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
+            // Assert
+            Assert.AreEqual(0, result);
+        }
 
-			// Act
-			int result = booleanNode.ConvertTo<int>();
+        [TestMethod]
+        public void ToObject_Integer_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
 
-			// Assert
-			Assert.AreEqual(1, result);
-		}
+            // Act
+            int result = booleanNode.ConvertTo<int>();
 
-		#endregion
+            // Assert
+            Assert.AreEqual(1, result);
+        }
 
-		#region WriteTo(JsonWriter)
+        #endregion
 
-		[TestMethod]
-		public void WriteTo_False() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(false);
-			var writer = JsonWriter.Create();
 
-			// Act
-			booleanNode.Write(writer);
+        #region WriteTo(JsonWriter)
 
-			// Assert
-			Assert.AreEqual("false", writer.ToString());
-		}
+        [TestMethod]
+        public void WriteTo_False()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(false);
+            var writer = JsonWriter.Create();
 
-		[TestMethod]
-		public void WriteTo_True() {
-			// Arrange
-			var booleanNode = new JsonBooleanNode(true);
-			var writer = JsonWriter.Create();
+            // Act
+            booleanNode.Write(writer);
 
-			// Act
-			booleanNode.Write(writer);
+            // Assert
+            Assert.AreEqual("false", writer.ToString());
+        }
 
-			// Assert
-			Assert.AreEqual("true", writer.ToString());
-		}
+        [TestMethod]
+        public void WriteTo_True()
+        {
+            // Arrange
+            var booleanNode = new JsonBooleanNode(true);
+            var writer = JsonWriter.Create();
 
-		#endregion
+            // Act
+            booleanNode.Write(writer);
 
-	}
+            // Assert
+            Assert.AreEqual("true", writer.ToString());
+        }
 
+        #endregion
+    }
 }

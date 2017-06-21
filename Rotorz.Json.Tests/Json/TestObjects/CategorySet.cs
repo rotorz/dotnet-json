@@ -1,61 +1,70 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root.
 
 using System.Collections.Generic;
 
-namespace Rotorz.Json.Tests.TestObjects {
+namespace Rotorz.Json.Tests.TestObjects
+{
+    public class CategorySet : ICollection<int>
+    {
+        private HashSet<int> set = new HashSet<int>();
 
-	public class CategorySet : ICollection<int> {
 
-		private HashSet<int> _set = new HashSet<int>();
+        #region ICollection<int> Members
 
-		#region ICollection<int> Members
+        public void Add(int categoryNumber)
+        {
+            this.set.Add(categoryNumber);
+        }
 
-		public void Add(int categoryNumber) {
-			_set.Add(categoryNumber);
-		}
+        public void Clear()
+        {
+            this.set.Clear();
+        }
 
-		public void Clear() {
-			_set.Clear();
-		}
+        public bool Contains(int categoryNumber)
+        {
+            return this.set.Contains(categoryNumber);
+        }
 
-		public bool Contains(int categoryNumber) {
-			return _set.Contains(categoryNumber);
-		}
+        public void CopyTo(int[] array, int arrayIndex)
+        {
+            this.set.CopyTo(array, arrayIndex);
+        }
 
-		public void CopyTo(int[] array, int arrayIndex) {
-			_set.CopyTo(array, arrayIndex);
-		}
+        public int Count {
+            get { return this.set.Count; }
+        }
 
-		public int Count {
-			get { return _set.Count; }
-		}
+        bool ICollection<int>.IsReadOnly {
+            get { return false; }
+        }
 
-		bool ICollection<int>.IsReadOnly {
-			get { return false; }
-		}
+        public bool Remove(int categoryNumber)
+        {
+            return this.set.Remove(categoryNumber);
+        }
 
-		public bool Remove(int categoryNumber) {
-			return _set.Remove(categoryNumber);
-		}
+        #endregion
 
-		#endregion
 
-		#region IEnumerable<int> Members
+        #region IEnumerable<int> Members
 
-		public IEnumerator<int> GetEnumerator() {
-			return _set.GetEnumerator();
-		}
+        public IEnumerator<int> GetEnumerator()
+        {
+            return this.set.GetEnumerator();
+        }
 
-		#endregion
+        #endregion
 
-		#region IEnumerable Members
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-			return _set.GetEnumerator();
-		}
+        #region IEnumerable Members
 
-		#endregion
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.set.GetEnumerator();
+        }
 
-	}
-
+        #endregion
+    }
 }

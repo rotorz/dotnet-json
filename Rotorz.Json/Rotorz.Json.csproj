@@ -32,37 +32,30 @@
     <DocumentationFile>bin\Release\Rotorz.Json.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Json\Internal\SimpleStack.cs" />
-    <Compile Include="Json\JsonArrayNode.cs" />
-    <Compile Include="Json\JsonBooleanNode.cs" />
-    <Compile Include="Json\JsonDoubleNode.cs" />
-    <Compile Include="Json\JsonException.cs" />
-    <Compile Include="Json\JsonIntegerNode.cs" />
-    <Compile Include="Json\JsonPropertyAttribute.cs" />
-    <Compile Include="Json\JsonNode.cs" />
-    <Compile Include="Json\JsonObjectNode.cs" />
-    <Compile Include="Json\JsonReader.cs" />
-    <Compile Include="Json\JsonParserException.cs" />
-    <Compile Include="Json\JsonStringNode.cs" />
-    <Compile Include="Json\JsonFormattingUtility.cs" />
-    <Compile Include="Json\IJsonWriter.cs" />
-    <Compile Include="Json\JsonUtility.cs" />
-    <Compile Include="Json\JsonWriter.cs" />
-    <Compile Include="Json\JsonWriterSettings.cs" />
-    <Compile Include="Json\MessagePack\MessagePackParserException.cs" />
-    <Compile Include="Json\MessagePack\MessagePackExtendedNode.cs" />
-    <Compile Include="Json\MessagePack\MessagePackBinaryNode.cs" />
-    <Compile Include="Json\MessagePack\MessagePackFormatCode.cs" />
-    <Compile Include="Json\MessagePack\MessagePackUtility.cs" />
-    <Compile Include="Json\MessagePack\MessagePackWriter.cs" />
-    <Compile Include="Json\MessagePack\MessagePackReader.cs" />
-    <Compile Include="Json\Serialization\MetaType.cs" />
-    <Compile Include="Json\Serialization\ReflectionUtility.cs" />
-    <Compile Include="Json\Serialization\SerializableMember.cs" />
+    <Compile Include="..\assets\Source\Internal\SimpleStack.cs" />
+    <Compile Include="..\assets\Source\JsonArrayNode.cs" />
+    <Compile Include="..\assets\Source\JsonBooleanNode.cs" />
+    <Compile Include="..\assets\Source\JsonDoubleNode.cs" />
+    <Compile Include="..\assets\Source\JsonException.cs" />
+    <Compile Include="..\assets\Source\JsonIntegerNode.cs" />
+    <Compile Include="..\assets\Source\JsonPropertyAttribute.cs" />
+    <Compile Include="..\assets\Source\JsonNode.cs" />
+    <Compile Include="..\assets\Source\JsonObjectNode.cs" />
+    <Compile Include="..\assets\Source\JsonReader.cs" />
+    <Compile Include="..\assets\Source\JsonParserException.cs" />
+    <Compile Include="..\assets\Source\JsonStringNode.cs" />
+    <Compile Include="..\assets\Source\JsonFormattingUtility.cs" />
+    <Compile Include="..\assets\Source\IJsonWriter.cs" />
+    <Compile Include="..\assets\Source\JsonUtility.cs" />
+    <Compile Include="..\assets\Source\JsonWriter.cs" />
+    <Compile Include="..\assets\Source\JsonWriterSettings.cs" />
+    <Compile Include="..\assets\Source\Serialization\MetaType.cs" />
+    <Compile Include="..\assets\Source\Serialization\ReflectionUtility.cs" />
+    <Compile Include="..\assets\Source\Serialization\SerializableMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

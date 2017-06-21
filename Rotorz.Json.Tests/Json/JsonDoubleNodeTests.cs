@@ -1,265 +1,299 @@
 ﻿// Copyright (c) Rotorz Limited. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rotorz.Json.Tests.TestObjects;
 using Rotorz.Tests;
 using System;
 
-namespace Rotorz.Json.Tests {
+namespace Rotorz.Json.Tests
+{
+    [TestClass]
+    public class JsonDoubleNodeTests
+    {
+        #region Value
 
-	[TestClass]
-	public class JsonDoubleNodeTests {
+        private void Value_set_Parameterized(double value)
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode();
 
-		#region Value
+            // Act
+            doubleNode.Value = value;
 
-		private void Value_set_Parameterized(double value) {
-			// Arrange
-			var doubleNode = new JsonDoubleNode();
+            // Assert
+            Assert.AreEqual(value, doubleNode.Value);
+        }
 
-			// Act
-			doubleNode.Value = value;
+        [TestMethod]
+        public void Value_set_Zero()
+        {
+            Value_set_Parameterized(0.0);
+        }
 
-			// Assert
-			Assert.AreEqual(value, doubleNode.Value);
-		}
+        [TestMethod]
+        public void Value_set_NegativeSmallValue()
+        {
+            Value_set_Parameterized(-0.00000001);
+        }
 
-		[TestMethod]
-		public void Value_set_Zero() {
-			Value_set_Parameterized(0.0);
-		}
+        [TestMethod]
+        public void Value_set_PositiveSmallValue()
+        {
+            Value_set_Parameterized(0.00000001);
+        }
 
-		[TestMethod]
-		public void Value_set_NegativeSmallValue() {
-			Value_set_Parameterized(-0.00000001);
-		}
+        [TestMethod]
+        public void Value_set_MinimumValue()
+        {
+            Value_set_Parameterized(double.MinValue);
+        }
 
-		[TestMethod]
-		public void Value_set_PositiveSmallValue() {
-			Value_set_Parameterized(0.00000001);
-		}
+        [TestMethod]
+        public void Value_set_MaximumValue()
+        {
+            Value_set_Parameterized(double.MaxValue);
+        }
 
-		[TestMethod]
-		public void Value_set_MinimumValue() {
-			Value_set_Parameterized(double.MinValue);
-		}
+        #endregion
 
-		[TestMethod]
-		public void Value_set_MaximumValue() {
-			Value_set_Parameterized(double.MaxValue);
-		}
 
-		#endregion
+        #region Clone()
 
-		#region Clone()
+        [TestMethod]
+        public void Clone_Zero()
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode(0);
 
-		[TestMethod]
-		public void Clone_Zero() {
-			// Arrange
-			var doubleNode = new JsonDoubleNode(0);
+            // Act
+            var cloneNode = doubleNode.Clone() as JsonDoubleNode;
 
-			// Act
-			var cloneNode = doubleNode.Clone() as JsonDoubleNode;
+            // Assert
+            Assert.AreNotSame(doubleNode, cloneNode);
+            Assert.AreEqual(doubleNode.Value, cloneNode.Value);
+        }
 
-			// Assert
-			Assert.AreNotSame(doubleNode, cloneNode);
-			Assert.AreEqual(doubleNode.Value, cloneNode.Value);
-		}
+        [TestMethod]
+        public void Clone_SmallValue()
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode(0.00000001);
 
-		[TestMethod]
-		public void Clone_SmallValue() {
-			// Arrange
-			var doubleNode = new JsonDoubleNode(0.00000001);
+            // Act
+            var cloneNode = doubleNode.Clone() as JsonDoubleNode;
 
-			// Act
-			var cloneNode = doubleNode.Clone() as JsonDoubleNode;
+            // Assert
+            Assert.AreNotSame(doubleNode, cloneNode);
+            Assert.AreEqual(doubleNode.Value, cloneNode.Value);
+        }
 
-			// Assert
-			Assert.AreNotSame(doubleNode, cloneNode);
-			Assert.AreEqual(doubleNode.Value, cloneNode.Value);
-		}
+        [TestMethod]
+        public void Clone_MaximumValue()
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode(double.MaxValue);
 
-		[TestMethod]
-		public void Clone_MaximumValue() {
-			// Arrange
-			var doubleNode = new JsonDoubleNode(double.MaxValue);
+            // Act
+            var cloneNode = doubleNode.Clone() as JsonDoubleNode;
 
-			// Act
-			var cloneNode = doubleNode.Clone() as JsonDoubleNode;
+            // Assert
+            Assert.AreNotSame(doubleNode, cloneNode);
+            Assert.AreEqual(doubleNode.Value, cloneNode.Value);
+        }
 
-			// Assert
-			Assert.AreNotSame(doubleNode, cloneNode);
-			Assert.AreEqual(doubleNode.Value, cloneNode.Value);
-		}
+        #endregion
 
-		#endregion
 
-		#region ToString()
+        #region ToString()
 
-		private void ToString_Parameterized(double value, string expectedResult) {
-			// Arrange
-			var doubleNode = new JsonDoubleNode(value);
+        private void ToString_Parameterized(double value, string expectedResult)
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode(value);
 
-			// Act
-			string result = doubleNode.ToString();
+            // Act
+            string result = doubleNode.ToString();
 
-			// Assert
-			Assert.AreEqual(expectedResult, result);
-		}
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
 
-		[TestMethod]
-		public void ToString_Zero() {
-			ToString_Parameterized(0.0, expectedResult: "0.0");
-		}
+        [TestMethod]
+        public void ToString_Zero()
+        {
+            ToString_Parameterized(0.0, expectedResult: "0.0");
+        }
 
-		[TestMethod]
-		public void ToString_One() {
-			ToString_Parameterized(1.0, expectedResult: "1.0");
-		}
+        [TestMethod]
+        public void ToString_One()
+        {
+            ToString_Parameterized(1.0, expectedResult: "1.0");
+        }
 
-		[TestMethod]
-		public void ToString_NaN() {
-			ToString_Parameterized(double.NaN, expectedResult: "\"NaN\"");
-		}
+        [TestMethod]
+        public void ToString_NaN()
+        {
+            ToString_Parameterized(double.NaN, expectedResult: "\"NaN\"");
+        }
 
-		[TestMethod]
-		public void ToString_NegativeInfinity() {
-			ToString_Parameterized(double.NegativeInfinity, expectedResult: "\"-Infinity\"");
-		}
+        [TestMethod]
+        public void ToString_NegativeInfinity()
+        {
+            ToString_Parameterized(double.NegativeInfinity, expectedResult: "\"-Infinity\"");
+        }
 
-		[TestMethod]
-		public void ToString_PositiveInfinity() {
-			ToString_Parameterized(double.PositiveInfinity, expectedResult: "\"Infinity\"");
-		}
+        [TestMethod]
+        public void ToString_PositiveInfinity()
+        {
+            ToString_Parameterized(double.PositiveInfinity, expectedResult: "\"Infinity\"");
+        }
 
-		[TestMethod]
-		public void ToString_DecimalValue_DefaultCulture() {
-			// Arrange
-			var node = new JsonDoubleNode(0.1234567);
+        [TestMethod]
+        public void ToString_DecimalValue_DefaultCulture()
+        {
+            // Arrange
+            var node = new JsonDoubleNode(0.1234567);
 
-			// Act
-			string json = node.ToString();
+            // Act
+            string json = node.ToString();
 
-			// Assert
-			Assert.IsNotNull(node);
-			Assert.AreEqual("0.1234567", json);
-		}
+            // Assert
+            Assert.IsNotNull(node);
+            Assert.AreEqual("0.1234567", json);
+        }
 
-		[TestMethod]
-		public void ToString_DecimalValue_CultureWithDifferentDecimalSeparator() {
-			CultureTestUtility.ExecuteInCulture("fr-FR", () => {
-				// Arrange
-				var node = new JsonDoubleNode(0.1234567);
+        [TestMethod]
+        public void ToString_DecimalValue_CultureWithDifferentDecimalSeparator()
+        {
+            CultureTestUtility.ExecuteInCulture("fr-FR", () => {
+                // Arrange
+                var node = new JsonDoubleNode(0.1234567);
 
-				// Act
-				string json = node.ToString();
+                // Act
+                string json = node.ToString();
 
-				// Assert
-				Assert.IsNotNull(node);
-				Assert.AreEqual("0.1234567", json);
-			});
-		}
+                // Assert
+                Assert.IsNotNull(node);
+                Assert.AreEqual("0.1234567", json);
+            });
+        }
 
-		#endregion
+        #endregion
 
-		#region ToObject(Type)
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void ToObject_Null() {
-			// Arrange
-			var doubleNode = new JsonDoubleNode();
-			Type type = null;
+        #region ToObject(Type)
 
-			// Act
-			doubleNode.ConvertTo(type);
-		}
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToObject_Null()
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode();
+            Type type = null;
 
-		private void ToObject_Parameterized<T>(double value, T expectedResult) {
-			// Arrange
-			var integerNode = new JsonDoubleNode(value);
+            // Act
+            doubleNode.ConvertTo(type);
+        }
 
-			// Act
-			T result = integerNode.ConvertTo<T>();
+        private void ToObject_Parameterized<T>(double value, T expectedResult)
+        {
+            // Arrange
+            var integerNode = new JsonDoubleNode(value);
 
-			// Assert
-			Assert.AreEqual(expectedResult, result);
-		}
+            // Act
+            T result = integerNode.ConvertTo<T>();
 
-		[TestMethod]
-		public void ToObject_String() {
-			ToObject_Parameterized(42.0, expectedResult: "42");
-		}
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
 
-		[TestMethod]
-		public void ToObject_Integer() {
-			ToObject_Parameterized(42.0, expectedResult: 42);
-		}
+        [TestMethod]
+        public void ToObject_String()
+        {
+            ToObject_Parameterized(42.0, expectedResult: "42");
+        }
 
-		[TestMethod]
-		public void ToObject_Boolean_False() {
-			ToObject_Parameterized(0.0, expectedResult: false);
-		}
+        [TestMethod]
+        public void ToObject_Integer()
+        {
+            ToObject_Parameterized(42.0, expectedResult: 42);
+        }
 
-		[TestMethod]
-		public void ToObject_Boolean_True() {
-			ToObject_Parameterized(1.0, expectedResult: true);
-		}
+        [TestMethod]
+        public void ToObject_Boolean_False()
+        {
+            ToObject_Parameterized(0.0, expectedResult: false);
+        }
 
-		[TestMethod]
-		[ExpectedException(typeof(InvalidCastException))]
-		public void ToObject_ZeroToEnum_ShouldFail() {
-			ToObject_Parameterized(0.0, expectedResult: EnumForTesting.Test1);
-		}
+        [TestMethod]
+        public void ToObject_Boolean_True()
+        {
+            ToObject_Parameterized(1.0, expectedResult: true);
+        }
 
-		[TestMethod]
-		[ExpectedException(typeof(InvalidCastException))]
-		public void ToObject_OneToEnum_ShouldFail() {
-			ToObject_Parameterized(1.0, expectedResult: EnumForTesting.Test2);
-		}
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCastException))]
+        public void ToObject_ZeroToEnum_ShouldFail()
+        {
+            ToObject_Parameterized(0.0, expectedResult: EnumForTesting.Test1);
+        }
 
-		#endregion
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCastException))]
+        public void ToObject_OneToEnum_ShouldFail()
+        {
+            ToObject_Parameterized(1.0, expectedResult: EnumForTesting.Test2);
+        }
 
-		#region WriteTo(JsonWriter)
+        #endregion
 
-		private void WriteTo_Parameterized(double value, string expectedResult) {
-			// Arrange
-			var doubleNode = new JsonDoubleNode(value);
-			var writer = JsonWriter.Create();
 
-			// Act
-			doubleNode.Write(writer);
+        #region WriteTo(JsonWriter)
 
-			// Assert
-			Assert.AreEqual(expectedResult, writer.ToString());
-		}
+        private void WriteTo_Parameterized(double value, string expectedResult)
+        {
+            // Arrange
+            var doubleNode = new JsonDoubleNode(value);
+            var writer = JsonWriter.Create();
 
-		[TestMethod]
-		public void WriteTo_Zero() {
-			WriteTo_Parameterized(0.0, expectedResult: "0.0");
-		}
+            // Act
+            doubleNode.Write(writer);
 
-		[TestMethod]
-		public void WriteTo_One() {
-			WriteTo_Parameterized(1.0, expectedResult: "1.0");
-		}
+            // Assert
+            Assert.AreEqual(expectedResult, writer.ToString());
+        }
 
-		[TestMethod]
-		public void WriteTo_NaN() {
-			WriteTo_Parameterized(double.NaN, expectedResult: "\"NaN\"");
-		}
+        [TestMethod]
+        public void WriteTo_Zero()
+        {
+            WriteTo_Parameterized(0.0, expectedResult: "0.0");
+        }
 
-		[TestMethod]
-		public void WriteTo_NegativeInfinity() {
-			WriteTo_Parameterized(double.NegativeInfinity, expectedResult: "\"-Infinity\"");
-		}
+        [TestMethod]
+        public void WriteTo_One()
+        {
+            WriteTo_Parameterized(1.0, expectedResult: "1.0");
+        }
 
-		[TestMethod]
-		public void WriteTo_PositiveInfinity() {
-			WriteTo_Parameterized(double.PositiveInfinity, expectedResult: "\"Infinity\"");
-		}
+        [TestMethod]
+        public void WriteTo_NaN()
+        {
+            WriteTo_Parameterized(double.NaN, expectedResult: "\"NaN\"");
+        }
 
-		#endregion
+        [TestMethod]
+        public void WriteTo_NegativeInfinity()
+        {
+            WriteTo_Parameterized(double.NegativeInfinity, expectedResult: "\"-Infinity\"");
+        }
 
-	}
+        [TestMethod]
+        public void WriteTo_PositiveInfinity()
+        {
+            WriteTo_Parameterized(double.PositiveInfinity, expectedResult: "\"Infinity\"");
+        }
 
+        #endregion
+    }
 }
