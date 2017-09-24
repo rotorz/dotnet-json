@@ -3,7 +3,7 @@
 A lightweight JSON library for .NET and Unity.
 
 ```sh
-$ npm install rotorz/dotnet-json
+$ npm install --save rotorz/dotnet-json
 ```
 
 This package is compatible with [unity3d-package-syncer](https://github.com/rotorz/unity3d-package-syncer).
