@@ -15,6 +15,7 @@ npm-debug.log
 /ProjectSettings/
 /*.csproj
 /*.sln
+!/Rotorz.Json.sln
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
